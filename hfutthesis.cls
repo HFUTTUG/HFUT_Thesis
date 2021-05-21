@@ -161,7 +161,7 @@
       master,
       bachelor,
     },
-    default = doctor,
+    default = bachelor,
   },
   degree-type = {
     name = degree@type,
@@ -329,10 +329,10 @@
   badge-color = {
     name = badge@color,
     choices = {
-      blue,
+      red,
       black,
     },
-    default = blue,
+    default = red,
   },
 }
 
@@ -376,7 +376,7 @@
 \DeclareVoidOption{numbers}{\hfutsetup{cite-style=inline}\hfut@legacy@cite@styletrue}
 \DeclareVoidOption{authoryear}{\hfutsetup{cite-style=authoryear}\hfut@legacy@cite@styletrue}
 \DeclareVoidOption{arabic}{\hfutsetup{section-style=arabic}}
-\DeclareVoidOption{colorlogo}{\hfutsetup{badge-color=blue}}
+\DeclareVoidOption{colorlogo}{\hfutsetup{badge-color=red}}
 \DeclareVoidOption{bwlogo}{\hfutsetup{badge-color=black}}
 
 % 载入 \cls{ctexbook}。
@@ -414,6 +414,8 @@
 \RequirePackage[perpage]{footmisc}
 \RequirePackage{url}
 \RequirePackage{calc}
+\RequirePackage{ulem} %提供排版可断行下划线的命令\uline
+\RequirePackage{multirow} %纵向合并单元格
 
 % 如果用户在导言区未调用 \pkg{biblatex}，则自动调用 \pkg{natbib}。
 \AtEndPreamble{
@@ -1440,7 +1442,7 @@
 
 % 纸张：A4；
 
-% 页面设置：上、下 2.54 cm，左、右 3.17 cm，页眉 1.5 cm，页脚 1.75 cm。
+% 页面设置：上、下 2.54 cm，左、右 3 cm，页眉 1.5 cm，页脚 1.5 cm。
 
 % 注意这里指的是页眉顶部到纸张顶部的距离为 1.5 cm，
 % 所以应该是 2.54cm - 0.8cm - 0.24cm = 1.5cm
@@ -1448,7 +1450,7 @@
 \geometry{
   paper      = a4paper,
   vmargin    = 2.54cm,
-  hmargin    = 3.17cm,
+  hmargin    = 3cm,
   headheight = 0.75cm,
   headsep    = 0.29cm,
   footskip   = 0.79cm,
@@ -1531,9 +1533,11 @@
 
 % \subsection{封面}
 
-
 % 定义用户接口：
 \hfut@define@key{
+  ugtype = {
+    default = {论文},
+  },
   title = {
     default = {论文题目},
   },
@@ -1544,6 +1548,12 @@
   author = {
     default = {作者姓名},
   },
+  stuID = {
+    default = {学号},
+  },
+  Cnum  = {
+    default = {分类号},
+  },
   author* = {
     default = {Author Name},
     name    = author@en,
@@ -1551,16 +1561,17 @@
   speciality = {
     default = {专业},
   },
-  speciality* = {
-    default = {Speciality},
-    name    = speciality@en,
+  hfuteryear = {
+    default = {2017级},
+  },
+  research = {
+    default = {研究方向},
   },
   supervisor = {
     default = {导师姓名},
   },
-  supervisor* = {
-    default = {Supervisor Name},
-    name    = supervisor@en,
+  department = {
+    default = {系名称},
   },
   advisor = {
     default = {},
@@ -1569,8 +1580,25 @@
     default = {},
     name    = advisor@en,
   },
+  applydegree = {
+    default = {理学博士},
+  },
+  school = {
+    default = {合肥工业大学},
+  },
+  phdchairman = {
+    default = {},
+    name    = phd@chairman,
+  },
+  phdmember = {
+    default = {},
+    name    = phd@member,
+  },
   date = {
-    default = {\the\year-\two@digits{\month}-\two@digits{\day}},
+    default = {\the\year-\two@digits{\month}},
+  },
+  defensedate = {
+    default = {},
   },
   professional-type = {
     name = professional@type,
@@ -1579,6 +1607,7 @@
     name = professional@type@en,
   },
   secret-level = {
+    default = {},
     name    = secret@level,
   },
   secret-level* = {
@@ -1586,6 +1615,18 @@
   },
   secret-year = {
     name    = secret@year,
+  },
+  signchairman = {
+    default = {},
+    name    = sign@chairman,
+  },
+  signmember = {
+    default = {},
+    name    = sign@member,
+  },
+  signsupervisor = {
+    default = {},
+    name    = sign@supervisor,
   },
   keywords,
   keywords* = {
@@ -1608,44 +1649,25 @@
 \newcommand\hfut@advisor@names{%
   \hfut@clist@use{\hfut@advisor}{\quad}
 }
-\newcounter{hfut@count}
-\newcommand\hfut@supervisor@en@line{%
-  \setcounter{hfut@count}{\hfut@clist@count{\hfut@supervisor@en}}%
-  \ifnum\c@hfut@count>1\relax
-    Supervisors:%
-  \else
-    Supervisor:%
-  \fi
-  \space\hfut@clist@use{\hfut@supervisor@en}{, }%
-}
-\newcommand\hfut@advisor@en@line{%
-  \setcounter{hfut@count}{\hfut@clist@count{\hfut@advisor@en}}%
-  \ifnum\c@hfut@count>1\relax
-    Advisor:%
-  \else
-    Advisor:%
-  \fi
-  \space\hfut@clist@use{\hfut@advisor@en}{, }%
-}
 
 % 输出日期的给定格式：\cs{hfut@format@date}\marg{format}\marg{date}，
 % 其中格式 \meta{format} 接受三个参数分别对应年、月、日，
-% \meta{date} 是 ISO 格式的日期（yyyy-mm-dd）。
+% \meta{date} 是 （yyyy-m）。
 \newcommand\hfut@format@date[2]{%
   \edef\hfut@@date{#2}%
-  \def\hfut@@process@date##1-##2-##3\@nil{%
-    #1{##1}{##2}{##3}%
+  \def\hfut@@process@date##1-##2\@nil{%
+    #1{##1}{##2}%
   }%
   \expandafter\hfut@@process@date\hfut@@date\@nil
 }
-\newcommand\hfut@date@format@zh[3]{\zhdigits{#1}年\zhnumber{#2}月\zhnumber{#3}日}
+\newcommand\hfut@date@format@zh[2]{#1 年 \number#2 月}
 \newcommand\hfut@date@month[1]{%
   \ifcase\number#1\or
     January\or February\or March\or April\or May\or June\or
     July\or August\or September\or October\or November\or December%
   \fi
 }
-\newcommand\hfut@date@format@en[3]{\hfut@date@month{#2} \number#3, #1}
+\newcommand\hfut@date@format@en[2]{\hfut@date@month{#2}, #1}
 \newcommand\hfut@date@zh{\hfut@format@date{\hfut@date@format@zh}{\hfut@date}}
 \newcommand\hfut@date@en{\hfut@format@date{\hfut@date@format@en}{\hfut@date}}
 
@@ -1662,14 +1684,9 @@
 \hfut@define@term{author}{author}
 \hfut@define@term{enauthor}{author*}
 \hfut@define@term{major}{speciality}
-\hfut@define@term{enmajor}{speciality*}
 \hfut@define@term{supervisor}{supervisor}
-\hfut@define@term{ensupervisor}{supervisor*}
 \gdef\cosupervisor#1{%
   \g@addto@macro\hfut@supervisor{, #1}%
-}
-\gdef\encosupervisor#1{%
-  \g@addto@macro\hfut@supervisor@en{, #1}%
 }
 \gdef\date#1{\renewcommand\hfut@date@zh{#1}}
 \gdef\endate#1{\renewcommand\hfut@date@en{#1}}
@@ -1684,24 +1701,39 @@
 % 定义一些常量。
 \ifhfut@degree@doctor
   \newcommand\hfut@thesis@name{博士学位论文}
-  \newcommand\hfut@thesis@name@en{A dissertation for doctor's degree}
+  \newcommand\hfut@degreetype@name{博士}
+  \newcommand\hfut@thesis@name@en{A Dissertation Submitted to \par
+  Hefei University of Technology \par
+  in accordmance with the requirement \par
+  for the Degree of Doctor of Philosophy}
+  \newcommand\hfut@thesis@name@encover{DOCTORAL DISSERTATION}
 \else
   \ifhfut@degree@master
     \newcommand\hfut@thesis@name{硕士学位论文}
-    \newcommand\hfut@thesis@name@en{A dissertation for master's degree}
+    \newcommand\hfut@thesis@name@en{A Dissertation Submitted for the Degree of Maste}
+    \newcommand\hfut@thesis@name@encover{MASTER'S DISSERTATION}
   \else
-    \newcommand\hfut@thesis@name{学士学位论文}
-    \newcommand\hfut@thesis@name@en{A dissertation for bachelor's degree}
+    \newcommand\hfut@thesis@name{本科毕业设计（论文）}
+    \newcommand\hfut@thesis@name@en{A Dissertation Submitted for the Degree of Bachelor}
+    \newcommand\hfut@thesis@name@encover{UNDERGRADUATE THESIS}
   \fi
 \fi
-\ifhfut@degree@type@academic
-  \newcommand\hfut@speciality@name{学科专业}
-\else
-  \ifhfut@degree@doctor
-    \renewcommand\hfut@thesis@name{专业博士学位论文}
+
+\ifhfut@degree@master
+  \ifhfut@degree@type@academic
+    \newcommand\hfut@degreetype@name{学历硕士}
   \else
-    \renewcommand\hfut@thesis@name{专业硕士学位论文}
+    \newcommand\hfut@degreetype@name{专业硕士}
   \fi
+\fi
+
+\ifhfut@degree@type@academic
+  \ifhfut@degree@doctor
+    \newcommand\hfut@speciality@name{学科专业}
+  \else
+    \newcommand\hfut@speciality@name{专业名称}
+  \fi
+\else
   \ifhfut@cjk@font@mac
     \providecommand\lishu{\CJKfamily{zhli}}
   \else
@@ -1713,11 +1745,10 @@
       \providecommand\lishu{\sffamily}
     \fi
   \fi
-  \newcommand\hfut@speciality@name{专业领域}
+  \newcommand\hfut@speciality@name{专业名称}
 \fi
 
 % 定义校徽颜色
-% TODO
 \definecolor{hfutred}{cmyk}{0.3,1,0.95,0.05}
 
 % 添加 PDF 书签，在 \pkg{hyperref} 载入后才有效。
@@ -1737,180 +1768,435 @@
 }
 
 % 中文封面：
-% 密级仿宋 14 磅；
-% 论文类型黑体 56 磅；
+% 抬头黑体 12 磅；
+% 论文类型黑体 48 磅；
+% 论文类型英文 Times New Roman 22 磅；
+% 封面信息 宋体 16 磅
 % 论文题目黑体 26 磅加粗居中，单倍行距；
 % 作者姓名宋体 16 磅，单倍行距；
 % 注意这里的“单倍行距”的地方开启了“对齐到网格”，所以实际行距有所偏差，
 % 所以只能使用直尺测量。
 \newcommand\hfut@speciality@sse{软件工程}
-\newcommand\hfut@makezhtitle{%
+\newcommand\hfut@underline[2][3.4cm]{\underline{\hb@xt@ #1{\hss#2\hss}}}
+\newcommand\hfut@makecover{%
   \hfutsetup{language=chinese}%
   \begin{titlepage}%
     \hfut@pdfbookmark{封面}%
     \centering
-    \parbox[t][0.6cm][t]{\textwidth}{%
-      \raggedleft\fangsong\fontsize{14bp}{14bp}\selectfont
-      \null\hfut@secret@level\par}\par
-    \vskip 0.5cm%
-    \includegraphics[height=1.3cm]{figures/hfut-name.pdf}\par
-    \vskip 0.6cm%
-    {\sffamily\fontsize{56bp}{56bp}\selectfont
-      \hfut@thesis@name\par}%
-    \ifhfut@degree@type@academic
-      \vskip 2.0cm%
+    \ifhfut@degree@bachelor
+      \ifx\hfut@secret@level\@empty
+        {\sffamily\fontsize{12pt}{20pt}\selectfont
+        \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
+        密\hspace{1em}级：\hfut@underline{} } \par}
+        %\vskip 0.5cm%
+      \else
+        {\sffamily\fontsize{12pt}{20pt}\selectfont
+        \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
+        密\hspace{1em}级：\hfut@underline{\hfut@secret@level \bigstar \hfut@secret@year} } \par}
+        %\vskip 0.5cm%
+      \fi
     \else
-      \vskip 0.8cm%
-      {\lishu\fontsize{26bp}{26bp}\selectfont
-        （\hfut@professional@type）\par}%
-      \vskip 1.0cm%
+      \ifx\hfut@secret@level\@empty
+        {\sffamily\fontsize{12pt}{20pt}\selectfont
+        \textbf{单位代码：\hfut@underline{10359} \hfill
+        密\hspace{1em}级：\hfut@underline{}} \par
+        \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
+        分类号：\hfut@underline{\hfut@Cnum}} \par}
+      \else
+        {\sffamily\fontsize{12pt}{20pt}\selectfont
+        \textbf{单位代码：\hfut@underline{10359} \hfill
+        密\hspace{1em}级：\hfut@underline{\hfut@secret@level \bigstar \hfut@secret@year}} \par
+        \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
+        分类号：\hfut@underline{\hfut@Cnum}} \par}
+      \fi
     \fi
-    \ifhfut@badge@color@blue
-      \textcolor{hfutred}{%
-        \includegraphics[height=4.1cm]{figures/hfut-badge.pdf}}%
-    \else
-      \includegraphics[height=4.1cm]{figures/hfut-badge.pdf}%
-    \fi\par
+
+    \vskip 1.8cm%
+    \includegraphics[height=1.5cm]{figures/hfut-name.pdf}\par
+    \vskip 0.4cm
+    {\fontsize{22bp}{22bp}\selectfont\textbf{Hefei University of Technology}\par}
     \vskip 0.9cm%
-    \parbox[t][3.5cm][c]{\textwidth}{%
-      \centering\sffamily\bfseries\fontsize{26bp}{50bp}\selectfont
-      \hfut@title\par}\par
-    \vskip 0.6cm%
-    {\fontsize{16bp}{31bp}\selectfont
-      \begin{tabular}{@{}l@{\hspace{\ccwd}}l@{}}%
-        \textsf{作者姓名：} & \hfut@author \\
-        \textsf{\hfut@speciality@name：} & \hfut@speciality \\
-        \ifx\hfut@advisor\@empty
-          \textsf{导师姓名：} & \hfut@supervisor@names \\
-        \else
-          \textsf{校内导师：} & \hfut@supervisor@names \\
-          \textsf{企业导师：} & \hfut@advisor@names \\
-        \fi
-        \textsf{完成时间：} & \hfut@date@zh
+    {\sffamily\fontsize{48bp}{48bp}\selectfont
+    \textbf{\hfut@thesis@name}\par}%
+    \vskip 0.4cm
+    {\fontsize{22bp}{22bp}\selectfont
+    \textbf{\hfut@thesis@name@encover}\par}%
+    \ifhfut@degree@master
+      \null
+    \else
+      \vskip 0.9cm%
+      \ifhfut@badge@color@red
+        \textcolor{hfutred}{%
+          \includegraphics[height=3.78cm]{figures/hfut-badge.pdf}}%
+      \else
+        \includegraphics[height=3.78cm]{figures/hfut-badge.pdf}%
+      \fi\par
+    \fi
+
+    \vfill
+    \renewcommand\arraystretch{1.75}
+    \ifhfut@degree@bachelor
+      {\fontsize{16pt}{20pt}\selectfont
+      \begin{tabular}{@{}l>{\centering\arraybackslash}p{11.0cm}@{}}%
+        \textbf{类\hspace{2\ccwd}型：} & \hfut@ugtype \\
+        \cline{2-2}
+        \textbf{题\hspace{2\ccwd}目：} & \hfut@title \\
+        \cline{2-2}
+        \textbf{\hfut@speciality@name：} & \hfut@speciality\\
+        \cline{2-2}
+        \textbf{入学年份：} & \hfut@hfuteryear \\
+        \cline{2-2}
+        \textbf{学生姓名：} & \hfut@author \\
+        \cline{2-2}
+        \textbf{指导教师：} & \hfut@supervisor@names \\
+        \cline{2-2}
+        \textbf{系\hspace{0.5\ccwd}名\hspace{0.5\ccwd}称：} & \hfut@department \\
+        \cline{2-2}
+        \textbf{完成时间：} & \hfut@date@zh \\
+        \cline{2-2}
       \end{tabular}\par}%
+    \else
+    % TODO 处理对齐 基线
+      \renewcommand\arraystretch{1.2}
+      \begin{tabular}{@{}lp{8.4cm}@{}}%
+        {\fontsize{16pt}{20pt}\selectfont\textbf{论文题目：}} & \multirow[t]{2}{8.4cm}{
+          \centering\fontsize{16pt}{24pt}\selectfont
+          \hfut@title} \\
+        \cline{2-2}
+                & \\
+        \cline{2-2}
+      \end{tabular}
+      \renewcommand\arraystretch{1.75}
+      \begin{tabular}{@{}>{\fontsize{16pt}{20pt}\selectfont}l>{\centering\arraybackslash\fontsize{16pt}{20pt}\selectfont}p{8.4cm}@{}}
+        \ifhfut@degree@master
+          \textbf{学位类别：} & \hfut@degreetype@name\\
+          \cline{2-2}
+        \fi
+        \textbf{\hfut@speciality@name：} & \hfut@speciality\\
+        \cline{2-2}
+        \textbf{作者姓名：} & \hfut@author \\
+        \cline{2-2}
+        \textbf{导师姓名：} & \hfut@supervisor@names \\
+        \cline{2-2}
+        \textbf{完成时间：} & \hfut@date@zh \\
+        \cline{2-2}
+      \end{tabular}\par%
+      \fi
+      \renewcommand\arraystretch{1}
   \end{titlepage}%
   \hfut@reset@main@language
 }
 
-% 英文封面
+\newcommand{\underlineFixlen}[2][4.85cm]{\underline{\makebox[#1][c]{#2}}}
+
+% 博士学位论文 题名页
+\newcommand\hfut@makephdtitle{%
+  \hfutsetup{language=chinese}%
+  \begin{titlepage}%
+    \hfut@pdfbookmark{题名页}%
+    \centering
+    \ifx\hfut@secret@level\@empty
+      {\sffamily\fontsize{12pt}{20pt}\selectfont
+      \textbf{单位代码：\hfut@underline{10359} \hfill
+      密\hspace{1em}级：\hfut@underline{}} \par
+      \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
+      分类号：\hfut@underline{\hfut@Cnum}} \par}
+    \else
+      {\sffamily\fontsize{12pt}{20pt}\selectfont
+      \textbf{单位代码：\hfut@underline{10359} \hfill
+      密\hspace{1em}级：\hfut@underline{\hfut@secret@level \bigstar \hfut@secret@year}} \par
+      \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
+      分类号：\hfut@underline{\hfut@Cnum}} \par}
+    \fi
+    
+    \vskip 1.3cm
+    {\sffamily\fontsize{22bp}{27.5bp}\selectfont
+    \textbf{博\hspace{0.5\ccwd}士\hspace{0.5\ccwd}学\hspace{0.5\ccwd}位\hspace{0.5\ccwd}论\hspace{0.5\ccwd}文}\par}%
+    \vskip 1.5cm
+    \begin{tabular}{@{}p{11.0cm}@{}}%
+        \multirow[t]{2}{11.0cm}{
+        \centering\fontsize{16pt}{24pt}\selectfont
+        \textbf{\hfut@title}} \\
+      \cline{1-1}
+              \\
+      \cline{1-1}
+    \end{tabular}
+
+    \vskip 1.5cm%
+
+    {\fontsize{16pt}{25pt}\selectfont
+    \textbf{\uline{\hfut@title@en}}}
+
+    \vskip 4.7cm%
+
+    {\linespread{1.8}\fontsize{16pt}{\baselineskip}\selectfont
+      \textbf{作者姓名：}\underlineFixlen{\hfut@author} \hfill \textbf{导师姓名：}\underlineFixlen{\hfut@supervisor@names} \par
+      \textbf{申请学位：}\underlineFixlen{\hfut@applydegree} \hfill \textbf{培养单位：}\underlineFixlen{\hfut@school} \par
+      \textbf{学科专业：}\underlineFixlen{\hfut@speciality} \hfill \textbf{研究方向：}\underlineFixlen{\hfut@research} \par
+      \textbf{提交日期：}\underlineFixlen{\hfut@date@zh} \hfill \textbf{答辩日期：}\underlineFixlen{\hfut@defensedate} \par
+    }
+    \vskip 1.5cm
+    \renewcommand\arraystretch{1.5}
+    \begin{tabular}{@{}>{\fontsize{16pt}{24pt}\selectfont}p{15.9cm}@{}}%
+      \textbf{答辩委员会主席：} \hfut@phd@chairman \\
+      \cline{1-1}
+      \textbf{评\hspace{2\ccwd}阅\hspace{2\ccwd}人：} \hfut@phd@member  \\
+      \cline{1-1}
+    \end{tabular}
+    \renewcommand\arraystretch{1}
+    \vfill
+
+    {\fontsize{15pt}{\baselineskip}\selectfont\hfut@date@zh}
+
+  \end{titlepage}%
+}
+
+
+\newcommand\hfut@makezhtitle{%
+  \hfutsetup{language=chinese}%
+  \begin{titlepage}%
+    \hfut@pdfbookmark{中文内封页}%
+    \centering
+    {\sffamily\fontsize{21pt}{\baselineskip}\selectfont
+      合\hspace{1.5\ccwd}肥\hspace{1.5\ccwd}工\hspace{1.5\ccwd}业\hspace{1.5\ccwd}大\hspace{1.5\ccwd}学\par}%
+    \vskip 1.8cm%
+    \ifhfut@degree@master
+      {\sffamily\fontsize{21pt}{\baselineskip}\selectfont
+      \textbf{\hfut@degreetype@name 学位论文}\par}% 空格不可忽略
+    \else
+      {\sffamily\fontsize{21pt}{\baselineskip}\selectfont
+      \textbf{\hfut@thesis@name}\par}%
+    \fi
+    \vskip 1.8cm%
+    {\fontsize{21pt}{\baselineskip}\selectfont
+    \textbf{\hfut@title}\par}%
+    \ifhfut@degree@bachelor
+      \vskip 7.9cm
+    \else
+      \vskip 9.5cm%
+    \fi
+    {\fontsize{16pt}{\baselineskip}\selectfont
+      \begin{tabular}{@{}lp{14em}<{\centering}@{}}%
+        \ifhfut@degree@bachelor
+          \textbf{学生姓名：} & \hfut@author \\
+          \cline{2-2}\\
+          \textbf{学生学号：} & \hfut@stuID \\
+          \cline{2-2}\\
+          \textbf{指导教师：} & \hfut@supervisor@names \\
+          \cline{2-2}\\
+          \textbf{\hfut@speciality@name：} & \hfut@speciality\\
+          \cline{2-2}\\
+          \textbf{系\hspace{0.5\ccwd}名\hspace{0.5\ccwd}称：} & \hfut@department \\
+          \cline{2-2}
+        \else
+          \ifhfut@degree@doctor
+            \textbf{作者姓名：} & \hfut@author\\
+            \cline{2-2}\\
+            \textbf{申请学位：} & \hfut@applydegree \\
+            \cline{2-2}\\
+            \textbf{研究方向：} & \hfut@research \\
+            \cline{2-2}\\
+            \textbf{\hfut@speciality@name：} & \hfut@speciality\\
+            \cline{2-2}\\
+            \textbf{指导教师：} & \hfut@supervisor@names \\
+            \cline{2-2}
+          \else
+            \ifx\hfut@advisor\@empty
+              \textbf{作者姓名：} & \hfut@author \\
+              \cline{2-2}\\
+              \textbf{指导教师：} & \hfut@supervisor@names \\
+              \cline{2-2}\\
+              \textbf{学科专业：} & \hfut@speciality \\
+              \cline{2-2}\\
+              \textbf{研究方向：} & \hfut@research \\
+              \cline{2-2}
+            \else
+              \textbf{作者姓名：} & \hfut@author \\
+              \cline{2-2}\\
+              \textbf{指导教师：} & \hfut@supervisor@names \\
+              \cline{2-2}\\
+              \textbf{} & \hfut@advisor@names \\
+              \cline{2-2}\\
+              \textbf{专业名称：} & \hfut@speciality \\
+              \cline{2-2}\\
+              \textbf{研究方向：} & \hfut@research \\
+              \cline{2-2}
+            \fi
+          \fi
+        \fi
+      \end{tabular}\par%
+      \vfill
+    }
+    {\fontsize{15pt}{\baselineskip}\selectfont\hfut@date@zh}
+  \end{titlepage}%
+  \hfut@reset@main@language
+}
+
+% 英文内封页
 \newcommand\hfut@makeentitle{%
   \hfutsetup{language=english}%
   \begin{titlepage}%
-    \hfut@pdfbookmark{Title page}%
+    \hfut@pdfbookmark{English inner cover}%
     \centering
-    \parbox[t][0.4cm][t]{\textwidth}{%
-      \raggedleft\fontsize{14bp}{14bp}\selectfont
-      \null\hfut@secret@level@en\par}\par
-    \vskip 0.5cm%
-    {\sffamily\fontsize{20bp}{30bp}\selectfont
-      University of Science and Technology of China\par}%
-    {\sffamily\fontsize{26bp}{30bp}\selectfont
-      \hfut@thesis@name@en\par}%
-    \ifhfut@degree@type@academic\else
-      {\fontsize{16bp}{32bp}\selectfont
-        (\hfut@professional@type@en)\par}%
-    \fi
-    \vskip 2.5cm%
-    \ifhfut@badge@color@blue
-      \textcolor{hfutred}{%
-        \includegraphics[height=4.5cm]{figures/hfut-badge.pdf}}%
-    \else
-      \includegraphics[height=4.5cm]{figures/hfut-badge.pdf}%
-    \fi\par
-    \vskip 0.5cm%
-    \parbox[t][4.5cm][c]{\textwidth}{%
-      \centering\sffamily\bfseries\fontsize{26bp}{30bp}\selectfont
-      \hfut@title@en\par}\par
-    \vskip 1.6cm%
-    {\fontsize{16bp}{30bp}\selectfont
-      \begin{tabular}{@{}l@{}}%
-        Author:        \hfut@author@en \\
-        Speciality:    \hfut@speciality@en \\
-        \hfut@supervisor@en@line \\
-        \ifx\hfut@advisor\@empty
-        \else
-          \hfut@advisor@en@line \\
-        \fi
-        Finished time: \hfut@date@en
-      \end{tabular}\par}%
+    \vskip 1.2cm%
+    {\fontsize{16pt}{28pt}\selectfont
+    \hfut@thesis@name@en\par}%
+    \vskip 2.3cm%
+    {\fontsize{18pt}{30pt}\selectfont
+    \textbf{\hfut@title@en}\par}%
+    \vskip 1.2cm%
+    {\fontsize{16pt}{28pt}\selectfont
+    By\par
+    \hfut@author@en\par}%
+
+    \vfill
+    
+    {\fontsize{16pt}{28pt}\selectfont
+    Hefei University of Technology\par
+    Hefei, Anhui, P.R.China\par
+    \hfut@date@en\par}%
   \end{titlepage}%
   \hfut@reset@main@language
 }
 
 % 重新定义 \cs{maketitle}，调用 \cs{hfut@makezhtitle}, \cs{hfut@makeentitle}
-% 分别生成中、英文封面。
+% 分别生成封面，中、英文标题页。
 \renewcommand\maketitle{%
   \newgeometry{margin=2.54cm}%
   \pagenumbering{Alph}%
   \pagestyle{empty}%
+  \hfut@makecover
+  \ifhfut@degree@doctor
+    \hfut@makephdtitle
+  \fi
   \hfut@makezhtitle
   \hfut@makeentitle
   \restoregeometry
   \pagestyle{plain}%
 }
 
+\newcommand\signaturepage{%
+  \begin{titlepage}%
+    \hfut@pdfbookmark{答辩委员签名页}%
+    \null
+    {\centering\sffamily\fontsize{22pt}{33pt}\selectfont
+    \textbf{合\hspace{0.5\ccwd}肥\hspace{0.5\ccwd}工\hspace{0.5\ccwd}业\hspace{0.5\ccwd}大\hspace{0.5\ccwd}学}\par}
+    \vskip 0.8cm
+    {\fontsize{16pt}{30pt}\selectfont
+    本论文经答辩委员会全体委员审查，确认符合合肥工业大学\hfut@degreetype@name 学位论文质量要求。\par}
+    \vskip 2.5cm
+    {\centering\fontsize{16pt}{24pt}\selectfont
+    \textbf{答辩委员会签名（工作单位、职称、姓名）}\par}
+    \vskip 1.0cm
+    {\fontsize{16pt}{16pt}\selectfont
+    主席：\hfut@sign@chairman \par}
+    \vskip 1.0cm
+    {\fontsize{16pt}{16pt}\selectfont
+    委员：\parbox[t]{10.5cm}{\linespread{2.0}\selectfont\hfut@sign@member} \par}
+    \vfill
+    {\fontsize{16pt}{16pt}\selectfont
+    导师：\hfut@sign@supervisor }
+  \end{titlepage}%
+}
+
+\ifhfut@degree@bachelor
+  \let\signaturepage\relax
+\fi
+% Reserved for compatibility until 2020-07-01.
+\let\makestatement\signaturepage
+
 
 % \subsection{原创性声明}
 
 % 定义原创性声明
-\newcommand\hfut@originality{%
-  本人声明所呈交的学位论文，是本人在导师指导下进行研究工作所取得的成果。%
-  除已特别加以标注和致谢的地方外，论文中不包含任何他人已经发表或撰写过的%
-  研究成果。%
-  与我一同工作的同志对本研究所做的贡献均已在论文中作了明确的说明。}
-\newcommand\hfut@authorization{%
-  作为申请学位的条件之一，学位论文著作权拥有者授权中国科学技术大学拥有%
-  学位论文的部分使用权，%
-  即：学校有权按有关规定向国家有关部门或机构送交论文的复印件和电子版，%
-  允许论文被查阅和借阅，可以将学位论文编入《中国学位论文全文数据库》等%
-  有关数据库进行检索，可以采用影印、缩印或扫描等复制手段保存、汇编学位论文。%
-  本人提交的电子文档的内容和纸质论文的内容相一致。\par
-  保密的学位论文在解密后也遵守此规定。}
+\newcommand\hfut@originality@master{%
+  本人郑重声明：所呈交的学位论文是本人在导师指导下进行独立研究
+  工作所取得的成果。据我所知，除了文中特别加以标注和致谢的内容
+  外，论文中不包含其他人已经发表或撰写过的研究成果，也不包含为
+  获得\underline{\hspace{0.5\ccwd}合肥工业大学\hspace{0.5\ccwd}}或
+  其他教育机构的学位或证书而使用过的材料。对本文成果做出贡献的
+  个人和集体，本人已在论文中作了明确的说明，并表示谢意。\par%
+  学位论文中表达的观点纯属作者本人观点，与合肥工业大学无关。}
+\newcommand\hfut@authorization@master{%
+  本学位论文作者完全了解\underline{\hspace{0.5\ccwd}合肥工业大学\hspace{0.5\ccwd}}有关保留、使用学位论文%
+  的规定，即：除保密期内的涉密学位论文外，学校有权保存并向国家%
+  有关部门或机构送交论文的复印件和电子光盘，允许论文被查阅或借%
+  阅。本人授权\underline{\hspace{0.5\ccwd}合肥工业大学\hspace{0.5\ccwd}}可以将本学位论文的全部或部分内容%
+  编入有关数据库，允许采用影印、缩印或扫描等复制手段保存、汇编%
+  学位论文。\par%
+  （保密的学位论文在解密后适用本授权书）}
+
+\newcommand\hfut@originality@bachelor{%
+  本人郑重声明：所呈交的毕业设计（论文）是本人在指导教师指导下
+  进行独立研究工作所取得的成果。据我所知，除了文中特别加以标注
+  和致谢的内容外，设计（论文）中不包含其他人已经发表或撰写过的
+  研究成果，也不包含为获得\underline{\hspace{0.5\ccwd}合肥工业大学\hspace{0.5\ccwd}}或
+  其他教育机构的学位或证书而使用过的材料。对本文成果做出贡献的
+  个人和集体，本人已在设计（论文）中作了明确的说明，并表示谢意。\par%
+  毕业设计（论文）中表达的观点纯属作者本人观点，与合肥工业大学无关。}
+\newcommand\hfut@authorization@bachelor{%
+  本学位论文作者完全了解\underline{\hspace{0.5\ccwd}合肥工业大学\hspace{0.5\ccwd}}有关保留、使用毕业设计（论文）的规定，即：除保密期内的涉密设计（论文）外，学校有权
+  保存并向国家有关部门或机构送交设计（论文）的复印件和电子光盘，
+  允许设计（论文）被查阅或借阅。本人授权\underline{\hspace{0.5\ccwd}合肥工业大学\hspace{0.5\ccwd}}可以将本毕业设计（论文）的全部或部分内容编入有关数据库，允许采用影
+  印、缩印或扫描等复制手段保存、汇编毕业设计（论文）。\par%
+  （保密的毕业设计（论文）在解密后适用本授权书）}
   %
   % 生成空的下划线
-\newcommand\hfut@underline[2][3.2cm]{\underline{\hb@xt@ #1{\hss#2\hss}}}
-
-\newcommand\hfut@checkbox{%
-  \makebox[\z@][l]{$\square$}%
-  \raisebox{-0.2ex}{\hspace{0.1em}$\checkmark$}%
-}
+\renewcommand\hfut@underline[2][3.2cm]{\underline{\hb@xt@ #1{\hss#2\hss}}}
 
 \newcommand\copyrightpage{%
   \begin{titlepage}%
     \hfut@pdfbookmark{原创性和授权使用声明}%
     \null
-    \vskip 0.3cm%
-    {\centering\sffamily\fontsize{16bp}{32bp}\selectfont
-      中国科学技术大学学位论文原创性声明\par}%
-    \vskip 0.7cm%
-    \hfut@originality\par
-    \vskip 1.3cm%
-    作者签名：\hfut@underline{}\hspace{2.7cm}%
-    签字日期：\hfut@underline{}\par
-    \vskip 1.9cm%
-    {\centering\sffamily\fontsize{16bp}{32bp}\selectfont
-      中国科学技术大学学位论文授权使用声明\par}%
-    \vskip 0.7cm%
-    \hfut@authorization\par
-    \vskip 0.6cm%
-    \ifx\hfut@secret@level\@empty
-      \hfut@checkbox{} 公开\quad
-      $\square$ 保密（\hfut@underline[0.85cm]{}年）\par
+    \renewcommand\arraystretch{1.25}
+    \ifhfut@degree@bachelor
+      {\centering\sffamily\fontsize{18pt}{\baselineskip}\selectfont
+      毕业设计（论文）独创性声明\par}%
+      \vskip 1.0cm%
+      \hfut@originality@bachelor\par
+      \vskip 0.9cm%
+      毕业设计（论文）作者作者签名：\hfill%
+      签字日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日\par
+      \vskip 2.33cm%
+      {\centering\sffamily\fontsize{18pt}{\baselineskip}\selectfont
+      毕业设计（论文）版权使用授权书\par}%
+      \vskip 1.0cm%
+      \hfut@authorization@bachelor\par
+      \vfill%
+      \begin{tabular}{@{}p{6.5cm}p{6.5cm}@{}}%
+        学位论文作者签名：& 学位论文作者签名：\\
+        签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日 & 签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日
+      \end{tabular}\par
     \else
-      $\square$ 公开\quad
-      \hfut@checkbox{} 保密（\hfut@underline[0.8cm]{\hfut@secret@year}年）\par
+      {\centering\sffamily\fontsize{18pt}{\baselineskip}\selectfont
+      学位论文独创性声明\par}%
+      \vskip 1.25cm%
+      \hfut@originality@master\par
+      \vskip 1.1cm%
+      学位论文作者签名：\hfill%
+      签字日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日\par
+      \vskip 2.8cm%
+      {\centering\sffamily\fontsize{18pt}{\baselineskip}\selectfont
+      学位论文版权使用授权书\par}%
+      \vskip 1.25cm%
+      \hfut@authorization@master\par
+      \vskip 1.2cm%
+      \begin{tabular}{@{}p{6.5cm}p{6.5cm}@{}}%
+        学位论文作者签名：& 指导教师签名：\\
+        签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日 & 签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日\\
+      \end{tabular}\par
+      \vskip 0.6cm
+      \renewcommand\arraystretch{1}
+      \begin{tabular}{@{}p{6.5cm}p{6.5cm}@{}}%
+        论文作者毕业去向 & \\
+        工作单位：& \\
+        联系电话：& E-mail：\\
+        通讯地址：& 邮政编码：
+      \end{tabular}\par
     \fi
-    \vskip 0.5cm%
-    作者签名：\hfut@underline{}\hspace{2.7cm}%
-    导师签名：\hfut@underline{}\par
-    \vskip 0.5cm%
-    签字日期：\hfut@underline{}\hspace{2.7cm}%
-    签字日期：\hfut@underline{}\par
   \end{titlepage}%
 }
-\ifhfut@degree@bachelor
-  \let\copyrightpage\relax
-\fi
+
 % Reserved for compatibility until 2020-07-01.
 \let\makestatement\copyrightpage
 
@@ -2880,7 +3166,7 @@
   \ifhfut@output@electronic
     \hypersetup{
       colorlinks = true,
-      allcolors  = blue,
+      allcolors  = red,
     }
   \else
     \hypersetup{hidelinks}

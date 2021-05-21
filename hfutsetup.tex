@@ -1,25 +1,55 @@
 % !TeX root = ./main.tex
 
 \hfutsetup{
-  title              = {中国科学技术大学\\学位论文模板示例文档 \hfutthesisversion},
-  title*             = {An example of thesis template for University of Science
-                        and Technology of China \hfutthesisversion},
-  author             = {李泽平},
-  author*            = {Li Zeping},
+  title              = {合肥工业大学学位论文模板示例文档 \hfutthesisversion},
+  title*             = {An example of thesis template for \\ Hefei University of Technology \hfutthesisversion},
+  stuID              = {2017214563},
+  author             = {殷振豪},
+  author*            = {Yin Zhenhao},
   speciality         = {数学与应用数学},
-  speciality*        = {Mathematics and Applied Mathematics},
-  supervisor         = {XXX~教授, XXX~教授},
-  supervisor*        = {Prof. XXX, Prof. XXX},
-  % date               = {2017-05-01},  % 默认为今日
-  % professional-type  = {专业学位类型},
-  % professional-type* = {Professional degree type},
-  % secret-level       = {秘密},     % 绝密|机密|秘密，注释本行则不保密
-  % secret-level*      = {Secret},  % Top secret|Highly secret|Secret
-  % secret-year        = {10},      % 保密年限
+  supervisor         = {XXX~教授},
+  % date               = {2021-05},  % 默认为当前日期
+  secret-level       = {秘密},     % 绝密|机密|秘密|内部交流，注释本行则公开
+  secret-year        = {10年},      % 保密年限
   %
   % 数学字体
   % math-style         = GB,  % 可选：GB, TeX, ISO
   math-font          = xits,  % 可选：stix, xits, libertinus
+  %
+  %
+  %
+  % Parameters for Non-bachelor's option
+  %
+  Cnum               = {分类号}, % 分类号
+  %
+  %
+  %
+  % Parameters for master's(docotoral) option 和 答辩委员签名页 参数
+  %
+  % advisor            = {XXX~教授}, % 用于“专业硕士-中文内封页” 校外导师的填写，默认空                 
+  research           = {研究方向}, % 研究方向，默认为 “研究方向”
+  signchairman       = {专家工作单位，职称，姓名}, % 答辩委员签名页 主席：  默认为空
+  signmember         = {XXX，XXX，XXX \\ XXX，XXX，XXX}, % 答辩委员签名页 委员：  默认为空
+  signsupervisor     = {合肥工业大学，XXX，XXX}, % 答辩委员签名页 导师：  默认为空
+  %
+  %
+  %
+  % Parameters ONLY for bachelor's option
+  %
+  ugtype             = {论文}, % 封面第一栏“类型”的选项：设计或者论文，默认“论文”
+  hfuteryear         = {2017级}, % 入学年份 
+  department         = {应用数学系}, % 系名称
+  %
+  %
+  %
+  % Parameters ONLY for doctoral option 和 提名页 参数
+  %
+  % applydegree        = {}, % 申请学位：理学博士|工学博士, etc. 默认“理学博士”
+  % school             = {}, % 默认培养单位：合肥工业大学，难道你想填其他的？
+  defensedate        = {2021年6月}, % 答辩时间：格式 “2021年6月”，默认为空
+  % phdchairman        = {}, % 提名页 答辩委员会主席：  默认为空
+  % phdmember          = {}, % 提名页 评阅人：  默认为空
+  % 关于Ph.D的专家清单页，请仔细阅读hftuthesis-doc，详见`chapters/expertspage.tex`
 }
 
 
