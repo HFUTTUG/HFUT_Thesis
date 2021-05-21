@@ -1856,11 +1856,9 @@
         \cline{2-2}
       \end{tabular}\par}%
     \else
-    % TODO 处理对齐 基线
-      \renewcommand\arraystretch{1.2}
       \begin{tabular}{@{}lp{8.4cm}@{}}%
         {\fontsize{16pt}{20pt}\selectfont\textbf{论文题目：}} & \multirow[t]{2}{8.4cm}{
-          \centering\fontsize{16pt}{24pt}\selectfont
+          \centering\linespread{1.75}\fontsize{16pt}{20pt}\selectfont
           \hfut@title} \\
         \cline{2-2}
                 & \\
