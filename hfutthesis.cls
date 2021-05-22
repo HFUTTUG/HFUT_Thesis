@@ -1452,7 +1452,7 @@
   vmargin    = 2.54cm,
   hmargin    = 3cm,
   headheight = 0.75cm,
-  headsep    = 0.29cm,
+  headsep    = 0.72cm,
   footskip   = 0.79cm,
 }
 
@@ -1479,11 +1479,11 @@
     \let\sectionmark\@gobble
   \else
     %
-    % 本科生要求除封面、扉页外，每面上部加页眉，
-    % 用小 5 号字（9 bp）标注“中国科学技术大学本科毕业论文”，居中；
-    % 从目录页开始在每面底部居中用小五宋体（9 bp）连续编页码。
+    % 本科生要求在正文每面上部加页眉，
+    % 用小 5 号字（9 bp）标注“合肥工业大学毕业设计（论文）”，居中；
+    % 从正文页开始在每面底部居中用小五宋体（9 bp）连续编页码。
     \def\hfut@hf@font{\fontsize{9bp}{12bp}\selectfont}
-    \fancyhead[C]{\hfut@hf@font 中国科学技术大学本科毕业论文}%
+    \fancyhead[C]{\hfut@hf@font 合肥工业大学毕业设计（论文）}%
     \fancyfoot[C]{\hfut@hf@font\thepage}%
     \let\@mkboth\@gobbletwo
     \let\chaptermark\@gobble
@@ -1493,7 +1493,9 @@
 \pagestyle{plain}
 
 % |headings| 只有页眉，没有页脚，用于研究生的符号说明和本科生的 front matter。
-\fancypagestyle{headings}{\fancyfoot{}}
+\fancypagestyle{headings}{
+  \fancyfoot{}
+}
 
 % 设置特殊的 page style 不改变任何内容，用于每章首页。
 \def\ps@chapter{}
@@ -1504,15 +1506,16 @@
   \hbox{}\thispagestyle{empty}\newpage\if@twocolumn\hbox{}\newpage\fi\fi\fi}
   %
   % 研究生要求从“中文摘要”开始页码用大写罗马数字，
-  % 而本科生的 frontmatter（只有致谢）不编页码，从目录开始页码用阿拉伯数字。
+  % 而本科生的 frontmatter不编页码，从正文开始页码用阿拉伯数字。
 \renewcommand\frontmatter{%
   \cleardoublepage
   \@mainmatterfalse
-  \pagenumbering{Roman}%
   \ifhfut@degree@graduate
     \pagestyle{plain}%
+    \pagenumbering{Roman}%
   \else
-    \pagestyle{headings}%
+    \pagestyle{empty}%
+    %\pagenumbering{arabic}%
   \fi
 }
 
@@ -1523,6 +1526,7 @@
     \pagenumbering{arabic}%
   \else
     \clearpage
+    \pagenumbering{arabic}%
   \fi
   \pagestyle{plain}%
   \@mainmattertrue
@@ -2255,41 +2259,43 @@
 % 另外 \pkg{ctex} v2.2 前的beforeskip的符号有特殊意义。
 \ctexset{
   chapter = {
-    format      = \centering\sffamily\bfseries\fontsize{16bp}{26.67bp}\selectfont,
-    nameformat  = {},
+    format      = \centering\sffamily\bfseries\fontsize{16bp}{22bp}\selectfont,
+    nameformat  = \rmfamily\bfseries,
     titleformat = \hfut@spacetitle,
     number      = \thechapter,
     aftername   = \hspace{\ccwd},
-    beforeskip  = 24bp,
-    afterskip   = 18bp,
+    beforeskip  = 22bp,
+    afterskip   = 22bp,
     fixskip     = true,
   },
 }
 
-% 一级节标题：黑体 14 磅左顶格，单倍行距，段前 24 磅，段后 6 磅，
+% 一级节标题：黑体 12 磅左顶格，单倍行距，段前 24 磅，段后 6 磅，
 % 序号与题名间空一字。
 \ctexset{
   section = {
-    format     = \sffamily\fontsize{14bp}{23.33bp}\selectfont,
+    format     = \sffamily\fontsize{12bp}{22bp}\selectfont,
+    nameformat = \rmfamily\bfseries,
     aftername  = \hspace{\ccwd},
-    beforeskip = 24bp,
-    afterskip  = 6bp,
+    beforeskip = 11bp,
+    afterskip  = 11bp,
   },
   %
-  % 二级节标题：黑体 13 磅，左缩进两字，单倍行距，段前 12 磅，段后 6 磅，
+  % 二级节标题：黑体 12 磅，左缩进两字，单倍行距，段前 12 磅，段后 6 磅，
   % 序号与题名间空一字。
   subsection = {
-    format     = \sffamily\fontsize{13bp}{21.67bp}\selectfont,
+    format     = \rmfamily\bfseries\fontsize{12bp}{22bp}\selectfont,
+    nameformat = \rmfamily\bfseries,
     aftername  = \hspace{\ccwd},
     indent     = 2\ccwd,
-    beforeskip = 12bp,
-    afterskip  = 6bp,
+    beforeskip = 11bp,
+    afterskip  = 11bp,
   },
   %
   % 三级及以下节标题的格式没有具体规定，按照 Word 模板的格式：
   % 使用黑体 12 磅，左缩进两字，行距 20 磅，段前段后 0 磅，序号与题名间空半字宽。
   subsubsection = {
-    format     = \sffamily\fontsize{12bp}{20bp}\selectfont,
+    format     = \rmfamily\fontsize{12bp}{20bp}\selectfont,
     number     = \arabic{subsubsection},
     aftername  = .\hspace{0.5\ccwd},
     indent     = 2\ccwd,
@@ -2346,19 +2352,20 @@
   % 分别用三号（16 bp）黑体、小三（15 bp）黑体、四号（14 bp）黑体。
     chapter = {
       format = {
-        \centering\sffamily
+        \centering
+        \sffamily
         \if@mainmatter
-          \fontsize{16bp}{29.33bp}\selectfont
+          \fontsize{16bp}{22bp}\bfseries\selectfont
         \else
-          \fontsize{18bp}{33bp}\selectfont
+          \fontsize{18bp}{22bp}\bfseries\selectfont
         \fi
       },
     },
     section = {
-      format = \centering\sffamily\fontsize{15bp}{27.5bp}\selectfont,
+      format = \sffamily\fontsize{15bp}{22bp}\selectfont,
     },
     subsection = {
-      format    = \sffamily\fontsize{14bp}{25.67bp}\selectfont,
+      format    = \rmfamily\bfseries\fontsize{14bp}{22bp}\selectfont,
       indent    = \z@,
     },
     subsubsection = {
@@ -2376,15 +2383,16 @@
   \ifhfut@section@style@arabic\else
     \ctexset{
       chapter = {
-        number = \chinese{chapter},
+        name = {},
+        %number = \chinese{chapter}
       },
       section = {
-        name   = {第,节},
-        number = \chinese{section},
+        %name   = {第,节},
+        %number = \chinese{section},
       },
       subsection = {
-        number    = \chinese{subsection},
-        aftername = {、},
+        %number    = \chinese{subsection},
+        %aftername = {、},
       },
     }
   \fi
@@ -2422,12 +2430,14 @@
   \ifhfut@degree@graduate
     \hfut@chapter{摘要}%
   \else
-    \chapter{中文内容摘要}%
-    \ifhfut@tocloaded\else
-      本科生需要手动将摘要置于目录后。\par
-    \fi
+    \pagestyle{empty}
+    \chapter*{摘要}%
+    % \ifhfut@tocloaded\else
+    %   本科生需要手动将摘要置于目录后。\par
+    % \fi
   \fi
 }{
+  \pagestyle{plain}
   \par\null\par\noindent\hangindent=4\ccwd\relax
   \textbf{关键词}：\hfut@keywords@text\par
   \hfut@reset@main@language
@@ -2435,18 +2445,21 @@
 
 % 英文摘要环境
 \newenvironment{abstract*}{%
+% TODO
+  \pagestyle{empty}%
   \hfutsetup{language=english}%
   \ifhfut@degree@graduate
     \hfut@chapter[Abstract]{ABSTRACT}%
   \else
     \begingroup
-      \ctexset{chapter/format=\centering\fontsize{16bp}{29.33bp}\selectfont}%
-      \chapter[英文内容摘要]{Abstract}%
+      \ctexset{chapter/format=\centering\Large\selectfont\bfseries}%
+      \chapter*{ABSTRACT}%
     \endgroup
   \fi
 }{
+  %\pagestyle{plain}
   \par\null\par\noindent\hangindent=5.3em\relax
-  \textbf{Key Words}: \hfut@keywords@en@text\par
+  \textbf{KEYWORDS:} \hfut@keywords@en@text\par
   \ifhfut@degree@graduate
     \cleardoublepage
   \fi
@@ -2467,12 +2480,12 @@
 \newif\ifhfut@tocloaded
 
 % 研究生规定目录另面起；
-% 本科生规定从目录开始编页码，所以必须另页起。
+% 本科生规定从正文起标页码。
 \renewcommand\tableofcontents{%
   \ifhfut@degree@bachelor
     \cleardoublepage
-    \pagenumbering{arabic}%
-    \pagestyle{plain}%
+    %\pagenumbering{arabic}%
+    \pagestyle{empty}%
     \hfut@tocloadedtrue
   \fi
   \hfut@chapter{\contentsname}%
@@ -2488,25 +2501,25 @@
 % 但是 Word 模板中实际是行距 20 磅。
 \ifhfut@degree@graduate
   \titlecontents{chapter}
-    [\z@]{\addvspace{6bp}\fontsize{14bp}{20bp}\selectfont}
+    [\z@]{\addvspace{6bp}\fontsize{14bp}{22bp}\selectfont}
     {\contentspush{\thecontentslabel\hspace{\ccwd}}}{}
-    {\fontsize{12bp}{20bp}\selectfont\hfut@leaders\contentspage}
+    {\fontsize{12bp}{22bp}\selectfont\hfut@leaders\contentspage}
     %
     % 一级节标题目录要求宋体 12 磅，单倍行距，左缩进一字，段前 6 磅，段后 0 磅，
     % 两端对齐，页码右对齐，序号与题名间空一字。
     % Word 模板中实际是行距 20 磅，段前 0 磅。
   \titlecontents{section}
-    [\ccwd]{\fontsize{12bp}{20bp}\selectfont}
+    [\ccwd]{\fontsize{12bp}{22bp}\selectfont}
     {\contentspush{\thecontentslabel\hspace{\ccwd}}}{}
-    {\fontsize{12bp}{20bp}\selectfont\hfut@leaders\contentspage}
+    {\fontsize{12bp}{22bp}\selectfont\hfut@leaders\contentspage}
     %
     % 二级节标题目录要求宋体 10.5 磅，单倍行距，左缩进两字，段前 6 磅，段后 0 磅，
     % 两端对齐，页码右对齐，序号与题名间空一字。
     % Word 模板中实际是行距 20 磅，段前 0 磅。
   \titlecontents{subsection}
-    [2\ccwd]{\fontsize{10.5bp}{20bp}\selectfont}
+    [2\ccwd]{\fontsize{10.5bp}{22bp}\selectfont}
     {\contentspush{\thecontentslabel\hspace{\ccwd}}}{}
-    {\fontsize{12bp}{20bp}\selectfont\hfut@leaders\contentspage}
+    {\fontsize{12bp}{22bp}\selectfont\hfut@leaders\contentspage}
     %
     % 本科生的目录使用小四宋体（同正文字体），其他同研究生的格式相近。
 \else
@@ -2520,8 +2533,8 @@
     {\hfut@leaders\contentspage}
   \titlecontents{subsection}
     [2\ccwd]{\normalsize}
-    {\contentspush{\thecontentslabel
-      \ifhfut@section@style@arabic\hspace{\ccwd}\else 、\fi}}{}
+    {\contentspush{\thecontentslabel\hspace{\ccwd}}}{}
+      %\ifhfut@section@style@arabic\hspace{\ccwd}\else 、\fi}}{}
     {\hfut@leaders\contentspage}
 \fi
 
@@ -2589,7 +2602,7 @@
 \newenvironment{notation}{%
   \ifhfut@degree@graduate
     \cleardoublepage
-    \pagestyle{headings}%
+    \pagestyle{empty}%
   \fi
   \hfut@chapter{\hfut@notation@name}%
 }{%
