@@ -1769,7 +1769,7 @@
 
 % 中文封面：
 % 抬头黑体 12 磅；
-% 论文类型黑体 48 磅；
+% 论文类型：研究生黑体 48 磅，本科生黑体42磅；
 % 论文类型英文 Times New Roman 22 磅；
 % 封面信息 宋体 16 磅
 % 论文题目黑体 26 磅加粗居中，单倍行距；
@@ -1785,25 +1785,25 @@
     \centering
     \ifhfut@degree@bachelor
       \ifx\hfut@secret@level\@empty
-        {\sffamily\fontsize{12pt}{20pt}\selectfont
+        {\sffamily\fontsize{12bp}{20bp}\selectfont
         \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
-        密\hspace{1em}级：\hfut@underline{} } \par}
+        密\hspace{1em}级：\hfut@underline{公开} } \par}
         %\vskip 0.5cm%
       \else
-        {\sffamily\fontsize{12pt}{20pt}\selectfont
+        {\sffamily\fontsize{12bp}{20bp}\selectfont
         \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
         密\hspace{1em}级：\hfut@underline{\hfut@secret@level \bigstar \hfut@secret@year} } \par}
         %\vskip 0.5cm%
       \fi
     \else
       \ifx\hfut@secret@level\@empty
-        {\sffamily\fontsize{12pt}{20pt}\selectfont
+        {\sffamily\fontsize{12bp}{20bp}\selectfont
         \textbf{单位代码：\hfut@underline{10359} \hfill
-        密\hspace{1em}级：\hfut@underline{}} \par
+        密\hspace{1em}级：\hfut@underline{公开}} \par
         \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
         分类号：\hfut@underline{\hfut@Cnum}} \par}
       \else
-        {\sffamily\fontsize{12pt}{20pt}\selectfont
+        {\sffamily\fontsize{12bp}{20bp}\selectfont
         \textbf{单位代码：\hfut@underline{10359} \hfill
         密\hspace{1em}级：\hfut@underline{\hfut@secret@level \bigstar \hfut@secret@year}} \par
         \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
@@ -1813,12 +1813,17 @@
 
     \vskip 1.8cm%
     \includegraphics[height=1.5cm]{figures/hfut-name.pdf}\par
-    \vskip 0.4cm
+    \vskip 0.3cm
     {\fontsize{22bp}{22bp}\selectfont\textbf{Hefei University of Technology}\par}
     \vskip 0.9cm%
-    {\sffamily\fontsize{48bp}{48bp}\selectfont
-    \textbf{\hfut@thesis@name}\par}%
-    \vskip 0.4cm
+    \ifhfut@degree@bachelor
+      {\sffamily\fontsize{42bp}{42bp}\selectfont
+      \textbf{\hfut@thesis@name}\par}%
+    \else
+      {\sffamily\fontsize{48bp}{48bp}\selectfont
+      \textbf{\hfut@thesis@name}\par}%
+    \fi
+    \vskip 0.6cm
     {\fontsize{22bp}{22bp}\selectfont
     \textbf{\hfut@thesis@name@encover}\par}%
     \ifhfut@degree@master
@@ -1836,8 +1841,8 @@
     \vfill
     \renewcommand\arraystretch{1.75}
     \ifhfut@degree@bachelor
-      {\fontsize{16pt}{20pt}\selectfont
-      \begin{tabular}{@{}l>{\centering\arraybackslash}p{11.0cm}@{}}%
+      {\fontsize{16bp}{20bp}\selectfont
+      \begin{tabular}{@{}lc@{}}%
         \textbf{类\hspace{2\ccwd}型：} & \hfut@ugtype \\
         \cline{2-2}
         \textbf{题\hspace{2\ccwd}目：} & \hfut@title \\
@@ -1857,15 +1862,15 @@
       \end{tabular}\par}%
     \else
       \begin{tabular}{@{}lp{8.4cm}@{}}%
-        {\fontsize{16pt}{20pt}\selectfont\textbf{论文题目：}} & \multirow[t]{2}{8.4cm}{
-          \centering\linespread{1.75}\fontsize{16pt}{20pt}\selectfont
+        {\fontsize{16bp}{20bp}\selectfont\textbf{论文题目：}} & \multirow[t]{2}{8.4cm}{
+          \centering\linespread{1.75}\fontsize{16bp}{20bp}\selectfont
           \hfut@title} \\
         \cline{2-2}
                 & \\
         \cline{2-2}
       \end{tabular}
       \renewcommand\arraystretch{1.75}
-      \begin{tabular}{@{}>{\fontsize{16pt}{20pt}\selectfont}l>{\centering\arraybackslash\fontsize{16pt}{20pt}\selectfont}p{8.4cm}@{}}
+      \begin{tabular}{@{}>{\fontsize{16bp}{20bp}\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{20bp}\selectfont}p{8.4cm}@{}}
         \ifhfut@degree@master
           \textbf{学位类别：} & \hfut@degreetype@name\\
           \cline{2-2}
@@ -1894,13 +1899,13 @@
     \hfut@pdfbookmark{题名页}%
     \centering
     \ifx\hfut@secret@level\@empty
-      {\sffamily\fontsize{12pt}{20pt}\selectfont
+      {\sffamily\fontsize{12bp}{20bp}\selectfont
       \textbf{单位代码：\hfut@underline{10359} \hfill
-      密\hspace{1em}级：\hfut@underline{}} \par
+      密\hspace{1em}级：\hfut@underline{公开}} \par
       \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
       分类号：\hfut@underline{\hfut@Cnum}} \par}
     \else
-      {\sffamily\fontsize{12pt}{20pt}\selectfont
+      {\sffamily\fontsize{12bp}{20bp}\selectfont
       \textbf{单位代码：\hfut@underline{10359} \hfill
       密\hspace{1em}级：\hfut@underline{\hfut@secret@level \bigstar \hfut@secret@year}} \par
       \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
@@ -1913,7 +1918,7 @@
     \vskip 1.5cm
     \begin{tabular}{@{}p{11.0cm}@{}}%
         \multirow[t]{2}{11.0cm}{
-        \centering\fontsize{16pt}{24pt}\selectfont
+        \centering\fontsize{16bp}{24bp}\selectfont
         \textbf{\hfut@title}} \\
       \cline{1-1}
               \\
@@ -1922,12 +1927,12 @@
 
     \vskip 1.5cm%
 
-    {\fontsize{16pt}{25pt}\selectfont
+    {\fontsize{16bp}{25bp}\selectfont
     \textbf{\uline{\hfut@title@en}}}
 
     \vskip 4.7cm%
 
-    {\linespread{1.8}\fontsize{16pt}{\baselineskip}\selectfont
+    {\linespread{1.8}\fontsize{15bp}{\baselineskip}\selectfont
       \textbf{作者姓名：}\underlineFixlen{\hfut@author} \hfill \textbf{导师姓名：}\underlineFixlen{\hfut@supervisor@names} \par
       \textbf{申请学位：}\underlineFixlen{\hfut@applydegree} \hfill \textbf{培养单位：}\underlineFixlen{\hfut@school} \par
       \textbf{学科专业：}\underlineFixlen{\hfut@speciality} \hfill \textbf{研究方向：}\underlineFixlen{\hfut@research} \par
@@ -1935,7 +1940,7 @@
     }
     \vskip 1.5cm
     \renewcommand\arraystretch{1.5}
-    \begin{tabular}{@{}>{\fontsize{16pt}{24pt}\selectfont}p{15.9cm}@{}}%
+    \begin{tabular}{@{}>{\fontsize{15bp}{22.5bp}\selectfont}p{15.9cm}@{}}%
       \textbf{答辩委员会主席：} \hfut@phd@chairman \\
       \cline{1-1}
       \textbf{评\hspace{2\ccwd}阅\hspace{2\ccwd}人：} \hfut@phd@member  \\
@@ -1944,7 +1949,7 @@
     \renewcommand\arraystretch{1}
     \vfill
 
-    {\fontsize{15pt}{\baselineskip}\selectfont\hfut@date@zh}
+    {\fontsize{15bp}{\baselineskip}\selectfont\hfut@date@zh}
 
   \end{titlepage}%
 }
@@ -1955,25 +1960,25 @@
   \begin{titlepage}%
     \hfut@pdfbookmark{中文内封页}%
     \centering
-    {\sffamily\fontsize{21pt}{\baselineskip}\selectfont
+    {\sffamily\fontsize{22bp}{\baselineskip}\selectfont
       合\hspace{1.5\ccwd}肥\hspace{1.5\ccwd}工\hspace{1.5\ccwd}业\hspace{1.5\ccwd}大\hspace{1.5\ccwd}学\par}%
     \vskip 1.8cm%
     \ifhfut@degree@master
-      {\sffamily\fontsize{21pt}{\baselineskip}\selectfont
+      {\sffamily\fontsize{21bp}{\baselineskip}\selectfont
       \textbf{\hfut@degreetype@name 学位论文}\par}% 空格不可忽略
     \else
-      {\sffamily\fontsize{21pt}{\baselineskip}\selectfont
+      {\sffamily\fontsize{22bp}{\baselineskip}\selectfont
       \textbf{\hfut@thesis@name}\par}%
     \fi
     \vskip 1.8cm%
-    {\fontsize{21pt}{\baselineskip}\selectfont
+    {\fontsize{22bp}{\baselineskip}\selectfont
     \textbf{\hfut@title}\par}%
     \ifhfut@degree@bachelor
       \vskip 7.9cm
     \else
       \vskip 9.5cm%
     \fi
-    {\fontsize{16pt}{\baselineskip}\selectfont
+    {\fontsize{16bp}{\baselineskip}\selectfont
       \begin{tabular}{@{}lp{14em}<{\centering}@{}}%
         \ifhfut@degree@bachelor
           \textbf{学生姓名：} & \hfut@author \\
@@ -2025,7 +2030,7 @@
       \end{tabular}\par%
       \vfill
     }
-    {\fontsize{15pt}{\baselineskip}\selectfont\hfut@date@zh}
+    {\fontsize{15bp}{\baselineskip}\selectfont\hfut@date@zh}
   \end{titlepage}%
   \hfut@reset@main@language
 }
@@ -2037,19 +2042,19 @@
     \hfut@pdfbookmark{English inner cover}%
     \centering
     \vskip 1.2cm%
-    {\fontsize{16pt}{28pt}\selectfont
+    {\fontsize{16bp}{30bp}\selectfont
     \hfut@thesis@name@en\par}%
     \vskip 2.3cm%
-    {\fontsize{18pt}{30pt}\selectfont
+    {\fontsize{18bp}{30bp}\selectfont
     \textbf{\hfut@title@en}\par}%
     \vskip 1.2cm%
-    {\fontsize{16pt}{28pt}\selectfont
+    {\fontsize{16bp}{30bp}\selectfont
     By\par
     \hfut@author@en\par}%
 
     \vfill
     
-    {\fontsize{16pt}{28pt}\selectfont
+    {\fontsize{16bp}{30bp}\selectfont
     Hefei University of Technology\par
     Hefei, Anhui, P.R.China\par
     \hfut@date@en\par}%
@@ -2077,22 +2082,22 @@
   \begin{titlepage}%
     \hfut@pdfbookmark{答辩委员签名页}%
     \null
-    {\centering\sffamily\fontsize{22pt}{33pt}\selectfont
+    {\centering\sffamily\fontsize{22bp}{33bp}\selectfont
     \textbf{合\hspace{0.5\ccwd}肥\hspace{0.5\ccwd}工\hspace{0.5\ccwd}业\hspace{0.5\ccwd}大\hspace{0.5\ccwd}学}\par}
     \vskip 0.8cm
-    {\fontsize{16pt}{30pt}\selectfont
+    {\fontsize{16bp}{30bp}\selectfont
     本论文经答辩委员会全体委员审查，确认符合合肥工业大学\hfut@degreetype@name 学位论文质量要求。\par}
     \vskip 2.5cm
-    {\centering\fontsize{16pt}{24pt}\selectfont
+    {\centering\fontsize{16bp}{24bp}\selectfont
     \textbf{答辩委员会签名（工作单位、职称、姓名）}\par}
     \vskip 1.0cm
-    {\fontsize{16pt}{16pt}\selectfont
+    {\fontsize{16bp}{16bp}\selectfont
     主席：\hfut@sign@chairman \par}
     \vskip 1.0cm
-    {\fontsize{16pt}{16pt}\selectfont
+    {\fontsize{16bp}{16bp}\selectfont
     委员：\parbox[t]{10.5cm}{\linespread{2.0}\selectfont\hfut@sign@member} \par}
     \vfill
-    {\fontsize{16pt}{16pt}\selectfont
+    {\fontsize{16bp}{16bp}\selectfont
     导师：\hfut@sign@supervisor }
   \end{titlepage}%
 }
@@ -2148,16 +2153,16 @@
     \null
     \renewcommand\arraystretch{1.25}
     \ifhfut@degree@bachelor
-      {\centering\sffamily\fontsize{18pt}{\baselineskip}\selectfont
-      毕业设计（论文）独创性声明\par}%
+      {\centering\sffamily\fontsize{18bp}{\baselineskip}\selectfont
+      \textbf{毕业设计（论文）独创性声明}\par}%
       \vskip 1.0cm%
       \hfut@originality@bachelor\par
       \vskip 0.9cm%
       毕业设计（论文）作者作者签名：\hfill%
       签字日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日\par
       \vskip 2.33cm%
-      {\centering\sffamily\fontsize{18pt}{\baselineskip}\selectfont
-      毕业设计（论文）版权使用授权书\par}%
+      {\centering\sffamily\fontsize{18bp}{\baselineskip}\selectfont
+      \textbf{毕业设计（论文）版权使用授权书}\par}%
       \vskip 1.0cm%
       \hfut@authorization@bachelor\par
       \vfill%
@@ -2166,16 +2171,16 @@
         签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日 & 签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日
       \end{tabular}\par
     \else
-      {\centering\sffamily\fontsize{18pt}{\baselineskip}\selectfont
-      学位论文独创性声明\par}%
+      {\centering\sffamily\fontsize{18bp}{\baselineskip}\selectfont
+      \textbf{学位论文独创性声明}\par}%
       \vskip 1.25cm%
       \hfut@originality@master\par
       \vskip 1.1cm%
       学位论文作者签名：\hfill%
       签字日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日\par
       \vskip 2.8cm%
-      {\centering\sffamily\fontsize{18pt}{\baselineskip}\selectfont
-      学位论文版权使用授权书\par}%
+      {\centering\sffamily\fontsize{18bp}{\baselineskip}\selectfont
+      \textbf{学位论文版权使用授权书}\par}%
       \vskip 1.25cm%
       \hfut@authorization@master\par
       \vskip 1.2cm%
@@ -2423,9 +2428,9 @@
     \hfut@chapter{摘要}%
   \else
     \chapter{中文内容摘要}%
-    \ifhfut@tocloaded\else
-      本科生需要手动将摘要置于目录后。\par
-    \fi
+%    \ifhfut@tocloaded\else
+%      本科生需要手动将摘要置于目录后。\par
+%    \fi
   \fi
 }{
   \par\null\par\noindent\hangindent=4\ccwd\relax
@@ -3120,10 +3125,10 @@
   \ifhfut@degree@graduate
     \chapter{\hfut@acknowledgements@name}%
   \else
-    \hfut@chapter{\hfut@acknowledgements@name}%
-    \ifhfut@tocloaded
-      本科生需要手动将致谢置于目录前。\par
-    \fi
+    \chapter{\hfut@acknowledgements@name}%
+%    \ifhfut@tocloaded
+%      本科生需要手动将致谢置于目录前。\par
+%    \fi
   \fi
 }{}
 
