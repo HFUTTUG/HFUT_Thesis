@@ -7,7 +7,8 @@
 三线表是《撰写手册》推荐使用的格式，如表~\ref{tab:exampletable}。
 \begin{table}[h]
   \centering
-  \caption{表号和表题在表的正上方}
+  % \bicaption{表号和表题在表的正上方}{The table number and title are directly above the table} % 硕博学位论文 图表中英文标题
+  \caption{表号和表题在表的正上方} % 默认：学士学位论文 图表中文标题
   \label{tab:exampletable}
   \begin{tabular}{cl}
     \toprule
@@ -38,7 +39,8 @@
 \begin{figure}[h]
   \centering
   \includegraphics[width=0.3\textwidth]{hfut-badge.pdf}
-  \caption{图号、图题置于图的下方}
+  % \bicaption{图号、图题置于图的下方}{The figure number and title are placed at the bottom of the figure} % 硕博学位论文 图表中英文标题
+  \caption{图号、图题置于图的下方} % 默认：学士学位论文 图表中文标题
   \label{fig:badge}
   \note{注：图注的内容不宜放到图题中。}
 \end{figure}

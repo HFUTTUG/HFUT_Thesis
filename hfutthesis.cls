@@ -416,6 +416,7 @@
 \RequirePackage{calc}
 \RequirePackage{ulem} %提供排版可断行下划线的命令\uline
 \RequirePackage{multirow} %纵向合并单元格
+\RequirePackage[list=off]{bicaption}
 
 % 如果用户在导言区未调用 \pkg{biblatex}，则自动调用 \pkg{natbib}。
 \AtEndPreamble{
@@ -567,8 +568,8 @@
     \def\figurename{图}%
     \def\tablename{表}%
   \else
-    \def\figurename{Figure}%
-    \def\tablename{Table}%
+    \def\figurename{Fig}%
+    \def\tablename{Tab}%
   \fi
 }
 \hfut@set@names
@@ -2790,10 +2791,15 @@
   figureposition = bottom,
   tableposition  = top,
 }
-\ifhfut@degree@graduate
-  \captionsetup{font+=bf}
-  \captionsetup[table]{font+=sf}
-\fi
+% graduate的图表标题不需要加粗
+% \ifhfut@degree@graduate
+%   \captionsetup{font+=bf}
+%   \captionsetup[table]{font+=sf}
+% \fi
+
+% 硕博需要中英文双标题
+\captionsetup[figure][bi-second]{name=Fig} %设置图的英文编号前缀
+\captionsetup[table][bi-second]{name=Tab} %设置表的英文编号前缀
 
 % 新定义了 \cs{note} 来生成图表的附注。
 % 如果用 \cs{caption} 生成图表的附注会导致图表的序号有误；
