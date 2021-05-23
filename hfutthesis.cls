@@ -545,7 +545,11 @@
     }%
     \def\bibname{参考文献}%
     \def\appendixname{附录}%
-    \def\hfut@acknowledgements@name{致谢}%
+    \ifhfut@degree@bachelor
+      \def\hfut@acknowledgements@name{致谢}%
+    \else
+      \def\hfut@acknowledgements@name{致\hspace{\ccwd}谢}%
+    \fi
     \def\hfut@publication@name{在读期间发表的学术论文与取得的研究成果}%
     \newcommand\hfut@notation@name{符号说明}%
   \else
@@ -2291,11 +2295,10 @@
   chapter = {
     format = {
         \centering
-        \sffamily
         \if@mainmatter
-          \fontsize{16bp}{\baselineskip}\bfseries\selectfont
+          \fontsize{16bp}{\baselineskip}\sffamily\bfseries\selectfont
         \else
-          \fontsize{18bp}{\baselineskip}\bfseries\selectfont
+          \fontsize{18bp}{\baselineskip}\rmfamily\bfseries\selectfont
         \fi
     },
     nameformat  = {},
@@ -2310,6 +2313,17 @@
         0.5\baselineskip
       \fi
     },
+    % tocline     = {
+    %   \if@mainmatter
+    %     \if \@chapapp \appendixname
+    %       附录~\arabic{chapter}~#2
+    %     \else
+    %       第\chinese{chapter}章~#2
+    %     \fi
+    %   \else
+    %     \CTEXnumberline{#1}#2
+    %   \fi
+    % },
     afterskip   = {
       \if@mainmatter
         \baselineskip
@@ -2401,11 +2415,10 @@
     chapter = {
       format = {
         \centering
-        \sffamily
         \if@mainmatter
-          \fontsize{16bp}{22bp}\bfseries\selectfont
+          \fontsize{16bp}{22bp}\sffamily\bfseries\selectfont
         \else
-          \fontsize{18bp}{22bp}\bfseries\selectfont
+          \fontsize{18bp}{22bp}\rmfamily\bfseries\selectfont
         \fi
       },
       nameformat  = \rmfamily\bfseries,
@@ -2502,6 +2515,7 @@
   \hfutsetup{language=chinese}%
   \ifhfut@degree@graduate
     \pagestyle{plain}
+    \ctexset{chapter/format=\centering\Large\selectfont\bfseries}%
     \hfut@chapter[摘要]{摘\hspace{\ccwd}要}%
   \else
     \pagestyle{empty}
@@ -2520,14 +2534,14 @@
 % 英文摘要环境
 \newenvironment{abstract*}{%
   \hfutsetup{language=english}%
+  \ctexset{chapter/format=\centering\Large\selectfont\bfseries}%
   \ifhfut@degree@graduate
     \hfut@chapter[Abstract]{ABSTRACT}%
     \pagestyle{plain}
   \else
     \begingroup
       \pagestyle{empty}%
-      \ctexset{chapter/format=\centering\Large\selectfont\bfseries}%
-      \chapter*{ABSTRACT}%
+      \hfut@chapter[Abstract]{ABSTRACT}%
     \endgroup
   \fi
 }{
@@ -3211,9 +3225,9 @@
 \newenvironment{acknowledgements}{%
   \@mainmatterfalse
   \ifhfut@degree@graduate
-    \chapter{\hfut@acknowledgements@name}%
+    \chapter*{\hfut@acknowledgements@name}%
   \else
-    \chapter{\hfut@acknowledgements@name}%
+    \chapter*{\hfut@acknowledgements@name}%
 %    \ifhfut@tocloaded
 %      本科生需要手动将致谢置于目录前。\par
 %    \fi
