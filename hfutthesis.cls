@@ -534,7 +534,7 @@
 % 所以“acknowledgements”也保持一致。
 \newcommand\hfut@set@chapter@names{%
   \ifhfut@main@language@chinese
-    \def\contentsname{目录}%
+    \def\contentsname{目\hspace{\ccwd}录}%
     \def\listfigurename{插图清单}%
     \def\listtablename{表格清单}%
     \ctexset{
@@ -1533,7 +1533,12 @@
   \@mainmattertrue
 }
 
-\g@addto@macro\appendix{\@mainmattertrue}%
+\g@addto@macro\appendix{
+  \renewcommand\thechapter{\@arabic\c@chapter}
+  \@mainmattertrue
+}%
+
+\ctexset{appendix/number=\arabic{chapter}}
 
 
 % \subsection{封面}
@@ -2255,7 +2260,7 @@
 
 % 用 \pkg{ctex} 的接口设置全部章节标题格式。
 
-% 各章标题：黑体 16 磅加粗居中，单倍行距，段前 24 磅，段后 18 磅，
+% 各章标题：黑体 16 磅加粗居中，行距为单倍行距，段前 1 行，段后 1 行，
 % 章序号与章名间空一字。
 
 % 由于 Word 模板中使用“单倍行距”，还“对齐到网格”，这在 TeX 中不容易实现。
@@ -2263,15 +2268,37 @@
 
 % 注意 \pkg{ctex} v2.4.3 以下版本的bug会导致章节标题前后的距离的实际值偏大。
 % 另外 \pkg{ctex} v2.2 前的beforeskip的符号有特殊意义。
+    
 \ctexset{
   chapter = {
-    format      = \centering\sffamily\bfseries\fontsize{16bp}{22bp}\selectfont,
-    nameformat  = \rmfamily\bfseries,
-    titleformat = \hfut@spacetitle,
+    format = {
+        \centering
+        \sffamily
+        \if@mainmatter
+          \fontsize{16bp}{\baselineskip}\bfseries\selectfont
+        \else
+          \fontsize{18bp}{\baselineskip}\bfseries\selectfont
+        \fi
+    },
+    nameformat  = {},
+    name        = {},
+    titleformat = {},
     number      = \thechapter,
-    aftername   = \hspace{\ccwd},
-    beforeskip  = 22bp,
-    afterskip   = 22bp,
+    aftername   = \hspace{0.5\ccwd},
+    beforeskip  = {
+      \if@mainmatter
+        \baselineskip
+      \else
+        0.5\baselineskip
+      \fi
+    },
+    afterskip   = {
+      \if@mainmatter
+        \baselineskip
+      \else
+        1.5\baselineskip
+      \fi
+    },
     fixskip     = true,
   },
 }
@@ -2280,28 +2307,25 @@
 % 序号与题名间空一字。
 \ctexset{
   section = {
-    format     = \sffamily\fontsize{12bp}{22bp}\selectfont,
-    nameformat = \rmfamily\bfseries,
-    aftername  = \hspace{\ccwd},
-    beforeskip = 11bp,
-    afterskip  = 11bp,
+    format     = \sffamily\fontsize{12bp}{\baselineskip}\selectfont,
+    aftername  = \hspace{0.5\ccwd},
+    beforeskip = 0.5\baselineskip,
+    afterskip  = 0.5\baselineskip,
   },
   %
   % 二级节标题：黑体 12 磅，左缩进两字，单倍行距，段前 12 磅，段后 6 磅，
   % 序号与题名间空一字。
   subsection = {
-    format     = \rmfamily\bfseries\fontsize{12bp}{22bp}\selectfont,
-    nameformat = \rmfamily\bfseries,
-    aftername  = \hspace{\ccwd},
-    indent     = 2\ccwd,
-    beforeskip = 11bp,
-    afterskip  = 11bp,
+    format     = \rmfamily\bfseries\fontsize{12bp}{\baselineskip}\selectfont,
+    aftername  = \hspace{0.5\ccwd},
+    beforeskip = 0.5\baselineskip,
+    afterskip  = 0.5\baselineskip,
   },
   %
   % 三级及以下节标题的格式没有具体规定，按照 Word 模板的格式：
   % 使用黑体 12 磅，左缩进两字，行距 20 磅，段前段后 0 磅，序号与题名间空半字宽。
   subsubsection = {
-    format     = \rmfamily\fontsize{12bp}{20bp}\selectfont,
+    format     = \rmfamily\fontsize{12bp}{\baselineskip}\selectfont,
     number     = \arabic{subsubsection},
     aftername  = .\hspace{0.5\ccwd},
     indent     = 2\ccwd,
@@ -2366,16 +2390,41 @@
           \fontsize{18bp}{22bp}\bfseries\selectfont
         \fi
       },
+      nameformat  = \rmfamily\bfseries,
+      number      = \thechapter,
+      aftername   = \hspace{\ccwd},
+      beforeskip  = {
+        \if@mainmatter
+          22bp
+        \else
+          11bp
+        \fi
+      },
+      afterskip   = {
+        \if@mainmatter
+          22bp
+        \else
+          33bp
+        \fi
+      },
+      fixskip     = true,
     },
     section = {
-      format = \sffamily\fontsize{15bp}{22bp}\selectfont,
+      format = \sffamily\fontsize{12bp}{22bp}\selectfont,
+      beforeskip = 11bp,
+      afterskip  = 11bp, 
+      nameformat = \rmfamily\bfseries,
     },
     subsection = {
-      format    = \rmfamily\bfseries\fontsize{14bp}{22bp}\selectfont,
+      format    = \rmfamily\bfseries\fontsize{12bp}{22bp}\selectfont,
+      beforeskip = 11bp,
+      afterskip  = 11bp, 
       indent    = \z@,
     },
     subsubsection = {
       format    = \rmfamily\fontsize{12bp}{22bp}\selectfont,
+      beforeskip = 11bp,
+      afterskip  = 11bp, 
       indent    = \ccwd,
     },
     paragraph = {
@@ -2434,18 +2483,18 @@
 \newenvironment{abstract}{%
   \hfutsetup{language=chinese}%
   \ifhfut@degree@graduate
-    \hfut@chapter{摘要}%
+    \hfut@chapter[摘要]{摘\hspace{\ccwd}要}%
   \else
     \pagestyle{empty}
-    \chapter*{摘要}%
+    \chapter*{摘\hspace{\ccwd}要}%
     % \ifhfut@tocloaded\else
     %   本科生需要手动将摘要置于目录后。\par
     % \fi
   \fi
 }{
   \pagestyle{plain}
-  \par\null\par\noindent\hangindent=4\ccwd\relax
-  \textbf{关键词}：\hfut@keywords@text\par
+  \par\null\par\noindent
+  \textbf{关键词：}\hfut@keywords@text\par
   \hfut@reset@main@language
 }
 
@@ -2464,7 +2513,7 @@
   \fi
 }{
   %\pagestyle{plain}
-  \par\null\par\noindent\hangindent=5.3em\relax
+  \par\null\par\noindent
   \textbf{KEYWORDS:} \hfut@keywords@en@text\par
   \ifhfut@degree@graduate
     \cleardoublepage
@@ -2502,30 +2551,30 @@
 % 先定义目录线：
 \newcommand\hfut@leaders{\titlerule*[9bp]{\textperiodcentered}}
 
-% 各章目录要求宋体 14 磅，单倍行距，段前 6 磅，段后 0 磅，两端对齐，
+% 各章目录要求宋体 12 磅，单倍行距，段前 6 磅，段后 0 磅，两端对齐，
 % 页码右对齐，章序号与章名间空一字。
 % 但是 Word 模板中实际是行距 20 磅。
 \ifhfut@degree@graduate
   \titlecontents{chapter}
-    [\z@]{\addvspace{6bp}\fontsize{14bp}{22bp}\selectfont}
+    [\z@]{\fontsize{12bp}{20bp}\bfseries\selectfont}
     {\contentspush{\thecontentslabel\hspace{\ccwd}}}{}
-    {\fontsize{12bp}{22bp}\selectfont\hfut@leaders\contentspage}
+    {\fontsize{12bp}{20bp}\selectfont\hfut@leaders\contentspage}
     %
     % 一级节标题目录要求宋体 12 磅，单倍行距，左缩进一字，段前 6 磅，段后 0 磅，
     % 两端对齐，页码右对齐，序号与题名间空一字。
     % Word 模板中实际是行距 20 磅，段前 0 磅。
   \titlecontents{section}
-    [\ccwd]{\fontsize{12bp}{22bp}\selectfont}
+    [\ccwd]{\fontsize{12bp}{20bp}\selectfont}
     {\contentspush{\thecontentslabel\hspace{\ccwd}}}{}
-    {\fontsize{12bp}{22bp}\selectfont\hfut@leaders\contentspage}
+    {\fontsize{12bp}{20bp}\selectfont\hfut@leaders\contentspage}
     %
-    % 二级节标题目录要求宋体 10.5 磅，单倍行距，左缩进两字，段前 6 磅，段后 0 磅，
+    % 二级节标题目录要求宋体 12 磅，单倍行距，左缩进两字，段前 6 磅，段后 0 磅，
     % 两端对齐，页码右对齐，序号与题名间空一字。
     % Word 模板中实际是行距 20 磅，段前 0 磅。
   \titlecontents{subsection}
-    [2\ccwd]{\fontsize{10.5bp}{22bp}\selectfont}
+    [2\ccwd]{\fontsize{12bp}{20bp}\selectfont}
     {\contentspush{\thecontentslabel\hspace{\ccwd}}}{}
-    {\fontsize{12bp}{22bp}\selectfont\hfut@leaders\contentspage}
+    {\fontsize{12bp}{20bp}\selectfont\hfut@leaders\contentspage}
     %
     % 本科生的目录使用小四宋体（同正文字体），其他同研究生的格式相近。
 \else
@@ -2546,28 +2595,28 @@
 
 % 本科生要求目录中正文每章前多空一行，而目录、附录等章则不需要空行，
 % 所以不能简单判断 \cs{if@mainmatter}，需要重新定义 \cs{mainmatter} 等命令。
-\newif\ifhfut@addtocspace
-\ifhfut@degree@bachelor
-  \hfut@addtocspacetrue
-  \g@addto@macro\frontmatter{\hfut@addtocspacefalse}%
-  \g@addto@macro\mainmatter{\hfut@addtocspacetrue}%
-  \g@addto@macro\backmatter{\hfut@addtocspacefalse}%
-  \g@addto@macro\appendix{\hfut@addtocspacefalse}%
-\fi
+% \newif\ifhfut@addtocspace
+% \ifhfut@degree@bachelor
+%   \hfut@addtocspacetrue
+%   \g@addto@macro\frontmatter{\hfut@addtocspacefalse}%
+%   \g@addto@macro\mainmatter{\hfut@addtocspacetrue}%
+%   \g@addto@macro\backmatter{\hfut@addtocspacefalse}%
+%   \g@addto@macro\appendix{\hfut@addtocspacefalse}%
+% \fi
 
 % 处理本科生在目录中添加空行。
-\renewcommand\chapter{%
-  \if@openright\cleardoublepage\else\clearpage\fi
-  \thispagestyle{\CTEX@chapter@pagestyle}%
-  \global\@topnum\z@
-  \@afterindenttrue
-  \ifhfut@degree@bachelor
-    \ifhfut@addtocspace
-      \addtocontents{toc}{\protect\addvspace{12bp}}%
-    \fi
-  \fi
-  \secdef\@chapter\@schapter
-}
+% \renewcommand\chapter{%
+%   \if@openright\cleardoublepage\else\clearpage\fi
+%   \thispagestyle{\CTEX@chapter@pagestyle}%
+%   \global\@topnum\z@
+%   \@afterindenttrue
+%   \ifhfut@degree@bachelor
+%     \ifhfut@addtocspace
+%       \addtocontents{toc}{\protect\addvspace{12bp}}%
+%     \fi
+%   \fi
+%   \secdef\@chapter\@schapter
+% }
 
 % 研究生要求图、表的清单须另页起。
 \newlength{\hfut@lof@label@width}
