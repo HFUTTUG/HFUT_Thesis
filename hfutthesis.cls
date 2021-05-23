@@ -414,9 +414,9 @@
 \RequirePackage[perpage]{footmisc}
 \RequirePackage{url}
 \RequirePackage{calc}
-\RequirePackage{ulem} % 提供排版可断行下划线的命令\uline
-\RequirePackage{multirow} % 纵向合并单元格
-\RequirePackage[list=off]{bicaption} % 图表中英文标题
+\RequirePackage{ulem}
+\RequirePackage{multirow}
+\RequirePackage[list=off]{bicaption}
 
 % 如果用户在导言区未调用 \pkg{biblatex}，则自动调用 \pkg{natbib}。
 \AtEndPreamble{
