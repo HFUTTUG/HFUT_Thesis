@@ -5,6 +5,9 @@
 %
 % Copyright (C) 2015-2021 by USTC TeX Users Group <https://github.com/ustctug>
 %
+% hfutthesis developed by HFUT TeX Users Group <https://github.com/HFUTTUG> on the 
+% base of ustcthesis <https://github.com/usthtug/ustcthesis>.
+
 % This file may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3c
 % of this license or (at your option) any later version.
@@ -24,7 +27,7 @@
 \usepackage{listings}
 \usepackage[perpage]{footmisc}
 \usepackage{hypdoc}
-
+\usepackage{bicaption}
 \makeatletter
 
 % 设置字体
@@ -110,43 +113,40 @@
 
 
 
-\title{\cls{ustcthesis} 使用说明}
-\author{Zeping Lee\thanks{zepinglee AT gmail.com} \and
-        seisman\thanks{seisman.info AT gmail.com} }
-\date{v3.3.0\qquad 2021-03-18}
+\title{\cls{hfutthesis} 使用说明}
+\author{
+  Yu Tang \thanks{tangyu@mail.hfut.edu.cn}
+% \and yzh\thanks{?} \and
+%        hrz\thanks{?}
+ }
+\date{v1.0.0\qquad 2021-05-23}
 \maketitle
 
 
 
 \section{简介}
 
-本模板 \cls{ustcthesis} 是中国科学技术大学本科生和研究生学位论文的 \LaTeX{}
-模板， 按照《\href{http://gradschool.ustc.edu.cn/static/oldsite/ylb/material/xw/wdxz/32.pdf}
-{中国科学技术大学研究生学位论文撰写手册}》和
-《\href{https://www.teach.ustc.edu.cn/notice/notice-teaching/11530.html}
-{关于本科毕业论文（设计）格式和统一封面的通知}》的要求编写。
+本模板 \cls{hfutthesis} 是合肥工业大学本科生和研究生学位论文的 \LaTeX{}
+模板， 按照最新版的《\href{http://xwgl.hfut.edu.cn/2021/0419/c1975a253949/page.htm}
+{合肥工业大学研究生学位论文写作规范}》和
+《\href{http://xcjwb.hfut.edu.cn/53/cc/c1144a21452/page.htm}
+{合肥工业大学本科毕业设计（论文）工作实施细则}》（以下统称《规范》）的要求编写，兼容最新版的 TeX Live、MacTeX 、MiKTeX 发行版，支持跨平台使用。
 
-其前身是中国科学技术大学本科论文模板（作者 XPS，最后维护 ywg）
-和中国科学技术大学研究生论文模板（作者 Liuqs，主要维护 Liuqs、Guolicai）。
-后来两模板进行了整合梳理，由 ywg 维护。
-2015 年，seisman 和 zepinglee 基于 \pkg{ctex} 2.0 重新编写了模板。
-2017 年，随着学校发布了新版的《撰写手册》，本模板也更新到 v3.0。
+本项目在 \href{https://github.com/ustctug/ustcthesis}
+{ustctug/ustcthesis} 基础上编写，其前身是中国科学技术大学本科论文模板和中国科学技术大学研究生论文模板。
+2021年5月，yzh和hrz基于合肥工业大学本科生和研究生学位论文的相关要求，开发了本模板的 v1.0.0 版本。
 
 下载地址：
 \begin{itemize}
-  \item 主要地址：\url{https://github.com/ustctug/ustcthesis/releases}
-  \item 学校镜像：\url{https://git.lug.ustc.edu.cn/ustctug/ustcthesis}
-  \item 研究生院网站（版本较旧）：
-    \url{https://gradschool.ustc.edu.cn/column/65}
+  \item GitHub Releases：\url{https://github.com/HFUTTUG/HFUT_Thesis/releases}
+  \item Overleaf 模板：\url{https://www.overleaf.com/}
 \end{itemize}
 
-用户在使用 \pkg{ustcthesis} 模板前，应先阅读学校的《撰写手册》等规范。
+用户在使用 \pkg{hfutthesis} 模板前，应先阅读学校关于毕业论文的相关规定。
 如果在使用的过程中遇到问题，可以阅读
-\href{https://github.com/ustctug/ustcthesis/wiki}{常见问题}，
-或者在 \href{https://github.com/ustctug/ustcthesis/issues}{GitHub Issues}
+\href{https://github.com/HFUTTUG/HFUT_Thesis/wiki}{常见问题}，
+或者在 \href{https://github.com/HFUTTUG/HFUT_Thesis/issues}{GitHub Issues}
 中反馈。
-
-
 
 \section{编译方法}
 
@@ -161,20 +161,20 @@
     \toprule
     类别     & 文件                      & 说明                         \\
     \midrule
-    模板文件 & \file{ustcthesis.cls}     & 模板文件                     \\
-             & \file{ustcthesis-*.bst}   & \BibTeX{} 参考文献表格式     \\
-             & \file{ustcthesis-*.bbx}   & BibLaTeX 参考文献表格式      \\
-             & \file{ustcthesis-*.cbx}   & BibLaTeX 参考文献表格式      \\
-             & \file{figures/ustc-*.pdf} & 校名和校徽图片               \\
+    模板文件 & \file{hfutthesis.cls}     & 模板文件                     \\
+             & \file{hfutthesis-*.bst}   & \BibTeX{} 参考文献表格式     \\
+             & \file{hfutthesis-*.bbx}   & BibLaTeX 参考文献表格式      \\
+             & \file{hfutthesis-*.cbx}   & BibLaTeX 参考文献表格式      \\
+             & \file{figures/*.pdf} & 校名和校徽图片               \\
     \midrule
-    使用说明 & \file{ustcthesis-doc.tex} & 模板使用说明的源代码         \\
-             & \file{ustcthesis-doc.pdf} & （你正在阅读的）模板使用说明 \\
+    使用说明 & \file{hfutthesis-doc.tex} & 模板使用说明的源代码         \\
+             & \file{hfutthesis-doc.pdf} & （你正在阅读的）模板使用说明 \\
     \midrule
     示例文档 & \file{main.tex}           & 主文档                       \\
-             & \file{ustcsetup.tex}      & 配置文件                     \\
+             & \file{hfutsetup.tex}      & 配置文件                     \\
              & \file{chapters/*.tex}     & 示例文档的各个章节           \\
              & \file{figures/}           & 放置图片的目录               \\
-             & \file{bib/ustc.bib}       & \BibTeX{} 示例数据库         \\
+             & \file{bib/hfut.bib}       & \BibTeX{} 示例数据库         \\
     \midrule
     其他     & \file{README.md}          & 基本说明                     \\
              & \file{CHANGELOG.md}       & 更新日志                     \\
@@ -196,27 +196,19 @@
 推荐升级到最新的版本。
 
 模板直接依赖的宏包有：
-\pkg{amsmath},
-\pkg{caption},
-\pkg{calc},
-\pkg{color},
-\pkg{ctex},
-\pkg{fancyhdr},
-\pkg{footmisc},
-\pkg{geometry},
+\pkg{amsthm},
 \pkg{graphicx},
-\pkg{titletoc},
-\pkg{url},
-\pkg{unicode-math}。
+\pkg{booktabs},
+\pkg{longtable},
+\pkg{algorithm2e},
+\pkg{siunitx},
+\pkg{natbib},
+\pkg{hyperref}。
 
 另外，模板还对其他宏包提供了支持，包括：
-\pkg{amsthm},
-\pkg{algorithm2e},
-\pkg{natbib},
+\pkg{amsmath},
 \pkg{biblatex},
-\pkg{hyperref},
-\pkg{nomencl},
-\pkg{siunitx}。
+\pkg{nomencl}等。
 这些宏包并非必需，用户可以根据需要选择使用。
 模板在检测到这些宏包被调用后会自动进行配置。
 
@@ -240,7 +232,7 @@ Linux/Mac用户，可以直接使用 GNU make 工具，这是最简单的方法�
 \begin{shell}
   make
 \end{shell}
-编译说明文档 \file{ustcthesis-doc.pdf}：
+编译说明文档 \file{hfutthesis-doc.pdf}：
 \begin{shell}
   make doc
 \end{shell}
@@ -255,7 +247,7 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 \end{shell}
 编译说明文档：
 \begin{shell}
-  latexmk -xelatex ustcthesis-doc.tex
+  latexmk -xelatex hfuthesis-doc.tex
 \end{shell}
 清理辅助文件可以用 \shellcmd{latexmk -c}。图形界面用户应参考编辑器的使用说明。
 
@@ -269,10 +261,10 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
   xelatex main.tex
   xelatex main.tex
 \end{shell}
-编译说明文档 \file{ustcthesis-doc.pdf}：
+编译说明文档 \file{hfutthesis-doc.pdf}：
 \begin{shell}
-  xelatex ustcthesis-doc.tex
-  xelatex ustcthesis-doc.tex
+  xelatex hfutthesis-doc.tex
+  xelatex hfutthesis-doc.tex
 \end{shell}
 \end{enumerate}
 
@@ -283,21 +275,21 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 
 \subsection{文档类参数}
 \DescribeOption{degree}
-选择学位，支持 \opt{bachelor}，\opt{master}，\opt{doctor}（默认）。
+选择学位，支持 \opt{bachelor}（默认），\opt{master}，\opt{doctor}。
 \begin{latex}
-  \documentclass[degree=doctor]{ustcthesis}
+  \documentclass[degree=doctor]{hfutthesis}
 \end{latex}
 
 \DescribeOption{degree-type}
 学位类型。可选：学术型 \opt{academic}（默认），专业型 \opt{professional}。
 \begin{latex}
-  \documentclass[degree-type=professional]{ustcthesis}
+  \documentclass[degree-type=professional]{hfutthesis}
 \end{latex}
 
 \DescribeOption{language}
 论文全文的主要语言。可选：\opt{chinese}（默认），\opt{english}。
 \begin{latex}
-  \documentclass[language=english]{ustcthesis}
+  \documentclass[language=english]{hfutthesis}
 \end{latex}
 
 \DescribeOption{output}
@@ -307,17 +299,17 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
   \item \opt{electronic}：单面，并保留超链接颜色
 \end{itemize}
 \begin{latex}
-  \documentclass[output=electronic]{ustcthesis}
+  \documentclass[output=electronic]{hfutthesis}
 \end{latex}
 
 \DescribeOption{section-style}
-本科生专用，章节标题的样式。可选：\opt{chinese}（默认），\opt{english}。
+章节标题的样式。可选：\opt{chinese}（默认），\opt{english}。
 \begin{itemize}
-  \item \opt{chinese}（默认）：汉字序号（例 1）
-  \item \opt{arabic}：数字序号（例 2）
+  \item \opt{chinese}：汉字序号
+  \item \opt{arabic}：数字序号
 \end{itemize}
 \begin{latex}
-  \documentclass[section-style=arabic]{ustcthesis}
+  \documentclass[section-style=arabic]{hfutthesis}
 \end{latex}
 
 
@@ -326,9 +318,9 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 \DescribeOption{fontset}
 用户也可以通过 \opt{fontset} 时指定使用预设的字库，如：
 \begin{latex}
-  \documentclass[fontset=windows]{ustcthesis}
+  \documentclass[fontset=windows]{hfutthesis}
 \end{latex}
-允许的选项有 \opt{windows}、\opt{mac}、\opt{ubuntu} 和 \opt{fandol}，
+允许的选项有 \opt{auto}（默认）、\opt{windows}、\opt{mac}、\opt{ubuntu}、\opt{fandol}和\opt{none}。
 具体使用的字体见表~\ref{tab:fontset}。
 用户也可以设置为 \opt{none} 并自行配置字体。
 
@@ -341,7 +333,7 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
     \opt{windows} & \opt{mac}    & \opt{ubuntu} & \opt{fandol} \\
     \midrule
     Times New Roman  & Times New Roman & TeX Gyre Termes & TeX Gyre Termes \\
-    Arial            & Arial           & TeX Gyre Heros  & TeX Gyre Heros  \\
+    SimSun            & SimSun           & TeX Gyre Heros  & TeX Gyre Heros  \\
     Courier          & Menlo           & TeX Gyre Cursor & TeX Gyre Cursor \\
     中易宋体         & 华文宋体        & 思源宋体        & Fandol 宋体     \\
     中易黑体         & 华文黑体        & 思源黑体        & Fandol 黑体     \\
@@ -352,37 +344,73 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 然而自动配置的字体只能保证编译通过，但是还存在一些问题：
 \begin{enumerate}
   \item 在其他平台上配置的 TeX Gyre 系列字体，虽然在风格上比较接近 Times 和 Arial，
-    但是毕竟跟《撰写手册》要求的字体不完全一致；
+    但是毕竟跟《规范》的字体不完全一致；
   \item Fandol 字库的字形较少，常常出现缺字的情况；
-  \item 华文字库和 Fandol 字库虽然不违反《撰写手册》的要求，
+  \item 华文字库和 Fandol 字库虽然不违反《规范》的要求，
     但是其字形跟中易字库有所差别，可能被审查老师认为格式不符合要求。
 \end{enumerate}
 
 所以建议在提交最终版前使用 Windows 平台的字体进行编译。
 
+\subsection{更多设置}
+\DescribeOption{\textbackslash hfut@define@key}
+本模板对接口进行了初始化定义，如有更个性的需求，可在\file{hfutthesis.cls}中查看接口及缺省值并进行修改，如：
+\begin{latex}
+  \hfut@define@key{
+  degree = {
+    choices = {
+      doctor,
+      master,
+      bachelor,
+    },
+    default = bachelor,
+  },
+  ...
+  }
+\end{latex}
+修改\opt{default}的值为\opt{doctor}、\opt{master}和\opt{bachelor}，即可修改学位默认类型。
+
+\begin{latex}
+  \hfut@define@key{
+  ugtype = {
+    default = {论文},
+  },
+  ... 
+  }
+\end{latex}
+修改\opt{default}的值为“其他名称”，ugtype的默认值即修改为“其他名称”。
 
 
 \section{论文内容}
+\subsection{内容顺序}
+根据《规范》，研究生论文和本科生论文在内容的要求上有所差异，用户需要根据\file{main.tex}中的注释提示进行调整。
 
 研究生论文的内容按照以下顺序排列：
+
 \begin{description}
-  \item[title page] 中文封面，英文封面，原创性声明及授权使用说明
-  \item[front matter] 中、英文摘要，目录，图、表清单，符号说明
-  \item[main matter] 正文章节，参考文献
+  \item[maketitle] 封面，原创性声明及授权使用说明
+  \item[frontmatter] 致谢，摘要，目录，图、表清单，（符号说明）
+  \item[mainmatter] 正文章节，参考文献
   \item[appendix] 附录
-  \item[back matter] 致谢，已发表论文列表
+  \item[backmatter] 已发表论文列表
 \end{description}
 
 本科生论文的内容按照以下顺序排列：
+
 \begin{description}
-  \item[title page] 中文封面，英文封面
-  \item[front matter] 致谢，目录，中、英文摘要
-  \item[main matter] 正文章节，参考文献
+  \item[maketitle] 封面，原创性声明和授权使用声明
+  \item[frontmatter] 摘要，目录，图、表清单，（符号说明）
+  \item[mainmatter] 正文章节，参考文献
+  \item[backmatter] （已发表论文列表），致谢
   \item[appendix] 附录
 \end{description}
 
-示例文档 \file{main.tex} 中的致谢、目录等章节的顺序，是按照研究生论文的格式组
-织内容的，\emph{本科生需要手动调整顺序}。
+注：
+\begin{itemize}
+  \item  示例文档 \file{main.tex} 中的致谢、目录等章节的顺序，是按照本科生论文的格式组织内容的，因此研究生需要手动调整顺序。
+  \item  在某些部分中，本科生、硕士生和博士生的内容要求有细微的差异，需根据\file{main.tex}中的注释进行修改。例如，博士学位论文在原创性声明前有专家清单页，需去除注释。
+\end{itemize}
+ 
 
 
 \subsection{封面}
@@ -394,14 +422,14 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 \DescribeMacro{\maketitle}
 \DescribeMacro{\copyrightpage}
 封面和声明页分别由 \cs{maketitle} 和 \cs{copyrightpage} 命令生成，
-其中的各项信息使用 \cs{ustcsetup} 命令的方式填写，如：
+其中的各项信息在\file{hfutsetup.tex}中的\cs{hfutsetup} 中修改，如：
 \begin{latex}
-  \ustcsetup{
+  \hfutsetup{
     title  = {论文中文题目},
     title* = {Thesis English Title},
   }
 \end{latex}
-模板提供的选项见表~\ref{tab:covercmds}，
+模板提供的选项见表~\ref{tab:covercmds}（部分），
 \begin{table}[htb]
   \centering\small
   \caption{录入封面信息的命令}
@@ -411,10 +439,10 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
     命令                & 命令（英文）         & 说明       \\
     \midrule
     \opt{title}         & \opt{title*}         & 论文标题   \\
+    \opt{stuID}         & -                    & 学号   \\
     \opt{author}        & \opt{author*}        & 作者姓名   \\
     \opt{speciality}    & \opt{speciality*}    & 学科专业   \\
     \opt{supervisor}    & \opt{supervisor*}    & 导师姓名   \\
-    \opt{date}          & -                    & 完成时间   \\
     \opt{secret-level}  & \opt{secret-level*}  & 密级       \\
     \opt{secret-year}   & -                    & 保密年限   \\
     \bottomrule
@@ -423,21 +451,15 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 
 有几点说明：
 \begin{itemize}
-  \item \cs{ustcsetup} 使用 \pkg{kvsetkeys} 机制，配置项之间不能有空行，否则会报错。
+  \item \cs{hfutsetup} 使用 \pkg{kvsetkeys} 机制，配置项之间不能有空行，否则会报错。
   \item 其中带 |*| 后缀的选项用于设置英文封面。
   \item 导师姓名 \opt{supervisor} 允许多个姓名，使用“,”（西文逗号 U+002C）隔开。
-  \item 软件工程专业使用 \opt{advisor} 和 \opt{advisor*} 设置企业导师的姓名。
-  \item 完成时间 \opt{date} 应使用 ISO 格式，默认为当前日期。
+  \item 完成时间 \opt{date}默认为当前日期，如需更改请取消注释并使用 ISO 格式。
 \end{itemize}
 
 
 \subsection{摘要和章节}
-\DescribeEnv{abstract}
-\DescribeEnv{abstract*}
-\DescribeEnv{notation}
-\DescribeEnv{acknowledgements}
-\DescribeEnv{publications}
-对于特殊的章节，\cls{ustcthesis} 还提供了相应的环境：
+对于特殊的章节，\cls{hfutthesis} 还提供了相应的环境：
 \begin{itemize}
   \item 中文摘要：\env{abstract}
   \item 英文摘要：\env{abstract*}
@@ -446,20 +468,15 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
   \item 发表成果：\env{publications}
 \end{itemize}
 
-\DescribeOption{keywords}
-\DescribeOption{keywords*}
-摘要的关键词应使用 \cs{ustcsetup} 的接口进行设置，
+摘要的关键词应使用 \cs{hfutsetup} 的接口进行设置，
 只要在摘要结束前即可，比如：
 \begin{latex}
   \begin{abstract}
     这里是摘要。
-    \ustcsetup{keywords = {论文；摘要；关键词}}
+    \hfutsetup{keywords = {论文；摘要；关键词}}
   \end{abstract}
 \end{latex}
 
-\DescribeMacro{\tableofcontents}
-\DescribeMacro{\listoffigures}
-\DescribeMacro{\listoftables}
 目录和图、表清单可以使用命令自动生成：
 \begin{itemize}
   \item 目录：  \cs{tableofcontents}
@@ -470,10 +487,36 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 
 \subsection{浮动体}
 
-《撰写手册》要求图题置于图的下方，表题置于表的上方。
-\LaTeX{} 的 \cs{caption} 命令并不能控制在浮动体中的位置，
-需要作者注意写在合适的地方。
+学士学位论文要求图表中文标题，请使用\cs{caption}\marg{中文标题}；硕博学位论文要求图表中英文标题，请使用\cs{bicaption}\marg{\{中文标题\}\{English title\}}。例如
 
+\begin{table}[h]
+  \centering
+   \caption{中文标题} % 默认：学士学位论文 图表中文标题
+  \label{tab:exampletable-zh-en}
+  \begin{tabular}{cl}
+    \toprule
+    类型   & 描述                                       \\
+    \midrule
+    挂线表 & 挂线表也称系统表、组织表，用于表现系统结构 \\
+    无线表 & 无线表一般用于设备配置单、技术参数列表等   \\
+    卡线表 & 卡线表有完全表，不完全表和三线表三种       \\
+    \bottomrule
+  \end{tabular}
+\end{table}
+\begin{table}[h]
+  \centering
+  \bicaption{中文标题}{English Title} % 硕博学位论文 图表中英文标题
+   \label{tab:exampletable-zh-en}
+  \begin{tabular}{cl}
+    \toprule
+    类型   & 描述                                       \\
+    \midrule
+    挂线表 & 挂线表也称系统表、组织表，用于表现系统结构 \\
+    无线表 & 无线表一般用于设备配置单、技术参数列表等   \\
+    卡线表 & 卡线表有完全表，不完全表和三线表三种       \\
+    \bottomrule
+  \end{tabular}
+\end{table}
 \DescribeMacro{\note}
 本模板还提供了 \cs{note}\marg{notes} 命令，用于在图表中添加注释。
 
@@ -484,20 +527,27 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 
 算法可以使用 \pkg{algorithms} 宏包或者较新的 \pkg{algorithm2e}。
 
-
 \subsection{数学}
 
-《撰写手册》要求数学符号遵循 GB/T 3102.11—1993《物理科学和技术中使用的数学符号》
-\footnote{原 GB 3102.11—1993，自 2017 年 3 月 23 日起，该标准转为推荐性标准。}。
-该标准参照采纳 ISO 31-11:1992 \footnote{目前已更新为 ISO 80000-2:2019。}，
-但是与 \TeX{} 默认的美国数学学会（AMS）的习惯有许多差异。
-这将在下文详细论述。
+《规范》要求数字和字母统一采用 Times New Roman体，与\TeX{} 默认的美国数学学会（AMS）的使用习惯可能有所出入。
+
+\DescribeOption{math-font}
+模板使用默认使用 XITS Math 作为数学字体。
+用户也可以使用 \opt{math-font} 选项切换其他数学字体，可选：
+\opt{stix}（STIX Two Math）、
+\opt{libertinus}（Libertinus Math）、
+\opt{newcm}（New Computer Modern Math）、
+\opt{lm}（Latin Modern Math）。
+
+其中 \opt{lm} 和 \opt{newcm} 的字形比较搭配 TeX 原生的 Computer Modern 字体，
+但与《规范》要求的西文字体 Times New Roman 并不搭配。
+可能会造成正文和公式中的数字字体不一致，需要谨慎使用。
 
 \DescribeOption{math-style}
 用户可以通过设置 \opt{math-style} 选择数学符号样式（可选：
 \opt{GB}（中文默认），\opt{TeX}（英文默认）和 \opt{ISO}），比如：
 \begin{latex}
-  \ustcsetup{
+  \hfutsetup{
     math-style = ISO,
   }
 \end{latex}
@@ -531,7 +581,7 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 
 如果数学符号选择国标样式 |math-style = GB|，相当于设置了
 \begin{latex}
-  \ustcsetup{
+  \hfutsetup{
     uppercase-greek    = italic,
     less-than-or-equal = slanted,
     integral           = upright,
@@ -552,18 +602,6 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 \end{enumerate}
 
 需要注意，上述关于数学符号风格的设置在设置数学字体（\opt{math-font}）时才会生效。
-
-\DescribeOption{math-font}
-模板使用默认使用 XITS Math 作为数学字体。
-用户也可以使用 \opt{math-font} 选项切换其他数学字体，可选：
-\opt{stix}（STIX Two Math）、
-\opt{libertinus}（Libertinus Math）、
-\opt{newcm}（New Computer Modern Math）、
-\opt{lm}（Latin Modern Math）。
-
-其中 \opt{lm} 和 \opt{newcm} 的字形比较搭配 TeX 原生的 Computer Modern 字体，
-但与《指南》要求的西文字体 Times New Roman 并不搭配。
-可能会造成正文和公式中的数字字体不一致，需要谨慎使用。
 
 以上字体都是 OpenType 格式的字体，需要配合
 \href{http://mirrors.ctan.org/macros/latex/contrib/unicode-math/unicode-math.pdf}{\pkg{unicode-math}}
@@ -595,13 +633,13 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 \begin{latex}
   % 顺序编码制
   \usepackage[sort]{natbib}
-  \bibliographystyle{ustcthesis-numeric}
+  \bibliographystyle{hfutthesis-numeric}
 \end{latex}
 或者
 \begin{latex}
   % 著者-出版年制
   \usepackage{natbib}
-  \bibliographystyle{ustcthesis-authoryear}
+  \bibliographystyle{hfutthesis-authoryear}
 \end{latex}
 并且在生成参考文献表的位置使用 \cs{bibliography} 设置 \file{.bib} 数据库的路径。
 然后使用 \file{bibtex} 编译生成 \file{.bbl} 文件。
@@ -619,7 +657,7 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 
 模板默认为上标样式，也可以将引用标注统一设为 \opt{inline} 样式。
 \begin{latex}
-  \ustcsetup{
+  \hfutsetup{
     cite-style = inline,
   }
 \end{latex}
@@ -666,8 +704,8 @@ BibLaTeX 是较新的参考文献处理方案。
 并且在导言区使用 \cs{addbibresource} 设置数据库的路径，
 最后在参考文献表的位置使用 \cs{printbibliography} 输出。
 \begin{latex}
-  \usepackage[style=ustcthesis-author-year]{biblatex}
-  \addbibresource{bib/ustc.bib}
+  \usepackage[style=hfutthesis-author-year]{biblatex}
+  \addbibresource{bib/hfut.bib}
 \end{latex}
 使用 BibLaTeX 必须用 \file{biber} 编译生成参考文献表。
 这里的样式是在 \href{https://ctan.org/pkg/biblatex-gb7714-2015}{biblatex-gb7714-2015}
@@ -678,7 +716,7 @@ BibLaTeX 是较新的参考文献处理方案。
 如果要切换为与正文平排，一种方法是使用 \cs{parencite}，
 另一种是载入 \pkg{biblatex} 时统一设置。
 \begin{latex}
-  \usepackage[bibstyle=ustcthesis-numeric,citestyle=ustcthesis-inline]{biblatex}
+  \usepackage[bibstyle=hfutthesis-numeric,citestyle=hfutthesis-inline]{biblatex}
 \end{latex}
 
 
