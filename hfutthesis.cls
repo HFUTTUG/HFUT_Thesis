@@ -2308,9 +2308,9 @@
         \fi
     },
     nameformat  = {},
-    name        = {},
+    name        = {第,章},
     titleformat = {},
-    number      = \thechapter,
+    number      = \chinese{chapter},
     aftername   = \hspace{0.5\ccwd},
     beforeskip  = {
       \if@mainmatter
@@ -2319,18 +2319,18 @@
         0.5\baselineskip
       \fi
     },
-    tocline     = {
-      \if@mainmatter
-        %\if \@chapapp \appendixname
-        \ifhfut@appendix
-          {附录~\arabic{chapter}~~#2}
-        \else
-          {第\chinese{chapter}章~#2}
-        \fi
-      \else
-        \CTEXnumberline{#1}#2
-      \fi
-    },
+    %tocline     = {
+    %  \if@mainmatter
+    %    %\if \@chapapp \appendixname
+    %    \ifhfut@appendix
+    %      {附录~\arabic{chapter}~~#2}
+    %    \else
+    %      {第\chinese{chapter}章~#2}
+    %    \fi
+    %  \else
+    %    \CTEXnumberline{#1}#2
+    %  \fi
+    %},
     afterskip   = {
       \if@mainmatter
         \baselineskip
@@ -2420,6 +2420,7 @@
   % 正文中的标题分章、节、段三级；章、节标题居中，段标题居左，
   % 分别用三号（16 bp）黑体、小三（15 bp）黑体、四号（14 bp）黑体。
     chapter = {
+      name = {},
       format = {
         \centering
         \if@mainmatter
