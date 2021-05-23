@@ -14,8 +14,8 @@
 %
 
 \NeedsTeXFormat{LaTeX2e}[2017/04/15]
-\newcommand\hfutthesisversion{v0.1a}
-\ProvidesClass{hfutthesis}[2021/05/21 {\hfutthesisversion} hfut thesis template]
+\newcommand\hfutthesisversion{v1.0.0}
+\ProvidesClass{hfutthesis}[2021/05/23 {\hfutthesisversion} hfut thesis template]
 
 % 报错和警告
 \newcommand\hfut@error[1]{%
@@ -1820,7 +1820,7 @@
       \else
         {\sffamily\fontsize{12bp}{20bp}\selectfont
         \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
-        密\hspace{1em}级：\hfut@underline{\hfut@secret@level \bigstar \hfut@secret@year} } \par}
+        密\hspace{1em}级：\hfut@underline{\hfut@secret@level\bigstar\hfut@secret@year} } \par}
         %\vskip 0.5cm%
       \fi
     \else
@@ -1833,7 +1833,7 @@
       \else
         {\sffamily\fontsize{12bp}{20bp}\selectfont
         \textbf{单位代码：\hfut@underline{10359} \hfill
-        密\hspace{1em}级：\hfut@underline{\hfut@secret@level \bigstar \hfut@secret@year}} \par
+        密\hspace{1em}级：\hfut@underline{\hfut@secret@level\bigstar\hfut@secret@year}} \par
         \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
         分类号：\hfut@underline{\hfut@clc}} \par}
       \fi
@@ -1935,7 +1935,7 @@
     \else
       {\sffamily\fontsize{12bp}{20bp}\selectfont
       \textbf{单位代码：\hfut@underline{10359} \hfill
-      密\hspace{1em}级：\hfut@underline{\hfut@secret@level \bigstar \hfut@secret@year}} \par
+      密\hspace{1em}级：\hfut@underline{\hfut@secret@level\bigstar\hfut@secret@year}} \par
       \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
       分类号：\hfut@underline{\hfut@clc}} \par}
     \fi
