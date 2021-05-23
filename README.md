@@ -1,9 +1,9 @@
 # 合肥工业大学学位论文 LaTeX 模板
 
 [![GitHub release](https://img.shields.io/github/release/HFUTTUG/HFUT_Thesis/all.svg)](https://github.com/HFUTTUG/HFUT_Thesis/releases/latest)
-[![Overleaf](https://img.shields.io/badge/overleaf-hfutthesis-brightgreen.svg)]()
+[![Overleaf](https://img.shields.io/badge/overleaf-hfutthesis-brightgreen.svg)](https://www.overleaf.com/)
 [![GitHub commits](https://img.shields.io/github/commits-since/HFUTTUG/HFUT_Thesis/latest.svg)](https://github.com/HFUTTUG/HFUT_Thesis/commits/master)
-![visitors](https://visitor-badge.glitch.me/badge?page_id=)
+![visitors](https://visitor-badge.glitch.me/badge?page_id=HFUTTUG.Thesis)
 
 
 本项目是在 [ustctug/ustcthesis](https://github.com/ustctug/ustcthesis) 基础上编写的合肥工业大学的学位论文 LaTeX 模板 HFUT_Thesis，按照最新版的
