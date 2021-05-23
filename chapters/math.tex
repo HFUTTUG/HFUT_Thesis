@@ -3,8 +3,7 @@
 \chapter{数学}
 
 \section{数学符号和公式}
-
-《撰写手册》要求数学符号遵循 GB/T 3102.11—1993《物理科学和技术中使用的数学符号》
+《写作规范》没有对数学符号和公式做具体要求，这里我们按照数学符号遵循 GB/T 3102.11—1993《物理科学和技术中使用的数学符号》
 \footnote{原 GB 3102.11—1993，自 2017 年 3 月 23 日起，该标准转为推荐性标准。}。
 该标准参照采纳 ISO 31-11:1992 \footnote{目前已更新为 ISO 80000-2:2019。}，
 但是与 \TeX{} 默认的美国数学学会（AMS）的符号习惯有所区别。
@@ -80,8 +79,9 @@
 \section{定理和证明}
 
 示例文件中使用 \pkg{amsthm} 宏包配置了定理、引理和证明等环境。
-用户也可以使用 \pkg{ntheorem} 宏包。
+用户也可以使用 \pkg{ntheorem} 宏包。\par
 
+公式引用示例：见式~\ref{eq:example}
 \begin{definition}
   If the integral of function $f$ is measurable and non-negative, we define
   its (extended) \textbf{Lebesgue integral} by
@@ -108,6 +108,7 @@ The communication graph is strongly connected.
     \end{cases}
   \end{equation}
   \begin{equation}
+    \label{eq:example}
     F_a(x) = \frac{1}{1 + |x|^a}, \qquad \text{all } x \in \mathbb{R}^d.
   \end{equation}
   Then $f_a$ is integrable exactly when $a < d$, while $F_a$ is integrable
