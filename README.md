@@ -3,7 +3,6 @@
 [![GitHub release](https://img.shields.io/github/release/HFUTTUG/HFUT_Thesis/all.svg)](https://github.com/HFUTTUG/HFUT_Thesis/releases/latest)
 [![Overleaf](https://img.shields.io/badge/overleaf-hfutthesis-brightgreen.svg)]()
 [![GitHub commits](https://img.shields.io/github/commits-since/HFUTTUG/HFUT_Thesis/latest.svg)](https://github.com/HFUTTUG/HFUT_Thesis/commits/master)
-[![Build](https://github.com/HFUTTUG/HFUT_Thesis/workflows/build/badge.svg)](https://github.com/HFUTTUG/HFUT_Thesis/actions)
 ![visitors](https://visitor-badge.glitch.me/badge?page_id=)
 
 

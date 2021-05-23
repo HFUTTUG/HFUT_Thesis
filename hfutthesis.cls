@@ -1,6 +1,9 @@
 %
 % Copyright (C) 2015-2021 by USTC TeX Users Group <https://github.com/ustctug>
 %
+% hfutthesis developed by HFUT TeX Users Group <https://github.com/HFUTTUG> on the 
+% base of ustcthesis <https://github.com/usthtug/ustcthesis>.
+%
 % This file may be distributed and/or modified under the
 % conditions of the LaTeX Project Public License, either version 1.3c
 % of this license or (at your option) any later version.
