@@ -16,17 +16,18 @@
 
 % 研究生论文:
 %   封面，原创性声明和授权使用声明
-%   frontmatter: 摘要，目录，[图、表清单]，[符号说明]
+%   frontmatter: 致谢，摘要，目录，图、表清单，[符号说明]
 %   mainmatter: 正文章节，参考文献
 %   appendix: 附录
-%   backmatter: 致谢，已发表论文列表
+%   backmatter: 已发表论文列表
 %
 % 本科生论文:
 %   封面，原创性声明和授权使用声明
-%   frontmatter: 摘要，目录，[图、表清单]，[符号说明]
+%   frontmatter: 摘要，目录，图、表清单，[符号说明]
 %   mainmatter: 正文章节，参考文献
+%   backmatter: [已发表论文列表]，致谢
 %   appendix: 附录
-%   backmatter: 致谢，[已发表论文列表]
+
 
 \maketitle
 % \input{chapters/expertspage.tex} % 专家清单页，如果是 博士学位论文，请将注释去掉。
@@ -34,11 +35,12 @@
 \copyrightpage
 
 \frontmatter
+\input{chapters/acknowledgements.tex} % 致谢页，硕博 请将该行注释去掉。
 \input{chapters/abstract.tex}
 \tableofcontents
 \listoffigures
 \listoftables
-\input{chapters/notation.tex}
+\input{chapters/notation.tex} % [符号说明]
 
 \mainmatter
 \input{chapters/intro.tex}
@@ -52,8 +54,6 @@
 
 \appendix
 \input{chapters/complementary.tex}
-
-\input{chapters/acknowledgements.tex}
-\input{chapters/publications.tex}
-
+\input{chapters/publications.tex} % 已发表论文列表
+\input{chapters/acknowledgements.tex} % 致谢页，本科生 请将该行注释去掉。
 \end{document}

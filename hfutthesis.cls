@@ -414,9 +414,9 @@
 \RequirePackage[perpage]{footmisc}
 \RequirePackage{url}
 \RequirePackage{calc}
-\RequirePackage{ulem} %提供排版可断行下划线的命令\uline
-\RequirePackage{multirow} %纵向合并单元格
-\RequirePackage[list=off]{bicaption}
+\RequirePackage{ulem} % 提供排版可断行下划线的命令\uline
+\RequirePackage{multirow} % 纵向合并单元格
+\RequirePackage[list=off]{bicaption} % 图表中英文标题
 
 % 如果用户在导言区未调用 \pkg{biblatex}，则自动调用 \pkg{natbib}。
 \AtEndPreamble{
@@ -1463,15 +1463,20 @@
 \let\sectionmark\@gobble
 \renewcommand\headrulewidth{0.4\p@}
 
-% 重定义默认的 |plain| page style，会显示页眉和页脚。
-\fancypagestyle{plain}{%
+% 重定义默认的 |myheadings| page style，会显示页眉和页脚。
+\fancypagestyle{myheadings}{%
   \fancyhf{}%
   %
   % 页眉与该部分的章标题相同，宋体 10.5 磅（五号）居中。
   % 页码：宋体 10.5 磅、页面下脚居中。
   \ifhfut@degree@graduate
     \def\hfut@hf@font{\fontsize{10.5bp}{12bp}\selectfont}
-    \fancyhead[C]{\hfut@hf@font\leftmark}%
+    \fancyhead[OC]{\hfut@hf@font\leftmark}%
+    \ifhfut@degree@doctor
+      \fancyhead[EC]{\hfut@hf@font 合肥工业大学博士研究生学位论文}%
+    \else
+      \fancyhead[EC]{\hfut@hf@font 合肥工业大学\hfut@degreetype@name 研究生学位论文}%
+    \fi
     \fancyfoot[C]{\hfut@hf@font\thepage}%
     \let\@mkboth\markboth
     \def\chaptermark##1{%
@@ -1484,14 +1489,14 @@
     % 用小 5 号字（9 bp）标注“合肥工业大学毕业设计（论文）”，居中；
     % 从正文页开始在每面底部居中用小五宋体（9 bp）连续编页码。
     \def\hfut@hf@font{\fontsize{9bp}{12bp}\selectfont}
-    \fancyhead[C]{\hfut@hf@font 合肥工业大学毕业设计（论文）}%
+    \fancyhead[C]{\hfut@hf@font 合肥工业大学毕业\hfut@ugtype}%
     \fancyfoot[C]{\hfut@hf@font\thepage}%
     \let\@mkboth\@gobbletwo
     \let\chaptermark\@gobble
     \let\sectionmark\@gobble
   \fi
 }
-\pagestyle{plain}
+\pagestyle{myheadings}
 
 % |headings| 只有页眉，没有页脚，用于研究生的符号说明和本科生的 front matter。
 \fancypagestyle{headings}{
@@ -1529,8 +1534,18 @@
     \clearpage
     \pagenumbering{arabic}%
   \fi
-  \pagestyle{plain}%
+  \pagestyle{myheadings}%
   \@mainmattertrue
+}
+
+% 研究生要求"参考文献"起 无页眉，但是本科生仍然有页眉。
+\renewcommand\backmatter{%
+  \ifhfut@degree@graduate
+    \clearpage
+    \pagestyle{plain}%
+  \else
+    \clearpage
+  \fi
 }
 
 \g@addto@macro\appendix{\@mainmattertrue}%
@@ -1556,7 +1571,7 @@
   stuID = {
     default = {学号},
   },
-  Cnum  = {
+  clc  = {
     default = {分类号},
   },
   author* = {
@@ -1806,13 +1821,13 @@
         \textbf{单位代码：\hfut@underline{10359} \hfill
         密\hspace{1em}级：\hfut@underline{公开}} \par
         \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
-        分类号：\hfut@underline{\hfut@Cnum}} \par}
+        分类号：\hfut@underline{\hfut@clc}} \par}
       \else
         {\sffamily\fontsize{12bp}{20bp}\selectfont
         \textbf{单位代码：\hfut@underline{10359} \hfill
         密\hspace{1em}级：\hfut@underline{\hfut@secret@level \bigstar \hfut@secret@year}} \par
         \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
-        分类号：\hfut@underline{\hfut@Cnum}} \par}
+        分类号：\hfut@underline{\hfut@clc}} \par}
       \fi
     \fi
 
@@ -1908,13 +1923,13 @@
       \textbf{单位代码：\hfut@underline{10359} \hfill
       密\hspace{1em}级：\hfut@underline{公开}} \par
       \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
-      分类号：\hfut@underline{\hfut@Cnum}} \par}
+      分类号：\hfut@underline{\hfut@clc}} \par}
     \else
       {\sffamily\fontsize{12bp}{20bp}\selectfont
       \textbf{单位代码：\hfut@underline{10359} \hfill
       密\hspace{1em}级：\hfut@underline{\hfut@secret@level \bigstar \hfut@secret@year}} \par
       \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
-      分类号：\hfut@underline{\hfut@Cnum}} \par}
+      分类号：\hfut@underline{\hfut@clc}} \par}
     \fi
     
     \vskip 1.3cm
@@ -2434,6 +2449,7 @@
 \newenvironment{abstract}{%
   \hfutsetup{language=chinese}%
   \ifhfut@degree@graduate
+    \pagestyle{plain}
     \hfut@chapter{摘要}%
   \else
     \pagestyle{empty}
@@ -2451,13 +2467,13 @@
 
 % 英文摘要环境
 \newenvironment{abstract*}{%
-% TODO
-  \pagestyle{empty}%
   \hfutsetup{language=english}%
   \ifhfut@degree@graduate
     \hfut@chapter[Abstract]{ABSTRACT}%
+    \pagestyle{plain}
   \else
     \begingroup
+      \pagestyle{empty}%
       \ctexset{chapter/format=\centering\Large\selectfont\bfseries}%
       \chapter*{ABSTRACT}%
     \endgroup
@@ -2493,6 +2509,8 @@
     %\pagenumbering{arabic}%
     \pagestyle{empty}%
     \hfut@tocloadedtrue
+  \else
+    \pagestyle{plain}%
   \fi
   \hfut@chapter{\contentsname}%
   \@starttoc{toc}%
@@ -2604,11 +2622,10 @@
 % \subsection{符号说明}
 
 % 研究生规定符号说明另页起，标题字体字号等同论文正文，
-% 《撰写手册》第 9 页 1.10(2) 还规定“符号说明不加页码”。
 \newenvironment{notation}{%
   \ifhfut@degree@graduate
     \cleardoublepage
-    \pagestyle{empty}%
+    \pagestyle{plain}%
   \fi
   \hfut@chapter{\hfut@notation@name}%
 }{%
