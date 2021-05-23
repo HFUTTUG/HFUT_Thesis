@@ -45,6 +45,10 @@
 \RequirePackage{kvsetkeys}
 \RequirePackage{kvoptions}
 
+% 对比文本
+
+\RequirePackage{xstring}
+
 % 提供一个 \cs{hfutsetup} 命令支持 \emph{key-value} 的方式来设置。
 \let\hfut@setup@hook\@empty
 \newcommand\hfutsetup[1]{%
@@ -1553,11 +1557,13 @@
   \else
     \clearpage
   \fi
+  \hfut@appendixfalse
 }
 
 \g@addto@macro\appendix{
   \renewcommand\thechapter{\@arabic\c@chapter}
   \@mainmattertrue
+  \hfut@appendixtrue
 }%
 
 \ctexset{appendix/number=\arabic{chapter}}
@@ -2313,17 +2319,18 @@
         0.5\baselineskip
       \fi
     },
-    % tocline     = {
-    %   \if@mainmatter
-    %     \if \@chapapp \appendixname
-    %       附录~\arabic{chapter}~#2
-    %     \else
-    %       第\chinese{chapter}章~#2
-    %     \fi
-    %   \else
-    %     \CTEXnumberline{#1}#2
-    %   \fi
-    % },
+    tocline     = {
+      \if@mainmatter
+        %\if \@chapapp \appendixname
+        \ifhfut@appendix
+          {附录~\arabic{chapter}~~#2}
+        \else
+          {第\chinese{chapter}章~#2}
+        \fi
+      \else
+        \CTEXnumberline{#1}#2
+      \fi
+    },
     afterskip   = {
       \if@mainmatter
         \baselineskip
@@ -2567,6 +2574,9 @@
 % 判断是否已经加载目录，用于提醒本科生更改摘要和致谢的顺序。
 \newif\ifhfut@tocloaded
 
+% 判断是否在附录中
+\newif\ifhfut@appendix
+
 % 研究生规定目录另面起；
 % 本科生规定从正文起标页码。
 \renewcommand\tableofcontents{%
@@ -2592,23 +2602,23 @@
 \ifhfut@degree@graduate
   \titlecontents{chapter}
     [\z@]{\fontsize{12bp}{20bp}\bfseries\selectfont}
-    {\contentspush{\thecontentslabel\hspace{\ccwd}}}{}
+    {\contentspush{\thecontentslabel\hspace{0.5\ccwd}}}{}
     {\fontsize{12bp}{20bp}\selectfont\hfut@leaders\contentspage}
     %
     % 一级节标题目录要求宋体 12 磅，单倍行距，左缩进一字，段前 6 磅，段后 0 磅，
     % 两端对齐，页码右对齐，序号与题名间空一字。
     % Word 模板中实际是行距 20 磅，段前 0 磅。
   \titlecontents{section}
-    [\ccwd]{\fontsize{12bp}{20bp}\selectfont}
-    {\contentspush{\thecontentslabel\hspace{\ccwd}}}{}
+    [2\ccwd]{\fontsize{12bp}{20bp}\selectfont}
+    {\contentspush{\thecontentslabel\hspace{0.5\ccwd}}}{}
     {\fontsize{12bp}{20bp}\selectfont\hfut@leaders\contentspage}
     %
     % 二级节标题目录要求宋体 12 磅，单倍行距，左缩进两字，段前 6 磅，段后 0 磅，
     % 两端对齐，页码右对齐，序号与题名间空一字。
     % Word 模板中实际是行距 20 磅，段前 0 磅。
   \titlecontents{subsection}
-    [2\ccwd]{\fontsize{12bp}{20bp}\selectfont}
-    {\contentspush{\thecontentslabel\hspace{\ccwd}}}{}
+    [4\ccwd]{\fontsize{12bp}{20bp}\selectfont}
+    {\contentspush{\thecontentslabel\hspace{0.5\ccwd}}}{}
     {\fontsize{12bp}{20bp}\selectfont\hfut@leaders\contentspage}
     %
     % 本科生的目录使用小四宋体（同正文字体），其他同研究生的格式相近。
