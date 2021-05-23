@@ -17,7 +17,7 @@ NOMENCL_PKGS="nomencl koma-script xkeyval";
 
 BIN_PKGS="latexmk l3build";
 REQUIRED_PKGS="$XETEX_PKGS $CTEX_PKGS caption footmisc filehook \
-    titlesec unicode-math";
+    titlesec unicode-math ulem multirow bicaption";
 FONT_PKGS="fandol tex-gyre xits";
 EXTRA_PKGS="$ALGORITHM2E_PKGS $HYPERREF_PKGS $NOMENCL_PKGS siunitx";
 DOC_PKGS="booktabs listings xcolor";
