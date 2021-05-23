@@ -1,0 +1,25 @@
+name: Test
+
+on: [push]
+
+jobs:
+  test:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: Install TeX Live
+      run: bash .github/workflows/install-texlive.sh
+    - name: Test thesis
+      run: |
+        export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
+        make main
+    - name: Test doc
+      run: |
+        export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
+        make doc
+    - name: l3build check
+      run: |
+        export PATH=/tmp/texlive/bin/x86_64-linux:$PATH
+        make test
