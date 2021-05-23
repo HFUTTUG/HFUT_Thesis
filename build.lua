@@ -1,6 +1,6 @@
 #!/usr/bin/env texlua
 
-module = "ustcthesis"
+module = "hfutthesis"
 
 testfiledir = "./test/testfiles"
 testsuppdir = testfiledir .. "/support"
@@ -8,7 +8,7 @@ testsuppdir = testfiledir .. "/support"
 demofiles = {"main.tex", "bib", "chapters"}
 installfiles = {"*.cls", "*.bst", "figures"}
 sourcefiles = {"*.cls", "*.bst", "figures"}
-tagfiles = {"*.cls", "ustcthesis-doc.tex", "CHANGELOG.md", "main.tex"}
+tagfiles = {"*.cls", "hfutthesis-doc.tex", "CHANGELOG.md", "main.tex"}
 
 checkengines = {"xetex"}
 stdengine = "xetex"
@@ -28,15 +28,15 @@ lvtext = ".tex"
 
 function update_tag(file, content, tagname, tagdate)
   local iso = "%d%d%d%d%-%d%d%-%d%d"
-  local url = "https://github.com/ustctug/ustcthesis"
+  local url = "https://github.com/HFUTTUG/HFUT_Thesis"
   local date = string.gsub(tagdate, "%-", "/")
   if string.match(file, "%.cls$") then
-    if string.match(content, "\\newcommand\\ustcthesisversion{v[0-9.]+}") then
-      content = string.gsub(content, "\\newcommand\\ustcthesisversion{v[0-9.]+",
-      "\\newcommand\\ustcthesisversion{" .. tagname)
+    if string.match(content, "\\newcommand\\hfutthesisversion{v[0-9.]+}") then
+      content = string.gsub(content, "\\newcommand\\hfutthesisversion{v[0-9.]+",
+      "\\newcommand\\hfutthesisversion{" .. tagname)
     end
 
-    if string.match(content, "\\ProvidesClass{ustcthesis}%[%d%d%d%d/%d%d/%d%d v[0-9.]+") then
+    if string.match(content, "\\ProvidesClass{hfutthesis}%[%d%d%d%d/%d%d/%d%d v[0-9.]+") then
       content = string.gsub(content, "%d%d%d%d/%d%d/%d%d",
         date)
     end

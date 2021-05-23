@@ -1,11 +1,11 @@
 MAIN = main
-NAME = ustcthesis
+NAME = hfutthesis
 CLSFILES = $(NAME).cls
 BSTFILES = $(NAME)-numerical.bst $(NAME)-authoryear.bst $(NAME)-bachelor.bst
 
 SHELL = bash
 LATEXMK = latexmk -xelatex
-VERSION = $(shell cat $(NAME).cls | egrep -o "\\ustcthesisversion{v[0-9.]+" \
+VERSION = $(shell cat $(NAME).cls | egrep -o "\\hfutthesisversion{v[0-9.]+" \
 	  | egrep -o "v[0-9.]+")
 TEXMF = $(shell kpsewhich --var-value TEXMFHOME)
 
@@ -48,6 +48,6 @@ zip : main doc
 	ln -sf . $(NAME)
 	zip -r ../$(NAME)-$(VERSION).zip $(NAME)/{*.md,LICENSE,\
 	$(NAME)-doc.tex,$(NAME)-doc.pdf,$(NAME).cls,*.bst,*.bbx,*.cbx,figures,\
-	$(MAIN).tex,ustcsetup.tex,chapters,bib,$(MAIN).pdf,\
+	$(MAIN).tex,hfutsetup.tex,chapters,bib,$(MAIN).pdf,\
 	latexmkrc,Makefile}
 	rm $(NAME)
