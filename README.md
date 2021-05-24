@@ -1,7 +1,7 @@
 # 合肥工业大学学位论文 LaTeX 模板
 
 [![GitHub release](https://img.shields.io/github/release/HFUTTUG/HFUT_Thesis/all.svg)](https://github.com/HFUTTUG/HFUT_Thesis/releases/latest)
-[![Overleaf](https://img.shields.io/badge/overleaf-hfutthesis-brightgreen.svg)](https://www.overleaf.com/)
+[![Overleaf](https://img.shields.io/badge/overleaf-hfutthesis-brightgreen.svg)](https://www.overleaf.com/latex/templates/hfut-thesis/ythwdqdkpvkp)
 [![GitHub commits](https://img.shields.io/github/commits-since/HFUTTUG/HFUT_Thesis/latest.svg)](https://github.com/HFUTTUG/HFUT_Thesis/commits/master)
 ![visitors](https://visitor-badge.glitch.me/badge?page_id=HFUTTUG.Thesis)
 
@@ -27,7 +27,7 @@
 
 - GitHub Releases：https://github.com/HFUTTUG/HFUT_Thesis/releases
 
-- Overleaf 模板 https://www.overleaf.com/
+- Overleaf 模板：https://www.overleaf.com/latex/templates/hfut-thesis/ythwdqdkpvkp
 
 
 ## 编译文档
