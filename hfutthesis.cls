@@ -2002,14 +2002,14 @@
       合\hspace{1.5\ccwd}肥\hspace{1.5\ccwd}工\hspace{1.5\ccwd}业\hspace{1.5\ccwd}大\hspace{1.5\ccwd}学\par}%
     \vskip 1.8cm%
     \ifhfut@degree@master
-      {\sffamily\fontsize{21bp}{\baselineskip}\selectfont
+      {\sffamily\fontsize{22bp}{\baselineskip}\selectfont
       \textbf{\hfut@degreetype@name 学位论文}\par}% 空格不可忽略
     \else
       {\sffamily\fontsize{22bp}{\baselineskip}\selectfont
       \textbf{\hfut@thesis@name}\par}%
     \fi
     \vskip 1.8cm%
-    {\fontsize{22bp}{\baselineskip}\selectfont
+    {\fontsize{22bp}{30bp}\selectfont
     \textbf{\hfut@title}\par}%
     \ifhfut@degree@bachelor
       \vskip 7.9cm
