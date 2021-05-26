@@ -317,7 +317,7 @@
       inline,
       authoryear,
     },
-    default = super, % TODO
+    default = super,
   },
   output = {
     choices = {
@@ -555,7 +555,15 @@
     \else
       \def\hfut@acknowledgements@name{致\hspace{\ccwd}谢}%
     \fi
-    \def\hfut@publication@name{在读期间发表的学术论文与取得的研究成果}%
+    \ifhfut@degree@bachelor
+      \def\hfut@publication@name{攻读学士学位期间的学术活动及成果情况}%
+    \else
+      \ifhfut@degree@master
+        \def\hfut@publication@name{攻读硕士学位期间的学术活动及成果情况}%
+      \else
+        \def\hfut@publication@name{攻读博士学位期间的学术活动及成果情况}%
+      \fi
+    \fi
     \newcommand\hfut@notation@name{符号说明}%
   \else
     \def\contentsname{Contents}%
@@ -1971,7 +1979,7 @@
     \end{tabular}
 
     \vskip 1.5cm%
-    % TODO
+    % TODO 解决title@en行距
     {\linespread{1.5}\fontsize{16bp}{50bp}\selectfont
     \textbf{\uline{\hfut@title@en}}
     }
@@ -2537,7 +2545,7 @@
     \hfut@chapter[摘要]{摘\hspace{\ccwd}要}%
   \else
     \pagestyle{empty}
-    \chapter*{摘\hspace{\ccwd}要}%
+    \hfut@chapter[摘要]{摘\hspace{\ccwd}要}%
     % \ifhfut@tocloaded\else
     %   本科生需要手动将摘要置于目录后。\par
     % \fi
@@ -3246,12 +3254,9 @@
 \newenvironment{acknowledgements}{%
   \@mainmatterfalse
   \ifhfut@degree@graduate
-    \chapter*{\hfut@acknowledgements@name}%
+    \hfut@chapter[致谢]{\hfut@acknowledgements@name}%
   \else
-    \chapter*{\hfut@acknowledgements@name}%
-%    \ifhfut@tocloaded
-%      本科生需要手动将致谢置于目录前。\par
-%    \fi
+    \chapter{致谢}%
   \fi
 }{}
 
