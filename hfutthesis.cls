@@ -14,8 +14,8 @@
 %
 
 \NeedsTeXFormat{LaTeX2e}[2017/04/15]
-\newcommand\hfutthesisversion{v1.0.0}
-\ProvidesClass{hfutthesis}[2021/05/23 {\hfutthesisversion} hfut thesis template]
+\newcommand\hfutthesisversion{v1.0.1}
+\ProvidesClass{hfutthesis}[2021/05/26 {\hfutthesisversion} hfut thesis template]
 
 % 报错和警告
 \newcommand\hfut@error[1]{%
@@ -1816,6 +1816,7 @@
 % 注意这里的“单倍行距”的地方开启了“对齐到网格”，所以实际行距有所偏差，
 % 所以只能使用直尺测量。
 \newcommand\hfut@speciality@sse{软件工程}
+% 生成空的下划线
 \newcommand\hfut@underline[2][3.4cm]{\underline{\hb@xt@ #1{\hss#2\hss}}}
 \newcommand\hfut@makecover{%
   \hfutsetup{language=chinese}%
@@ -1827,13 +1828,12 @@
         {\sffamily\fontsize{12bp}{20bp}\selectfont
         \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
         密\hspace{1em}级：\hfut@underline{公开} } \par}
-        %\vskip 0.5cm%
       \else
         {\sffamily\fontsize{12bp}{20bp}\selectfont
         \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
         密\hspace{1em}级：\hfut@underline{\hfut@secret@level\bigstar\hfut@secret@year} } \par}
-        %\vskip 0.5cm%
       \fi
+      \vskip 1.15cm%
     \else
       \ifx\hfut@secret@level\@empty
         {\sffamily\fontsize{12bp}{20bp}\selectfont
@@ -1848,21 +1848,23 @@
         \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
         分类号：\hfut@underline{\hfut@clc}} \par}
       \fi
+      \vskip 1.8cm%
     \fi
 
-    \vskip 1.8cm%
-    \includegraphics[height=1.5cm]{figures/hfut-name.pdf}\par
+    \includegraphics[height=1.4cm]{figures/hfut-name.pdf}\par
     \vskip 0.3cm
     {\fontsize{22bp}{22bp}\selectfont\textbf{Hefei University of Technology}\par}
-    \vskip 0.9cm%
     \ifhfut@degree@bachelor
+      \vskip 1.1cm%
       {\sffamily\fontsize{42bp}{42bp}\selectfont
       \textbf{\hfut@thesis@name}\par}%
+      \vskip 0.6cm
     \else
+      \vskip 1.0cm%
       {\sffamily\fontsize{48bp}{48bp}\selectfont
       \textbf{\hfut@thesis@name}\par}%
+      \vskip 0.5cm
     \fi
-    \vskip 0.6cm
     {\fontsize{22bp}{22bp}\selectfont
     \textbf{\hfut@thesis@name@encover}\par}%
     \ifhfut@degree@master
@@ -1871,13 +1873,16 @@
       \vskip 0.9cm%
       \ifhfut@badge@color@red
         \textcolor{hfutred}{%
-          \includegraphics[height=3.78cm]{figures/hfut-badge.pdf}}%
+          \includegraphics[height=3.6cm]{figures/hfut-badge.pdf}}%
       \else
-        \includegraphics[height=3.78cm]{figures/hfut-badge.pdf}%
+        \includegraphics[height=3.6cm]{figures/hfut-badge.pdf}%
       \fi\par
     \fi
-
-    \vfill
+    \ifhfut@degree@bachelor
+      \vskip 1.5cm
+    \else
+      \vfill
+    \fi
     \renewcommand\arraystretch{1.75}
     \ifhfut@degree@bachelor
       {\fontsize{16bp}{20bp}\selectfont
@@ -1900,8 +1905,8 @@
         \cline{2-2}
       \end{tabular}\par}%
     \else
-      \begin{tabular}{@{}lp{8.4cm}@{}}%
-        {\fontsize{16bp}{20bp}\selectfont\textbf{论文题目：}} & \multirow[t]{2}{8.4cm}{
+      \begin{tabular}{@{}lp{8.5cm}@{}}%
+        {\fontsize{16bp}{20bp}\selectfont\textbf{论文题目：}} & \multirow[t]{2}{8.5cm}{
           \centering\linespread{1.75}\fontsize{16bp}{20bp}\selectfont
           \hfut@title} \\
         \cline{2-2}
@@ -1909,7 +1914,7 @@
         \cline{2-2}
       \end{tabular}
       \renewcommand\arraystretch{1.75}
-      \begin{tabular}{@{}>{\fontsize{16bp}{20bp}\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{20bp}\selectfont}p{8.4cm}@{}}
+      \begin{tabular}{@{}>{\fontsize{16bp}{20bp}\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{20bp}\selectfont}p{8.5cm}@{}}
         \ifhfut@degree@master
           \textbf{学位类别：} & \hfut@degreetype@name\\
           \cline{2-2}
@@ -1951,13 +1956,14 @@
       分类号：\hfut@underline{\hfut@clc}} \par}
     \fi
     
-    \vskip 1.3cm
+    \vskip 2.1cm
     {\sffamily\fontsize{22bp}{27.5bp}\selectfont
     \textbf{博\hspace{0.5\ccwd}士\hspace{0.5\ccwd}学\hspace{0.5\ccwd}位\hspace{0.5\ccwd}论\hspace{0.5\ccwd}文}\par}%
-    \vskip 1.5cm
-    \begin{tabular}{@{}p{11.0cm}@{}}%
-        \multirow[t]{2}{11.0cm}{
-        \centering\fontsize{16bp}{24bp}\selectfont
+    \vskip 1.3cm
+    \renewcommand\arraystretch{1.5}
+    \begin{tabular}{@{}p{11.4cm}@{}}%
+        \multirow[t]{2}{11.4cm}{
+        \centering\linespread{1.5}\fontsize{16bp}{24bp}\selectfont
         \textbf{\hfut@title}} \\
       \cline{1-1}
               \\
@@ -1965,19 +1971,20 @@
     \end{tabular}
 
     \vskip 1.5cm%
+    % TODO
+    {\linespread{1.5}\fontsize{16bp}{50bp}\selectfont
+    \textbf{\uline{\hfut@title@en}}
+    }
 
-    {\fontsize{16bp}{25bp}\selectfont
-    \textbf{\uline{\hfut@title@en}}}
+    \vskip 4.5cm%
 
-    \vskip 4.7cm%
-
-    {\linespread{1.8}\fontsize{15bp}{\baselineskip}\selectfont
+    {\linespread{1.5}\fontsize{15bp}{\baselineskip}\selectfont
       \textbf{作者姓名：}\underlineFixlen{\hfut@author} \hfill \textbf{导师姓名：}\underlineFixlen{\hfut@supervisor@names} \par
       \textbf{申请学位：}\underlineFixlen{\hfut@applydegree} \hfill \textbf{培养单位：}\underlineFixlen{\hfut@school} \par
       \textbf{学科专业：}\underlineFixlen{\hfut@speciality} \hfill \textbf{研究方向：}\underlineFixlen{\hfut@research} \par
       \textbf{提交日期：}\underlineFixlen{\hfut@date@zh} \hfill \textbf{答辩日期：}\underlineFixlen{\hfut@defensedate} \par
     }
-    \vskip 1.5cm
+    \vskip 1.3cm
     \renewcommand\arraystretch{1.5}
     \begin{tabular}{@{}>{\fontsize{15bp}{22.5bp}\selectfont}p{15.9cm}@{}}%
       \textbf{答辩委员会主席：} \hfut@phd@chairman \\
@@ -1999,23 +2006,23 @@
   \begin{titlepage}%
     \hfut@pdfbookmark{中文内封页}%
     \centering
-    {\sffamily\fontsize{22bp}{\baselineskip}\selectfont
+    {\sffamily\fontsize{22bp}{40bp}\selectfont
       合\hspace{1.5\ccwd}肥\hspace{1.5\ccwd}工\hspace{1.5\ccwd}业\hspace{1.5\ccwd}大\hspace{1.5\ccwd}学\par}%
     \vskip 1.8cm%
     \ifhfut@degree@master
-      {\sffamily\fontsize{22bp}{\baselineskip}\selectfont
+      {\sffamily\fontsize{22bp}{1.25\baselineskip}\selectfont
       \textbf{\hfut@degreetype@name 学位论文}\par}% 空格不可忽略
     \else
-      {\sffamily\fontsize{22bp}{\baselineskip}\selectfont
+      {\sffamily\fontsize{22bp}{1.25\baselineskip}\selectfont
       \textbf{\hfut@thesis@name}\par}%
     \fi
     \vskip 1.8cm%
     {\fontsize{22bp}{30bp}\selectfont
     \textbf{\hfut@title}\par}%
     \ifhfut@degree@bachelor
-      \vskip 7.9cm
+      \vskip 6.5cm
     \else
-      \vskip 9.5cm%
+      \vskip 8cm%
     \fi
     {\fontsize{16bp}{\baselineskip}\selectfont
       \begin{tabular}{@{}lp{14em}<{\centering}@{}}%
@@ -2080,20 +2087,22 @@
   \begin{titlepage}%
     \hfut@pdfbookmark{English inner cover}%
     \centering
-    \vskip 1.2cm%
+    \vspace*{0.5cm}%
     {\fontsize{16bp}{30bp}\selectfont
     \hfut@thesis@name@en\par}%
-    \vskip 2.3cm%
+    \vskip 2.0cm%
     {\fontsize{18bp}{30bp}\selectfont
     \textbf{\hfut@title@en}\par}%
     \vskip 1.2cm%
     {\fontsize{16bp}{30bp}\selectfont
     By\par
     \hfut@author@en\par}%
-
-    \vfill
-    
-    {\fontsize{16bp}{30bp}\selectfont
+    \ifhfut@degree@doctor
+      \vskip 7.0cm
+    \else
+      \vskip 10.0cm
+    \fi
+    {\fontsize{16bp}{31bp}\selectfont
     Hefei University of Technology\par
     Hefei, Anhui, P.R.China\par
     \hfut@date@en\par}%
@@ -2183,14 +2192,13 @@
   印、缩印或扫描等复制手段保存、汇编毕业设计（论文）。\par%
   （保密的毕业设计（论文）在解密后适用本授权书）}
   %
-  % 生成空的下划线
-\renewcommand\hfut@underline[2][3.2cm]{\underline{\hb@xt@ #1{\hss#2\hss}}}
+  
 
 \newcommand\copyrightpage{%
   \begin{titlepage}%
     \hfut@pdfbookmark{原创性和授权使用声明}%
     \null
-    \renewcommand\arraystretch{1.25}
+    \renewcommand\arraystretch{1.5}
     \ifhfut@degree@bachelor
       {\centering\sffamily\fontsize{18bp}{\baselineskip}\selectfont
       \textbf{毕业设计（论文）独创性声明}\par}%
@@ -2204,7 +2212,7 @@
       \textbf{毕业设计（论文）版权使用授权书}\par}%
       \vskip 1.0cm%
       \hfut@authorization@bachelor\par
-      \vfill%
+      \vskip 1.0cm%
       \begin{tabular}{@{}p{6.5cm}p{6.5cm}@{}}%
         学位论文作者签名：& 指导教师签名：\\
         签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日 & 签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日
@@ -2228,13 +2236,14 @@
         签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日 & 签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日\\
       \end{tabular}\par
       \vskip 0.6cm
-      \renewcommand\arraystretch{1}
+      \renewcommand\arraystretch{1.1}
       \begin{tabular}{@{}p{6.5cm}p{6.5cm}@{}}%
         论文作者毕业去向 & \\
         工作单位：& \\
         联系电话：& E-mail：\\
         通讯地址：& 邮政编码：
       \end{tabular}\par
+      \renewcommand\arraystretch{1}
     \fi
   \end{titlepage}%
 }
