@@ -317,6 +317,7 @@
       inline,
       authoryear,
     },
+    default = super, % TODO
   },
   output = {
     choices = {
@@ -2205,7 +2206,7 @@
       \hfut@authorization@bachelor\par
       \vfill%
       \begin{tabular}{@{}p{6.5cm}p{6.5cm}@{}}%
-        学位论文作者签名：& 学位论文作者签名：\\
+        学位论文作者签名：& 指导教师签名：\\
         签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日 & 签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日
       \end{tabular}\par
     \else
