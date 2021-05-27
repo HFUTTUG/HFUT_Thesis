@@ -424,6 +424,7 @@
 \RequirePackage{calc}
 \RequirePackage{ulem} % 提供排版可断行下划线的命令\uline
 \RequirePackage{multirow} % 纵向合并单元格
+\RequirePackage{enumitem} % enumberate
 \RequirePackage[list=off]{bicaption} % 图表中英文标题
 
 % 如果用户在导言区未调用 \pkg{biblatex}，则自动调用 \pkg{natbib}。
@@ -2470,21 +2471,38 @@
       nameformat = \rmfamily\bfseries,
     },
     subsection = {
-      format    = \rmfamily\bfseries\fontsize{12bp}{22bp}\selectfont,
+      format     = \rmfamily\bfseries\fontsize{12bp}{22bp}\selectfont,
       beforeskip = 11bp,
       afterskip  = 11bp, 
-      indent    = \z@,
+      indent     = \z@,
     },
     subsubsection = {
-      format    = \rmfamily\fontsize{12bp}{22bp}\selectfont,
-      beforeskip = 11bp,
-      afterskip  = 11bp, 
-      indent    = \ccwd,
+      format     = \rmfamily\fontsize{12bp}{22bp}\selectfont,
+      number     = (\arabic{subsubsection}),
+      aftername  = \hspace{0.5\ccwd},
+      beforeskip = \z@,
+      afterskip  = \z@,
+      indent     = 2\ccwd,
     },
     paragraph = {
-      format    = \rmfamily\fontsize{12bp}{22bp}\selectfont,
-      aftername = {},
-      indent    = \ccwd,
+      format     = \rmfamily\bfseries\fontsize{12bp}{22bp}\selectfont,
+      number     = {},
+      name       = {},
+      aftername  = {},
+      beforeskip = \z@,
+      afterskip  = \ccwd, 
+      indent     = 2\ccwd,
+      runin      = true,
+    },
+    subparagraph = {
+      format     = \rmfamily\fontsize{12bp}{22bp}\selectfont,
+      number     = {},
+      name       = {},
+      aftername  = {},
+      beforeskip = \z@,
+      afterskip  = \ccwd, 
+      indent     = 2\ccwd,
+      runin      = true,
     },
   }
   %
