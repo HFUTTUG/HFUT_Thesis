@@ -1977,15 +1977,12 @@
               \\
       \cline{1-1}
     \end{tabular}
-
     \vskip 1.5cm%
-    % TODO 解决title@en行距
-    {\linespread{1.5}\fontsize{16bp}{50bp}\selectfont
-    \textbf{\uline{\hfut@title@en}}
-    }
-
-    \vskip 4.5cm%
-
+    \linespread{1.5}
+    \fontsize{16bp}{\baselineskip}\selectfont
+    \textbf{\uline{\hfut@title@en}}\par%
+    \linespread{1}\selectfont%
+    \vskip 3.5cm%
     {\linespread{1.5}\fontsize{15bp}{\baselineskip}\selectfont
       \textbf{作者姓名：}\underlineFixlen{\hfut@author} \hfill \textbf{导师姓名：}\underlineFixlen{\hfut@supervisor@names} \par
       \textbf{申请学位：}\underlineFixlen{\hfut@applydegree} \hfill \textbf{培养单位：}\underlineFixlen{\hfut@school} \par
