@@ -1577,10 +1577,10 @@
 }%
 % \subsection{附录}
 % TODO 处理附录编号问题
-\ifhfut@degree@bachelor
-  \ctexset{appendix/numbering=false}
-  \chapter{附录}
-\fi
+%\ifhfut@degree@bachelor
+%  \ctexset{appendix/numbering=false}
+%  \chapter{附录}
+% \fi
 % 研究生附录按照附录1、附录2编号；本科生附录不编号
 % \renewcommand\appendix{%
   % \ifhfut@degree@bachelor
