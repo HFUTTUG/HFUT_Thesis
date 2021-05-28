@@ -422,7 +422,7 @@
 \RequirePackage[perpage]{footmisc}
 \RequirePackage{url}
 \RequirePackage{calc}
-\RequirePackage{ulem} % 提供排版可断行下划线的命令\uline
+\RequirePackage[normalem]{ulem} % 提供排版可断行下划线的命令\uline
 \RequirePackage{multirow} % 纵向合并单元格
 \RequirePackage{enumitem} % enumberate
 \RequirePackage[list=off]{bicaption} % 图表中英文标题
