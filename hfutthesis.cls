@@ -1510,7 +1510,7 @@
     % 用小 5 号字（9 bp）标注“合肥工业大学毕业设计（论文）”，居中；
     % 从正文页开始在每面底部居中用小五宋体（9 bp）连续编页码。
     \def\hfut@hf@font{\fontsize{9bp}{12bp}\selectfont}
-    \fancyhead[C]{\hfut@hf@font 合肥工业大学毕业\hfut@ugtype}%
+    \fancyhead[C]{\hfut@hf@font 合肥工业大学毕业设计（论文）}%
     \fancyfoot[C]{\hfut@hf@font\thepage}%
     \let\@mkboth\@gobbletwo
     \let\chaptermark\@gobble
@@ -1575,9 +1575,21 @@
   \@mainmattertrue
   \hfut@appendixtrue
 }%
-
-\ctexset{appendix/number=\arabic{chapter}}
-
+% \subsection{附录}
+% TODO 处理附录编号问题
+\ifhfut@degree@bachelor
+  \ctexset{appendix/numbering=false}
+  \chapter{附录}
+\fi
+% 研究生附录按照附录1、附录2编号；本科生附录不编号
+% \renewcommand\appendix{%
+  % \ifhfut@degree@bachelor
+    % \ctexset{chapter/numbering=false}
+    % \chapter{附录}
+  % \else
+    \ctexset{appendix/number=\arabic{chapter}}
+  % \fi
+% }
 
 % \subsection{封面}
 
@@ -3284,10 +3296,17 @@
   \end{acknowledgements}%
 }
 
-% 发表成果环境：
+% TODO 发表成果环境格式：
 \newenvironment{publications}{%
   \@mainmatterfalse
   \chapter{\hfut@publication@name}%
+  \renewcommand\thesection{\arabic{section}}
+  \setcounter{section}{0}
+  \ctexset{
+    chapter/format = \sffamily\LARGE\selectfont\bfseries,
+    section/name = {,)},
+    section/format = \sffamily\large\selectfont\bfseries,
+  }
 }{}
 
 
