@@ -3238,18 +3238,13 @@
     }%
   }%
   %
-  % 参考文献列表格式：宋体 10.5 磅，行距 20 磅，续行缩进两字，左对齐。
-  % 本科生依然是小四宋体。
+  % 参考文献列表格式：宋体 10.5 磅，行距 20 磅，续行缩进2.5字符，左对齐。
   \renewcommand\bibfont{%
-    \ifhfut@degree@graduate
-      \fontsize{10.5bp}{20bp}\selectfont
-    \else
-      \normalsize
-    \fi
+    \fontsize{10.5bp}{20bp}\selectfont
   }
   \setlength{\bibsep}{0\p@ \@plus.2\p@}
   \renewcommand\@biblabel[1]{[#1]\hfill}
-  \setlength{\bibhang}{2\ccwd}
+  \setlength{\bibhang}{2.5\ccwd}
 }
 
 
@@ -3265,14 +3260,10 @@
   \DeclareRobustCommand\inlinecite{\parencite}
   \defbibheading{bibliography}[\bibname]{\@mainmatterfalse\chapter*{\bibname}}
   \renewcommand\bibfont{%
-    \ifhfut@degree@graduate
-      \fontsize{10.5bp}{20bp}\selectfont
-    \else
-      \normalsize
-    \fi
+    \fontsize{10.5bp}{20bp}\selectfont
   }
   \setlength{\bibitemsep}{0\p@ \@plus.2\p@}
-  \setlength{\bibhang}{2\ccwd}
+  \setlength{\bibhang}{2.5\ccwd}
 }
 
 % \subsection{附录}
@@ -3299,14 +3290,14 @@
 % TODO 发表成果环境格式：
 \newenvironment{publications}{%
   \@mainmatterfalse
-  \chapter{\hfut@publication@name}%
-  \renewcommand\thesection{\arabic{section}}
-  \setcounter{section}{0}
   \ctexset{
-    chapter/format = \sffamily\LARGE\selectfont\bfseries,
+    chapter/format = \centering\sffamily\bfseries\fontsize{18}{\baselineskip}\selectfont,
     section/name = {,)},
     section/format = \sffamily\large\selectfont\bfseries,
   }
+  \chapter{\hfut@publication@name}%
+  \renewcommand\thesection{\arabic{section}}
+  \setcounter{section}{0}
 }{}
 
 
