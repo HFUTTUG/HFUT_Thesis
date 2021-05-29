@@ -2389,39 +2389,39 @@
     afterskip  = 0.5\baselineskip,
   },
   %
-  % 三级及以下节标题的格式没有具体规定，按照 Word 模板的格式：
-  % 使用黑体 12 磅，左缩进两字，行距 20 磅，段前段后 0 磅，序号与题名间空半字宽。
+  % 三级及以下节标题的格式没有具体规定，按照数学学院推荐的方案：
+  % 使用宋体 12 磅，左缩进两字，行距 20 磅，段前段后 0 磅，序号(n)与题名间空半字宽。
   subsubsection = {
     format     = \rmfamily\fontsize{12bp}{\baselineskip}\selectfont,
-    number     = \arabic{subsubsection},
-    aftername  = .\hspace{0.5\ccwd},
-    indent     = 2\ccwd,
-    beforeskip = \z@,
-    afterskip  = \z@,
-  },
-  %
-  % 按照 Word 模板的格式，四级节标题：宋体 12 磅，左缩进两字，行距 20 磅，
-  % 段前段后 0 磅，序号使用全宽括号，与题名间空半字宽。
-  paragraph = {
-    format     = \rmfamily\fontsize{12bp}{20bp}\selectfont,
-    number     = （\arabic{paragraph}）,
+    number     = (\arabic{subsubsection}),
     aftername  = \hspace{0.5\ccwd},
-    indent     = 2\ccwd,
     beforeskip = \z@,
     afterskip  = \z@,
-    runin      = false,
+    indent     = 2\ccwd,
   },
   %
-  % 按照 Word 模板的格式，五级节标题：宋体 12 磅，左缩进两字，行距 20 磅，
-  % 段前段后 0 磅，序号使用全宽括号，与题名间空半字宽。
+  % 采用西文式段标题，runin=true
+  paragraph = {
+    format     = \rmfamily\bfseries\fontsize{12bp}{20bp}\selectfont,
+    number     = {},
+    name       = {},
+    aftername  = {},
+    beforeskip = \z@,
+    afterskip  = \ccwd, 
+    indent     = 2\ccwd,
+    runin      = true,
+  },
+  %
+  % 采用西文式子段标题，runin=true
   subparagraph = {
     format     = \rmfamily\fontsize{12bp}{20bp}\selectfont,
-    number     = \hfut@textcircled{subparagraph},
-    aftername  = \hspace{0.5\ccwd},
-    indent     = 2\ccwd,
+    number     = {},
+    name       = {},
+    aftername  = {},
     beforeskip = \z@,
-    afterskip  = \z@,
-    runin      = false,
+    afterskip  = \ccwd, 
+    indent     = 2\ccwd,
+    runin      = true,
   },
 }
 
@@ -2446,7 +2446,7 @@
   % 论文的致谢、目录、摘要和参考文献等标题用小二号（18 bp）黑体字，居中，
   % 这通过 \cs{if@mainmatter} 区分。
   % 正文中的标题分章、节、段三级；章、节标题居中，段标题居左，
-  % 分别用三号（16 bp）黑体、小三（15 bp）黑体、四号（14 bp）黑体。
+  % 分别用三号（16 bp）黑体、小四（12 bp）黑体、小四（12 bp）黑体。
     chapter = {
       name = {},
       format = {
@@ -3217,6 +3217,15 @@
   % 需要使用节标题 \cs{section}。
   \newcommand\hfut@bib@chapter{%
     \@mainmatterfalse
+    \ifhfut@degree@bachelor
+      \ctexset{
+        chapter/format = {
+          \centering\fontsize{16bp}{22bp}\sffamily\bfseries\selectfont
+        },
+        chapter/beforeskip  = 11bp,
+        chapter/afterskip   = 11bp,
+      }
+    \fi
     \chapter{\bibname}%
   }%
   \newcommand\hfut@bib@section{%
