@@ -1577,7 +1577,7 @@
   \hfut@appendixtrue
 }%
 % \subsection{附录}
-% TODO 处理附录编号问题
+% fakeTODO 处理附录编号问题
 % 研究生附录按照附录1、附录2编号；[数学学院本科生附录不编号，请将以下`\renewcommand\appendix` 取消注释]
 % \renewcommand\appendix{%
 %   \ifhfut@degree@bachelor
@@ -1849,88 +1849,83 @@
     \centering
     \ifhfut@degree@bachelor
       \ifx\hfut@secret@level\@empty
-        {\sffamily\fontsize{12bp}{20bp}\selectfont
-        \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
-        密\hspace{1em}级：\hfut@underline{公开} } \par}
+        {\sffamily\bfseries\fontsize{12bp}{20bp}\selectfont
+        学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
+        密\hspace{1em}级：\hfut@underline{公开} \par}
       \else
-        {\sffamily\fontsize{12bp}{20bp}\selectfont
-        \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
-        密\hspace{1em}级：\hfut@underline{\hfut@secret@level\bigstar\hfut@secret@year} } \par}
+        {\sffamily\bfseries\fontsize{12bp}{20bp}\selectfont
+        学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
+        密\hspace{1em}级：\hfut@underline{\hfut@secret@level\bigstar\hfut@secret@year} \par}
       \fi
       \vskip 1.15cm%
     \else
       \ifx\hfut@secret@level\@empty
-        {\sffamily\fontsize{12bp}{20bp}\selectfont
-        \textbf{单位代码：\hfut@underline{10359} \hfill
-        密\hspace{1em}级：\hfut@underline{公开}} \par
-        \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
-        分类号：\hfut@underline{\hfut@clc}} \par}
+        {\sffamily\bfseries\fontsize{12bp}{20bp}\selectfont
+        单位代码：\hfut@underline{10359} \hfill
+        密\hspace{1em}级：\hfut@underline{公开} \par
+        学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
+        分类号：\hfut@underline{\hfut@clc} \par}
       \else
-        {\sffamily\fontsize{12bp}{20bp}\selectfont
-        \textbf{单位代码：\hfut@underline{10359} \hfill
-        密\hspace{1em}级：\hfut@underline{\hfut@secret@level\bigstar\hfut@secret@year}} \par
-        \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
-        分类号：\hfut@underline{\hfut@clc}} \par}
+        {\sffamily\bfseries\fontsize{12bp}{20bp}\selectfont
+        单位代码：\hfut@underline{10359} \hfill
+        密\hspace{1em}级：\hfut@underline{\hfut@secret@level\bigstar\hfut@secret@year} \par
+        学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
+        分类号：\hfut@underline{\hfut@clc} \par}
       \fi
       \vskip 1.8cm%
     \fi
 
     \includegraphics[height=1.4cm]{figures/hfut-name.pdf}\par
     \vskip 0.3cm
-    {\fontsize{22bp}{22bp}\selectfont\textbf{Hefei University of Technology}\par}
+    {\bfseries\fontsize{22bp}{22bp}\selectfont Hefei University of Technology\par}
     \ifhfut@degree@bachelor
       \vskip 1.1cm%
-      {\sffamily\fontsize{42bp}{42bp}\selectfont
-      \textbf{\hfut@thesis@name}\par}%
+      {\sffamily\bfseries\fontsize{42bp}{42bp}\selectfont
+      \hfut@thesis@name\par}%
       \vskip 0.6cm
     \else
       \vskip 1.0cm%
-      {\sffamily\fontsize{48bp}{48bp}\selectfont
-      \textbf{\hfut@thesis@name}\par}%
+      {\sffamily\bfseries\fontsize{48bp}{48bp}\selectfont
+      \hfut@thesis@name\par}%
       \vskip 0.5cm
     \fi
-    {\fontsize{22bp}{22bp}\selectfont
-    \textbf{\hfut@thesis@name@encover}\par}%
+    {\bfseries\fontsize{22bp}{22bp}\selectfont
+    \hfut@thesis@name@encover \par}%
     \ifhfut@degree@master
-      \null
+      \vskip 3.5cm
     \else
       \vskip 0.9cm%
-      \ifhfut@badge@color@red
-        \textcolor{hfutred}{%
-          \includegraphics[height=3.6cm]{figures/hfut-badge.pdf}}%
-      \else
-        \includegraphics[height=3.6cm]{figures/hfut-badge.pdf}%
-      \fi\par
+      \includegraphics[height=3.6cm]{figures/hfut-badge.pdf}%
     \fi
     \ifhfut@degree@bachelor
       \vskip 1.5cm
     \else
-      \vfill
+      \vskip 2.3cm
     \fi
     \renewcommand\arraystretch{1.75}
     \ifhfut@degree@bachelor
       {\fontsize{16bp}{20bp}\selectfont
-      \begin{tabular}{@{}lc@{}}%
-        \textbf{类\hspace{2\ccwd}型：} & \hfut@ugtype \\
+      \begin{tabular}{@{}>{\fontsize{16bp}{20bp}\rmfamily\bfseries\selectfont}l>{\rmfamily\fontsize{16bp}{20bp}\selectfont}c@{}}%
+        类\hspace{2\ccwd}型：& \hfut@ugtype \\
         \cline{2-2}
-        \textbf{题\hspace{2\ccwd}目：} & \hfut@title \\
+        题\hspace{2\ccwd}目：& \hfut@title \\
         \cline{2-2}
-        \textbf{\hfut@speciality@name：} & \hfut@speciality\\
+        \hfut@speciality@name：& \hfut@speciality\\
         \cline{2-2}
-        \textbf{入学年份：} & \hfut@hfuteryear \\
+        入学年份：& \hfut@hfuteryear \\
         \cline{2-2}
-        \textbf{学生姓名：} & \hfut@author \\
+        学生姓名：& \hfut@author \\
         \cline{2-2}
-        \textbf{指导教师：} & \hfut@supervisor@names \\
+        指导教师：& \hfut@supervisor@names \\
         \cline{2-2}
-        \textbf{系\hspace{0.5\ccwd}名\hspace{0.5\ccwd}称：} & \hfut@department \\
+        系\hspace{0.5\ccwd}名\hspace{0.5\ccwd}称：& \hfut@department \\
         \cline{2-2}
-        \textbf{完成时间：} & \hfut@date@zh \\
+        完成时间：& \hfut@date@zh \\
         \cline{2-2}
       \end{tabular}\par}%
     \else
-      \begin{tabular}{@{}lp{8.5cm}@{}}%
-        {\fontsize{16bp}{20bp}\selectfont\textbf{论文题目：}} & \multirow[t]{2}{8.5cm}{
+      \begin{tabular}{@{}>{\rmfamily\bfseries\fontsize{16bp}{20bp}\selectfont}lp{8.5cm}@{}}%
+        论文题目：& \multirow[t]{2}{8.5cm}{
           \centering\linespread{1.75}\fontsize{16bp}{20bp}\selectfont
           \hfut@title} \\
         \cline{2-2}
@@ -1938,18 +1933,18 @@
         \cline{2-2}
       \end{tabular}
       \renewcommand\arraystretch{1.75}
-      \begin{tabular}{@{}>{\fontsize{16bp}{20bp}\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{20bp}\selectfont}p{8.5cm}@{}}
+      \begin{tabular}{@{}>{\bfseries\fontsize{16bp}{20bp}\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{20bp}\selectfont}p{8.5cm}@{}}
         \ifhfut@degree@master
-          \textbf{学位类别：} & \hfut@degreetype@name\\
+          学位类别：& \hfut@degreetype@name\\
           \cline{2-2}
         \fi
-        \textbf{\hfut@speciality@name：} & \hfut@speciality\\
+        \hfut@speciality@name：& \hfut@speciality\\
         \cline{2-2}
-        \textbf{作者姓名：} & \hfut@author \\
+        作者姓名：& \hfut@author \\
         \cline{2-2}
-        \textbf{导师姓名：} & \hfut@supervisor@names \\
+        导师姓名：& \hfut@supervisor@names \\
         \cline{2-2}
-        \textbf{完成时间：} & \hfut@date@zh \\
+        完成时间：& \hfut@date@zh \\
         \cline{2-2}
       \end{tabular}\par%
       \fi
@@ -1967,37 +1962,36 @@
     \hfut@pdfbookmark{题名页}%
     \centering
     \ifx\hfut@secret@level\@empty
-      {\sffamily\fontsize{12bp}{20bp}\selectfont
-      \textbf{单位代码：\hfut@underline{10359} \hfill
-      密\hspace{1em}级：\hfut@underline{公开}} \par
-      \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
-      分类号：\hfut@underline{\hfut@clc}} \par}
+      {\sffamily\bfseries\fontsize{12bp}{20bp}\selectfont
+      单位代码：\hfut@underline{10359} \hfill
+      密\hspace{1em}级：\hfut@underline{公开} \par
+      学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
+      分类号：\hfut@underline{\hfut@clc} \par}
     \else
-      {\sffamily\fontsize{12bp}{20bp}\selectfont
-      \textbf{单位代码：\hfut@underline{10359} \hfill
-      密\hspace{1em}级：\hfut@underline{\hfut@secret@level\bigstar\hfut@secret@year}} \par
-      \textbf{学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
-      分类号：\hfut@underline{\hfut@clc}} \par}
+      {\sffamily\bfseries\fontsize{12bp}{20bp}\selectfont
+      单位代码：\hfut@underline{10359} \hfill
+      密\hspace{1em}级：\hfut@underline{\hfut@secret@level\bigstar\hfut@secret@year} \par
+      学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
+      分类号：\hfut@underline{\hfut@clc} \par}
     \fi
     
     \vskip 2.1cm
-    {\sffamily\fontsize{22bp}{27.5bp}\selectfont
-    \textbf{博\hspace{0.5\ccwd}士\hspace{0.5\ccwd}学\hspace{0.5\ccwd}位\hspace{0.5\ccwd}论\hspace{0.5\ccwd}文}\par}%
+    {\sffamily\bfseries\fontsize{22bp}{27.5bp}\selectfont
+    博\hspace{0.5\ccwd}士\hspace{0.5\ccwd}学\hspace{0.5\ccwd}位\hspace{0.5\ccwd}论\hspace{0.5\ccwd}文\par}%
     \vskip 1.3cm
     \renewcommand\arraystretch{1.5}
     \begin{tabular}{@{}p{11.4cm}@{}}%
         \multirow[t]{2}{11.4cm}{
-        \centering\linespread{1.5}\fontsize{16bp}{24bp}\selectfont
-        \textbf{\hfut@title}} \\
+        \centering\linespread{1.5}\bfseries\fontsize{16bp}{24bp}\selectfont
+        \hfut@title} \\
       \cline{1-1}
               \\
       \cline{1-1}
     \end{tabular}
     \vskip 1.5cm%
-    \linespread{1.5}
-    \fontsize{16bp}{\baselineskip}\selectfont
-    \textbf{\uline{\hfut@title@en}}\par%
-    \linespread{1}\selectfont%
+    {\linespread{1.25}
+    \bfseries\fontsize{16bp}{\baselineskip}\selectfont
+    \uline{\hfut@title@en}\par}%
     \vskip 3.5cm%
     {\linespread{1.5}\fontsize{15bp}{\baselineskip}\selectfont
       \textbf{作者姓名：}\underlineFixlen{\hfut@author} \hfill \textbf{导师姓名：}\underlineFixlen{\hfut@supervisor@names} \par
@@ -2031,72 +2025,70 @@
       合\hspace{1.5\ccwd}肥\hspace{1.5\ccwd}工\hspace{1.5\ccwd}业\hspace{1.5\ccwd}大\hspace{1.5\ccwd}学\par}%
     \vskip 1.8cm%
     \ifhfut@degree@master
-      {\sffamily\fontsize{22bp}{1.25\baselineskip}\selectfont
-      \textbf{\hfut@degreetype@name 学位论文}\par}% 空格不可忽略
+      {\sffamily\bfseries\fontsize{22bp}{1.25\baselineskip}\selectfont
+      \hfut@degreetype@name 学位论文\par}% 空格不可忽略
     \else
-      {\sffamily\fontsize{22bp}{1.25\baselineskip}\selectfont
-      \textbf{\hfut@thesis@name}\par}%
+      {\sffamily\bfseries\fontsize{22bp}{1.25\baselineskip}\selectfont
+      \hfut@thesis@name\par}%
     \fi
     \vskip 1.8cm%
-    {\fontsize{22bp}{30bp}\selectfont
-    \textbf{\hfut@title}\par}%
+    {\bfseries\fontsize{22bp}{30bp}\selectfont
+    \hfut@title\par}%
     \ifhfut@degree@bachelor
       \vskip 6.5cm
     \else
       \vskip 8cm%
     \fi
-    {\fontsize{16bp}{\baselineskip}\selectfont
-      \begin{tabular}{@{}lp{14em}<{\centering}@{}}%
+      \begin{tabular}{@{}>{\fontsize{16bp}{\baselineskip}\rmfamily\bfseries\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{\baselineskip}\rmfamily\selectfont}p{8.4cm}@{}}%
         \ifhfut@degree@bachelor
-          \textbf{学生姓名：} & \hfut@author \\
+          学生姓名：& \hfut@author \\
           \cline{2-2}\\
-          \textbf{学生学号：} & \hfut@stuID \\
+          学生学号：& \hfut@stuID \\
           \cline{2-2}\\
-          \textbf{指导教师：} & \hfut@supervisor@names \\
+          指导教师：& \hfut@supervisor@names \\
           \cline{2-2}\\
-          \textbf{\hfut@speciality@name：} & \hfut@speciality\\
+          \hfut@speciality@name：& \hfut@speciality\\
           \cline{2-2}\\
-          \textbf{系\hspace{0.5\ccwd}名\hspace{0.5\ccwd}称：} & \hfut@department \\
+          系\hspace{0.5\ccwd}名\hspace{0.5\ccwd}称：& \hfut@department \\
           \cline{2-2}
         \else
           \ifhfut@degree@doctor
-            \textbf{作者姓名：} & \hfut@author\\
+            作者姓名：& \hfut@author\\
             \cline{2-2}\\
-            \textbf{申请学位：} & \hfut@applydegree \\
+            申请学位：& \hfut@applydegree \\
             \cline{2-2}\\
-            \textbf{研究方向：} & \hfut@research \\
+            研究方向：& \hfut@research \\
             \cline{2-2}\\
-            \textbf{\hfut@speciality@name：} & \hfut@speciality\\
+            \hfut@speciality@name：& \hfut@speciality\\
             \cline{2-2}\\
-            \textbf{指导教师：} & \hfut@supervisor@names \\
+            指导教师：& \hfut@supervisor@names \\
             \cline{2-2}
           \else
             \ifx\hfut@advisor\@empty
-              \textbf{作者姓名：} & \hfut@author \\
+              作者姓名：& \hfut@author \\
               \cline{2-2}\\
-              \textbf{指导教师：} & \hfut@supervisor@names \\
+              指导教师：& \hfut@supervisor@names \\
               \cline{2-2}\\
-              \textbf{学科专业：} & \hfut@speciality \\
+              学科专业：& \hfut@speciality \\
               \cline{2-2}\\
-              \textbf{研究方向：} & \hfut@research \\
+              研究方向：& \hfut@research \\
               \cline{2-2}
             \else
-              \textbf{作者姓名：} & \hfut@author \\
+              作者姓名：& \hfut@author \\
               \cline{2-2}\\
-              \textbf{指导教师：} & \hfut@supervisor@names \\
+              指导教师：& \hfut@supervisor@names \\
               \cline{2-2}\\
-              \textbf{} & \hfut@advisor@names \\
+                & \hfut@advisor@names \\
               \cline{2-2}\\
-              \textbf{专业名称：} & \hfut@speciality \\
+              专业名称：& \hfut@speciality \\
               \cline{2-2}\\
-              \textbf{研究方向：} & \hfut@research \\
+              研究方向：& \hfut@research \\
               \cline{2-2}
             \fi
           \fi
         \fi
-      \end{tabular}\par%
-      \vfill
-    }
+    \end{tabular}\par%
+    \vfill
     {\fontsize{15bp}{\baselineskip}\selectfont\hfut@date@zh}
   \end{titlepage}%
   \hfut@reset@main@language
@@ -2112,8 +2104,8 @@
     {\fontsize{16bp}{30bp}\selectfont
     \hfut@thesis@name@en\par}%
     \vskip 2.0cm%
-    {\fontsize{18bp}{30bp}\selectfont
-    \textbf{\hfut@title@en}\par}%
+    {\bfseries\fontsize{18bp}{30bp}\selectfont
+    \hfut@title@en\par}%
     \vskip 1.2cm%
     {\fontsize{16bp}{30bp}\selectfont
     By\par
@@ -2151,8 +2143,8 @@
   \begin{titlepage}%
     \hfut@pdfbookmark{答辩委员签名页}%
     \null
-    {\centering\sffamily\fontsize{22bp}{33bp}\selectfont
-    \textbf{合\hspace{0.5\ccwd}肥\hspace{0.5\ccwd}工\hspace{0.5\ccwd}业\hspace{0.5\ccwd}大\hspace{0.5\ccwd}学}\par}
+    {\centering\sffamily\bfseries\fontsize{22bp}{33bp}\selectfont
+    合\hspace{0.5\ccwd}肥\hspace{0.5\ccwd}工\hspace{0.5\ccwd}业\hspace{0.5\ccwd}大\hspace{0.5\ccwd}学\par}
     \vskip 0.8cm
     {\fontsize{16bp}{30bp}\selectfont
     本论文经答辩委员会全体委员审查，确认符合合肥工业大学\hfut@degreetype@name 学位论文质量要求。\par}
