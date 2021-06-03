@@ -1578,19 +1578,21 @@
 }%
 % \subsection{附录}
 % TODO 处理附录编号问题
-%\ifhfut@degree@bachelor
-%  \ctexset{appendix/numbering=false}
-%  \chapter{附录}
-% \fi
-% 研究生附录按照附录1、附录2编号；本科生附录不编号
+% 研究生附录按照附录1、附录2编号；[数学学院本科生附录不编号，请将以下`\renewcommand\appendix` 取消注释]
 % \renewcommand\appendix{%
-  % \ifhfut@degree@bachelor
-    % \ctexset{chapter/numbering=false}
-    % \chapter{附录}
-  % \else
-    \ctexset{appendix/number=\arabic{chapter}}
-  % \fi
+%   \ifhfut@degree@bachelor
+%     \ctexset{
+%       chapter/numbering=false,
+%       chapter/format = \centering\rmfamily\bfseries\fontsize{18bp}{\baselineskip}\selectfont,
+%       chapter/beforeskip  = 9bp,
+%       chapter/afterskip   = 27bp,
+%     }
+%     \setcounter{chapter}{1}
+%   \else
+%     \ctexset{appendix/number=\arabic{chapter}}
+%   \fi
 % }
+\ctexset{appendix/number=\arabic{chapter}}
 
 % \subsection{封面}
 
