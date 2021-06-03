@@ -1483,15 +1483,17 @@
 \pagestyle{fancy}
 \let\sectionmark\@gobble
 \renewcommand\headrulewidth{0.4\p@}
-
 % 重定义默认的 |myheadings| page style，会显示页眉和页脚。
 \fancypagestyle{myheadings}{%
   \fancyhf{}%
   %
-  % 页眉与该部分的章标题相同，宋体 10.5 磅（五号）居中。
+  % 页眉与该部分的章标题相同，宋体 10.5 磅（五号）居中、1.5倍行距。
   % 页码：宋体 10.5 磅、页面下脚居中。
+  % 页眉上下页边距1.5 cm
+  \setlength{\headsep}{1.5cm}
+  \def\hfut@hf@font{\fontsize{10.5bp}{1.5\baselineskip}\selectfont}
   \ifhfut@degree@graduate
-    \def\hfut@hf@font{\fontsize{10.5bp}{12bp}\selectfont}
+    
     \fancyhead[OC]{\hfut@hf@font\leftmark}%
     \ifhfut@degree@doctor
       \fancyhead[EC]{\hfut@hf@font 合肥工业大学博士研究生学位论文}%
@@ -1507,9 +1509,8 @@
   \else
     %
     % 本科生要求在正文每面上部加页眉，
-    % 用小 5 号字（9 bp）标注“合肥工业大学毕业设计（论文）”，居中；
-    % 从正文页开始在每面底部居中用小五宋体（9 bp）连续编页码。
-    \def\hfut@hf@font{\fontsize{9bp}{12bp}\selectfont}
+    % 用五号字（10.5 bp）标注“合肥工业大学毕业设计（论文）”，居中；
+    % 从正文页开始在每面底部居中用小五宋体（10.5 bp）连续编页码。
     \fancyhead[C]{\hfut@hf@font 合肥工业大学毕业设计（论文）}%
     \fancyfoot[C]{\hfut@hf@font\thepage}%
     \let\@mkboth\@gobbletwo
