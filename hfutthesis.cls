@@ -3295,16 +3295,20 @@
 \newenvironment{publications}{%
   \@mainmatterfalse
   \ctexset{
+    tocdepth = 0,
     chapter/format = \centering\sffamily\bfseries\fontsize{18bp}{\baselineskip}\selectfont,
     chapter/beforeskip  = 9bp,
     chapter/afterskip   = 27bp,
-    section/name = {,)},
+    section/name = {,）},
+    section/nameformat = {},
+    section/aftername = {},
     section/format = \sffamily\bfseries\fontsize{12bp}{20bp}\selectfont\bfseries,
     section/beforeskip  = 10bp,
     section/afterskip   = 10bp,
   }
   \chapter{\hfut@publication@name}%
   \renewcommand\thesection{\arabic{section}}
+  \setenumerate[1]{itemsep = 0pt, parsep = 0pt, label = （\arabic*）}
   \setcounter{section}{0}
 }{}
 
