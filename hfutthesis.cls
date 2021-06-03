@@ -3301,9 +3301,13 @@
 \newenvironment{publications}{%
   \@mainmatterfalse
   \ctexset{
-    chapter/format = \centering\sffamily\bfseries\fontsize{18}{\baselineskip}\selectfont,
+    chapter/format = \centering\sffamily\bfseries\fontsize{18bp}{\baselineskip}\selectfont,
+    chapter/beforeskip  = 9bp,
+    chapter/afterskip   = 27bp,
     section/name = {,)},
-    section/format = \sffamily\large\selectfont\bfseries,
+    section/format = \sffamily\bfseries\fontsize{12bp}{20bp}\selectfont\bfseries,
+    section/beforeskip  = 10bp,
+    section/afterskip   = 10bp,
   }
   \chapter{\hfut@publication@name}%
   \renewcommand\thesection{\arabic{section}}
