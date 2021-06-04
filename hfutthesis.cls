@@ -2642,30 +2642,30 @@
 % 但是 Word 模板中实际是行距 20 磅。
 \ifhfut@degree@graduate
   \titlecontents{chapter}
-    [\z@]{\fontsize{12bp}{20bp}\bfseries\selectfont}
+    [\z@]{\bfseries\normalsize}
     {\contentspush{\thecontentslabel\hspace{0.5\ccwd}}}{}
-    {\fontsize{12bp}{20bp}\selectfont\hfut@leaders\contentspage}
+    {\normalsize\hfut@leaders\contentspage}
     %
     % 一级节标题目录要求宋体 12 磅，单倍行距，左缩进一字，段前 6 磅，段后 0 磅，
     % 两端对齐，页码右对齐，序号与题名间空一字。
     % Word 模板中实际是行距 20 磅，段前 0 磅。
   \titlecontents{section}
-    [2\ccwd]{\fontsize{12bp}{20bp}\selectfont}
+    [2\ccwd]{\normalsize}
     {\contentspush{\thecontentslabel\hspace{0.5\ccwd}}}{}
-    {\fontsize{12bp}{20bp}\selectfont\hfut@leaders\contentspage}
+    {\normalsize\hfut@leaders\contentspage}
     %
     % 二级节标题目录要求宋体 12 磅，单倍行距，左缩进两字，段前 6 磅，段后 0 磅，
     % 两端对齐，页码右对齐，序号与题名间空一字。
     % Word 模板中实际是行距 20 磅，段前 0 磅。
   \titlecontents{subsection}
-    [4\ccwd]{\fontsize{12bp}{20bp}\selectfont}
+    [4\ccwd]{\normalsize}
     {\contentspush{\thecontentslabel\hspace{0.5\ccwd}}}{}
-    {\fontsize{12bp}{20bp}\selectfont\hfut@leaders\contentspage}
+    {\normalsize\hfut@leaders\contentspage}
     %
     % 本科生的目录使用小四宋体（同正文字体），其他同研究生的格式相近。
 \else
   \titlecontents{chapter}
-    [\z@]{\normalsize}
+    [\z@]{\bfseries\normalsize}
     {\contentspush{\thecontentslabel\unskip\hspace{\ccwd}}}{}
     {\hfut@leaders\contentspage}
   \titlecontents{section}
