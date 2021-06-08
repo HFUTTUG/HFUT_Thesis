@@ -2218,7 +2218,7 @@
       \vskip 1.0cm%
       \hfut@originality@bachelor\par
       \vskip 0.9cm%
-      毕业设计（论文）作者作者签名：\hfill%
+      毕业设计（论文）作者签名：\hfill%
       签字日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日\par
       \vskip 2.33cm%
       {\centering\sffamily\fontsize{18bp}{\baselineskip}\selectfont
@@ -2481,6 +2481,7 @@
       format     = \rmfamily\bfseries\fontsize{12bp}{22bp}\selectfont,
       beforeskip = 11bp,
       afterskip  = 11bp, 
+      nameformat = \rmfamily\bfseries\selectfont,
       indent     = \z@,
     },
     subsubsection = {
