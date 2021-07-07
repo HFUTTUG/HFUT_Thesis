@@ -1467,15 +1467,16 @@
 % 页面设置：上、下 2.54 cm，左、右 3 cm，页眉 1.5 cm，页脚 1.5 cm。
 
 % 注意这里指的是页眉顶部到纸张顶部的距离为 1.5 cm，
-% 所以应该是 2.54cm - 0.8cm - 0.24cm = 1.5cm
+% 所以应该是 2.54cm - 0.75cm - 0.29cm = 1.5cm
+% 页脚 同理 2.54cm - 1.04cm = 1.5cm
 
 \geometry{
   paper      = a4paper,
   vmargin    = 2.54cm,
   hmargin    = 3cm,
   headheight = 0.75cm,
-  headsep    = 0.72cm,
-  footskip   = 0.79cm,
+  headsep    = 0.29cm,
+  footskip   = 1.04cm,
 }
 
 % 使用 \pkg{fancy} 需要先调用 |\pagestyle{fancy}| 再修改 \cs{chaptermark} 和
@@ -1490,8 +1491,7 @@
   % 页眉与该部分的章标题相同，宋体 10.5 磅（五号）居中、1.5倍行距。
   % 页码：宋体 10.5 磅、页面下脚居中。
   % 页眉上下页边距1.5 cm
-  \setlength{\headsep}{1.5cm}
-  \def\hfut@hf@font{\fontsize{10.5bp}{1.5\baselineskip}\selectfont}
+  \def\hfut@hf@font{\fontsize{10.5bp}{20.475bp}\selectfont}
   \ifhfut@degree@graduate
     
     \fancyhead[OC]{\hfut@hf@font\leftmark}%
@@ -1905,7 +1905,7 @@
     \renewcommand\arraystretch{1.75}
     \ifhfut@degree@bachelor
       {\fontsize{16bp}{20bp}\selectfont
-      \begin{tabular}{@{}>{\fontsize{16bp}{20bp}\rmfamily\bfseries\selectfont}l>{\rmfamily\fontsize{16bp}{20bp}\selectfont}c@{}}%
+      \begin{tabular}{>{\fontsize{16bp}{20bp}\rmfamily\bfseries\selectfont}l>{\rmfamily\fontsize{16bp}{20bp}\selectfont}c}%
         类\hspace{2\ccwd}型：& \hfut@ugtype \\
         \cline{2-2}
         题\hspace{2\ccwd}目：& \hfut@title \\
@@ -1924,7 +1924,7 @@
         \cline{2-2}
       \end{tabular}\par}%
     \else
-      \begin{tabular}{@{}>{\rmfamily\bfseries\fontsize{16bp}{20bp}\selectfont}lp{8.5cm}@{}}%
+      \begin{tabular}{>{\rmfamily\bfseries\fontsize{16bp}{20bp}\selectfont}lp{8.5cm}}%
         论文题目：& \multirow[t]{2}{8.5cm}{
           \centering\linespread{1.75}\fontsize{16bp}{20bp}\selectfont
           \hfut@title} \\
@@ -1933,7 +1933,7 @@
         \cline{2-2}
       \end{tabular}
       \renewcommand\arraystretch{1.75}
-      \begin{tabular}{@{}>{\bfseries\fontsize{16bp}{20bp}\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{20bp}\selectfont}p{8.5cm}@{}}
+      \begin{tabular}{>{\bfseries\fontsize{16bp}{20bp}\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{20bp}\selectfont}p{8.5cm}}
         \ifhfut@degree@master
           学位类别：& \hfut@degreetype@name\\
           \cline{2-2}
@@ -2039,7 +2039,7 @@
     \else
       \vskip 8cm%
     \fi
-      \begin{tabular}{@{}>{\fontsize{16bp}{\baselineskip}\rmfamily\bfseries\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{\baselineskip}\rmfamily\selectfont}p{8.4cm}@{}}%
+      \begin{tabular}{>{\fontsize{16bp}{\baselineskip}\rmfamily\bfseries\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{\baselineskip}\rmfamily\selectfont}p{8.4cm}}%
         \ifhfut@degree@bachelor
           学生姓名：& \hfut@author \\
           \cline{2-2}\\
