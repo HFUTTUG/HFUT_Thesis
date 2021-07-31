@@ -3,6 +3,30 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v1.0.2] - 2021-08-01
+
+### Added
+
+- 完成学术成果页。
+
+### Changed
+
+- 封面校徽更改为新校徽。
+
+### Removed
+
+- 
+
+### Fixed
+
+- 修正学士论文 摘要页 加入PDF标签。
+- 修正博士题名页英文标题行距。
+- 修正节标题格式。
+- 修正页眉内容及格式。
+- 修正目录内容字体格式。
+- 修正声明页。
+- 修改 `.vscode/settings.json` 的配置以便支持中文路径（感谢[@xqm32](https://github.com/xqm32)）（[#4](https://github.com/HFUTTUG/HFUT_Thesis/pull/4)）。
+
 ## [v1.0.1] - 2021-05-26
 
 ### Added
@@ -27,7 +51,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 ### Added
 
-- 适配本硕博学位论文
+- 适配本硕博学位论文。
 
 ### Changed
 
@@ -40,6 +64,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - 
-
+[v1.0.2]: https://github.com/HFUTTUG/HFUT_Thesis/releases/tag/v1.0.2
 [v1.0.1]: https://github.com/HFUTTUG/HFUT_Thesis/releases/tag/v1.0.1
 [v1.0.0]: https://github.com/HFUTTUG/HFUT_Thesis/releases/tag/v1.0.0
