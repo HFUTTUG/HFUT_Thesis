@@ -45,10 +45,6 @@
 \RequirePackage{kvsetkeys}
 \RequirePackage{kvoptions}
 
-% 对比文本
-
-\RequirePackage{xstring}
-
 % 提供一个 \cs{hfutsetup} 命令支持 \emph{key-value} 的方式来设置。
 \let\hfut@setup@hook\@empty
 \newcommand\hfutsetup[1]{%
