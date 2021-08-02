@@ -15,7 +15,7 @@
 %    https://www.latex-project.org/lppl.txt
 % and version 1.3c or later is part of all distributions of LaTeX
 % version 2008 or later.
-%
+%.
 
 \documentclass[a4paper]{ltxdoc}
 
@@ -115,11 +115,11 @@
 
 \title{\cls{hfutthesis} 使用说明}
 \author{
-  Yu Tang \thanks{tangyu@mail.hfut.edu.cn}
+  \href{https://github.com/tyty0001}{tyty0001}
 % \and yzh\thanks{?} \and
 %        hrz\thanks{?}
  }
-\date{v1.0.1\qquad 2021-05-26}
+\date{v1.0.2\qquad 2021-08-02}
 \maketitle
 
 
@@ -620,8 +620,7 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 
 \subsection{参考文献}
 
-参考文献支持使用 \BibTeX{} 或 BibLaTeX 生成。
-用户可以根据需求选择合适的方式。
+参考文献支持使用 \BibTeX{} 或 BibLaTeX 生成。默认使用\BibTeX{}生成，用户可以根据需求在\file{hfutsetup.tex}中选择合适的方式。
 
 
 \subsubsection{\BibTeX}
@@ -653,14 +652,24 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
   \item 与正文平排（\opt{inline}），文献序号作为叙述文字的一部分，
     如“张教授\textsuperscript{[4]}认为……根据文献[4]\textsuperscript{101-105}”。
 \end{enumerate}
+\textbf{模板默认为上标样式}，也可以根据需要修改：
 
-模板默认为上标样式，也可以将引用标注统一设为 \opt{inline} 样式。
+\DescribeOption{cite-style}
+参考文献的样式。可选：\opt{authoryear}，\opt{super}（默认），\opt{inline}。
+\begin{itemize}
+  \item \opt{authoryear}：著者-出版年制
+  \item \opt{super}：上标样式
+  \item \opt{inline}：与正文平排
+\end{itemize}
+\begin{latex}
+  \documentclass[cite-style=inline]{hfutthesis}
+\end{latex}
+或者
 \begin{latex}
   \hfutsetup{
     cite-style = inline,
   }
 \end{latex}
-或者使用 \cs{inlinecite} 在局部与正文平排。
 
 著者-出版年制的文献引用标注也有两种主要模式：
 \begin{enumerate}
@@ -695,6 +704,26 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
   \item 每章都要使用 \cs{bibliographystyle} 和 \cs{bibliography} 命令。
 \end{enumerate}
 
+用户可在\file{hfutthesis-bachelor.bst}中的load.config函数中来自定义更详细的样式，表\ref{canshu}列出了一些常用的参数值，\# 1表示被启用，\# 0则不启用。
+\textbf{默认值遵循《\href{http://xwgl.hfut.edu.cn/2021/0419/c1975a253949/page.htm}{合肥工业大学研究生学位论文写作规范}》，与国标的配置有部分出入。}
+有关国标的配置可参考\href{https://ctan.org/pkg/gbt7714}{\pkg{gbt7714}}。
+
+\begin{table}
+  \caption{参考文献表样式的配置参数}\label{canshu}
+  \begin{tabular}{lcl}
+    \hline 参数值 & 默认值 & 功能 \\
+    \hline uppercase.name & \#0 & 将著者姓名转为大写 \\
+     sentence.case.title & \#1 & 将西文的题名转为 sentence case \\
+    link.title &\#0 & 在题名上添加 url 的超链接 \\
+    show.mark & \#0 & 显示文献类型标识 \\
+    italic.jounal & \#1 & 西文期刊名使用斜体 \\
+    show.missing.address.publisher & \#0 & 出版项缺失时显示“出版者不详” \\
+    show.url & \#1 & 显示 url \\
+    show.doi & \#1 & 显示 doi \\
+    show.note & \#0 & 显示 note 域的信息 \\
+    \hline
+    \end{tabular}
+\end{table}
 
 \subsubsection{BibLaTeX}
 
@@ -715,7 +744,8 @@ BibLaTeX 是较新的参考文献处理方案。
 如果要切换为与正文平排，一种方法是使用 \cs{parencite}，
 另一种是载入 \pkg{biblatex} 时统一设置。
 \begin{latex}
-  \usepackage[bibstyle=hfutthesis-numeric,citestyle=hfutthesis-inline]{biblatex}
+  \usepackage[bibstyle=hfutthesis-numeric,
+  citestyle=hfutthesis-inline]{biblatex}
 \end{latex}
 
 
