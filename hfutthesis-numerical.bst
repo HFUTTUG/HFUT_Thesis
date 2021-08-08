@@ -1,16 +1,16 @@
 %%
-%% This is file `variants/ustc/ustcthesis-numerical.bst',
+%% This is file `gbt7714-numerical.bst',
 %% generated with the docstrip utility.
 %%
 %% The original source files were:
 %%
-%% gbt7714.dtx  (with options: `ustc,2015,numerical')
+%% gbt7714.dtx  (with options: `2015,numerical')
 %% -------------------------------------------------------------------
 %% GB/T 7714—2015 BibTeX Style
 %% https://github.com/CTeX-org/gbt7714-bibtex-style
-%% Version: 2020/12/17 v2.1
+%% Version: 2021/06/20 v2.1.2
 %% -------------------------------------------------------------------
-%% Copyright (C) 2016-2021 by Zeping Lee <zepinglee AT gmail.com>
+%% Copyright (C) 2016—2021 by Zeping Lee <zepinglee AT gmail.com>
 %% -------------------------------------------------------------------
 %% This file may be distributed and/or modified under the
 %% conditions of the LaTeX Project Public License, either version 1.3c
@@ -18,7 +18,7 @@
 %% The latest version of this license is in
 %%    https://www.latex-project.org/lppl.txt
 %% and version 1.3c or later is part of all distributions of LaTeX
-%% version 2005/12/01 or later.
+%% version 2008 or later.
 %% -------------------------------------------------------------------
 INTEGERS {
   citation.et.al.min
@@ -29,6 +29,7 @@ INTEGERS {
   terms.in.macro
   year.after.author
   period.after.author
+  italic.book.title
   sentence.case.title
   link.title
   title.in.journal
@@ -43,31 +44,34 @@ INTEGERS {
   show.missing.address.publisher
   space.before.pages
   only.start.page
+  wave.dash.in.pages
   show.urldate
   show.url
   show.doi
   show.preprint
   show.note
   show.english.translation
+  end.with.period
 }
 
 FUNCTION {load.config}
 {
   #2 'citation.et.al.min :=
   #1 'citation.et.al.use.first :=
-  #6 'bibliography.et.al.min :=
+  #7 'bibliography.et.al.min :=
   #6 'bibliography.et.al.use.first :=
   #0 'uppercase.name :=
   #0 'terms.in.macro :=
   #0 'year.after.author :=
   #1 'period.after.author :=
+  #0 'italic.book.title :=
   #1 'sentence.case.title :=
   #0 'link.title :=
   #1 'title.in.journal :=
   #1 'show.mark :=
   #0 'space.before.mark :=
   #1 'show.medium.type :=
-  #1 'slash.for.extraction :=
+  #0 'slash.for.extraction :=
   #0 'in.booktitle :=
   #0 'short.journal :=
   #0 'italic.journal :=
@@ -75,12 +79,14 @@ FUNCTION {load.config}
   #0 'show.missing.address.publisher :=
   #1 'space.before.pages :=
   #0 'only.start.page :=
+  #0 'wave.dash.in.pages :=
   #1 'show.urldate :=
-  #1 'show.url :=
-  #1 'show.doi :=
+  #0 'show.url :=
+  #0 'show.doi :=
   #0 'show.preprint :=
   #0 'show.note :=
   #0 'show.english.translation :=
+  #1 'end.with.period :=
 }
 
 ENTRY
@@ -240,6 +246,22 @@ FUNCTION {or}
   if$
 }
 
+STRINGS { x y }
+
+FUNCTION {contains}
+{ 'y :=
+  'x :=
+  y text.length$ 'len :=
+  x text.length$ len - #1 + 'charptr :=
+    { charptr #0 >
+      x charptr len substring$ y = not
+      and
+    }
+    { charptr #1 - 'charptr := }
+  while$
+  charptr #0 >
+}
+
 STRINGS { s t }
 
 FUNCTION {output.nonnull}
@@ -315,7 +337,10 @@ FUNCTION {output.check}
 }
 
 FUNCTION {fin.entry}
-{ add.period$
+{ end.with.period
+    'add.period$
+    'skip$
+  if$
   write$
   show.english.translation entry.lang lang.zh = and
     { ")"
@@ -402,10 +427,18 @@ FUNCTION {field.or.null}
   if$
 }
 
-FUNCTION {italicize}
+FUNCTION {emphasize}
 { duplicate$ empty$
     { pop$ "" }
-    { "\textit{" swap$ * "}" * }
+    { "\emph{" swap$ * "}" * }
+  if$
+}
+
+FUNCTION {format.btitle}
+{ italic.book.title
+  entry.lang lang.en = and
+    'emphasize
+    'skip$
   if$
 }
 
@@ -540,7 +573,7 @@ FUNCTION {format.name}
     { bbl.et.al }
     { t get.str.lang 'name.lang :=
       name.lang lang.en =
-        { t #1 "{vv~}{ll}{~f{~}}" format.name$
+        { t #1 "{vv~}{ll}{ f{.}.}" format.name$
           uppercase.name
             { "u" change.case$ }
             'skip$
@@ -703,17 +736,13 @@ FUNCTION {output.bibitem}
   "\bibitem[" write$
   label ")" *
   make.full.names duplicate$ short.list =
-     { pop$ }
-     { * }
-  if$
-  's :=
-  s text.length$ 'charptr :=
-    { charptr #0 > s charptr #1 substring$ "[" = not and }
-    { charptr #1 - 'charptr := }
-  while$
-  charptr #0 >
-    { "{" s * "}" * }
-    { s }
+    { pop$ }
+    { duplicate$ "]" contains
+        { "{" swap$ * "}" * }
+        'skip$
+      if$
+      *
+    }
   if$
   "]{" * write$
   cite$ write$
@@ -747,10 +776,6 @@ FUNCTION {format.title}
     { title
       sentence.case.title
         'change.sentence.case
-        'skip$
-      if$
-      entry.numbered number empty$ not and
-        { bbl.colon * number * }
         'skip$
       if$
       link.title
@@ -846,24 +871,17 @@ FUNCTION {format.volume.number}
 }
 
 FUNCTION {format.title.vol.num}
-{ title
+{ ""
+  type$ "standard" = number empty$ not and
+    { number * "," * }
+    'skip$
+  if$
+  title
   sentence.case.title
     'change.sentence.case
     'skip$
   if$
-  entry.numbered
-    { number empty$ not
-        { bbl.colon * number * }
-        'skip$
-      if$
-    }
-    { format.volume.number 's :=
-      s empty$ not
-        { bbl.colon * s * }
-        'skip$
-      if$
-    }
-  if$
+  *
 }
 
 FUNCTION {format.series.vol.num.title}
@@ -895,6 +913,7 @@ FUNCTION {format.series.vol.num.title}
     }
     { format.title.vol.num }
   if$
+  format.btitle
   link.title
     'add.link
     'skip$
@@ -912,6 +931,10 @@ FUNCTION {format.booktitle.vol.num}
       if$
     }
   if$
+  type$ "inproceedings" =
+    { "[C]" * }
+    'skip$
+  if$
 }
 
 FUNCTION {format.series.vol.num.booktitle}
@@ -926,6 +949,7 @@ FUNCTION {format.series.vol.num.booktitle}
     }
     { format.booktitle.vol.num }
   if$
+  format.btitle
   in.booktitle
     { duplicate$ empty$ not entry.lang lang.en = and
         { "In: " swap$ * }
@@ -949,6 +973,22 @@ FUNCTION {remove.period}
     }
   while$
   s
+}
+
+FUNCTION {format.patent.location.number}
+{ ""
+  address empty$ not
+    { address * bbl.colon * }
+    { location empty$ not
+        { address * bbl.colon * }
+        'skip$
+      if$
+    }
+  if$
+  number empty$ not
+    { number * }
+    'skip$
+  if$
 }
 
 FUNCTION {abbreviate}
@@ -995,7 +1035,7 @@ FUNCTION {format.journal}
   if$
   duplicate$ empty$ not
     { italic.journal entry.lang lang.en = and
-        'italicize
+        'emphasize
         'skip$
       if$
     }
@@ -1176,21 +1216,6 @@ FUNCTION {extract.after.dash}
   if$
 }
 
-FUNCTION {contains.dash}
-{ duplicate$ empty$
-    { pop$ #0 }
-    { 's :=
-        { s empty$ not
-          s #1 #1 substring$ "-" = not
-          and
-        }
-        { s #2 global.max$ substring$ 's := }
-      while$
-      s empty$ not
-    }
-  if$
-}
-
 FUNCTION {extract.before.slash}
 { duplicate$ empty$
     { pop$ "" }
@@ -1235,23 +1260,6 @@ FUNCTION {extract.after.slash}
   if$
 }
 
-FUNCTION {contains.slash}
-{ duplicate$ empty$
-    { pop$ #0 }
-    { 's :=
-        { s empty$ not
-          s #1 #1 substring$ "-" = not
-          and
-          s #1 #1 substring$ "/" = not
-          and
-        }
-        { s #2 global.max$ substring$ 's := }
-      while$
-      s empty$ not
-    }
-  if$
-}
-
 FUNCTION {format.year}
 { year empty$ not
     { year extract.before.slash extra.label * }
@@ -1292,11 +1300,16 @@ FUNCTION {format.periodical.year}
 }
 
 FUNCTION {format.date}
-{ type$ "patent" = type$ "newspaper" = or
-  date empty$ not and
-    { date }
-    { year field.or.null
-      extra.label *
+{ date empty$ not
+    { type$ "patent" = type$ "newspaper" = or
+        { date }
+        { format.year }
+      if$
+    }
+    { year empty$ not
+        { format.year }
+        { "" }
+      if$
     }
   if$
 }
@@ -1317,12 +1330,38 @@ FUNCTION {format.urldate}
   if$
 }
 
+FUNCTION {format.url.date}
+{ date empty$
+    { year empty$
+        { "" }
+        { year }
+      if$
+    }
+    { date }
+  if$
+  duplicate$ empty$
+    { urldate empty$
+        'skip$
+        { urldate * }
+      if$
+    }
+    { urldate empty$
+        'skip$
+        { "/" * urldate * }
+      if$
+    }
+  if$
+}
+
 FUNCTION {hyphenate}
 { 't :=
   ""
     { t empty$ not }
     { t #1 #1 substring$ "-" =
-        { "-" *
+        { wave.dash.in.pages
+            { "～" * }
+            { "-" * }
+          if$
             { t #1 #1 substring$ "-" = }
             { t #2 global.max$ substring$ 't := }
           while$
@@ -1799,6 +1838,7 @@ FUNCTION {patent}
   "P" set.entry.mark
   format.mark "" output.after
   new.block
+  format.patent.location.number output
   format.date "year" output.check
   format.urldate "" output.after
   output.url
@@ -1831,19 +1871,10 @@ FUNCTION {electronic}
   format.mark "" output.after
   new.block
   format.address.publisher output
-  year.after.author not
-    { date empty$
-        { format.date output }
-        'skip$
-      if$
-    }
-    'skip$
-  if$
   format.pages bbl.pages.colon output.after
-  format.editdate "" output.after
-  format.urldate "" output.after
   output.url
   output.doi
+  format.url.date output
   new.block
   format.note output
   fin.entry
@@ -1952,7 +1983,7 @@ FUNCTION {dataset}
 FUNCTION {inbook} { book }
 
 FUNCTION {inproceedings}
-{ "C" set.entry.mark
+{ "A" set.entry.mark
   incollection
 }
 
@@ -1993,9 +2024,30 @@ FUNCTION {software}
 }
 
 FUNCTION {standard}
-{ "S" set.entry.mark
-  misc
+{ output.bibitem
+  output.translation
+  format.series.vol.num.title "title" output.check
+  "S" set.entry.mark
+  format.mark "" output.after
+  new.block
+  format.translators output
+  new.sentence
+  format.edition output
+  new.block
+  format.address.publisher output
+  year.after.author not
+    { format.year "year" output.check }
+    'skip$
+  if$
+  format.pages bbl.pages.colon output.after
+  format.urldate "" output.after
+  output.url
+  output.doi
+  new.block
+  format.note output
+  fin.entry
 }
+
 
 FUNCTION {techreport}
 { "R" set.entry.mark
@@ -2212,13 +2264,20 @@ FUNCTION {calc.short.authors}
 
 FUNCTION {calc.label}
 { calc.short.authors
-  short.list
+  short.list "]" contains
+    { "{" short.list * "}" * }
+    { short.list }
+  if$
   "("
   *
   format.year duplicate$ empty$
   short.list key field.or.null = or
      { pop$ "" }
      'skip$
+  if$
+  duplicate$ "]" contains
+    { "{" swap$ * "}" * }
+    'skip$
   if$
   *
   'label :=
