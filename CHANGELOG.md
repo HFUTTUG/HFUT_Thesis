@@ -3,7 +3,27 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
-## [v1.0.2] - 2021-08-01
+## [v1.0.3] - 2021-08-15
+
+### Added
+
+- 
+
+### Changed
+
+- 更新`bst`格式（感谢[@zepinglee](https://github.com/zepinglee)）（[#6](https://github.com/HFUTTUG/HFUT_Thesis/pull/6)）。
+
+### Removed
+
+- 
+
+### Fixed
+
+- 修正参考文献格式。
+- 改正在`\fontsize`中使用`\baselineskip`的[错误](https://github.com/HFUTTUG/HFUT_Thesis/commit/06af8e80ad8ff29b7a067da1c89e8c0ca2f63e78#r51664931)。
+
+
+## [v1.0.2] - 2021-08-03
 
 ### Added
 
@@ -64,6 +84,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Fixed
 
 - 
+
+[v1.0.3]: https://github.com/HFUTTUG/HFUT_Thesis/releases/tag/v1.0.3
 [v1.0.2]: https://github.com/HFUTTUG/HFUT_Thesis/releases/tag/v1.0.2
 [v1.0.1]: https://github.com/HFUTTUG/HFUT_Thesis/releases/tag/v1.0.1
 [v1.0.0]: https://github.com/HFUTTUG/HFUT_Thesis/releases/tag/v1.0.0

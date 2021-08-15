@@ -14,8 +14,8 @@
 %
 
 \NeedsTeXFormat{LaTeX2e}[2017/04/15]
-\newcommand\hfutthesisversion{v1.0.1}
-\ProvidesClass{hfutthesis}[2021/05/26 {\hfutthesisversion} hfut thesis template]
+\newcommand\hfutthesisversion{v1.0.3}
+\ProvidesClass{hfutthesis}[2021/08/15 {\hfutthesisversion} hfut thesis template]
 
 % 报错和警告
 \newcommand\hfut@error[1]{%
@@ -1579,7 +1579,7 @@
 %   \ifhfut@degree@bachelor
 %     \ctexset{
 %       chapter/numbering=false,
-%       chapter/format = \centering\rmfamily\bfseries\fontsize{18bp}{\baselineskip}\selectfont,
+%       chapter/format = \centering\rmfamily\bfseries\fontsize{18bp}{18bp}\selectfont,
 %       chapter/beforeskip  = 9bp,
 %       chapter/afterskip   = 27bp,
 %     }
@@ -1986,10 +1986,10 @@
     \end{tabular}
     \vskip 1.5cm%
     {\linespread{1.25}
-    \bfseries\fontsize{16bp}{\baselineskip}\selectfont
+    \bfseries\fontsize{16bp}{16bp}\selectfont
     \uline{\hfut@title@en}\par}%
     \vskip 3.5cm%
-    {\linespread{1.5}\fontsize{15bp}{\baselineskip}\selectfont
+    {\linespread{1.5}\fontsize{15bp}{15bp}\selectfont
       \textbf{作者姓名：}\underlineFixlen{\hfut@author} \hfill \textbf{导师姓名：}\underlineFixlen{\hfut@supervisor@names} \par
       \textbf{申请学位：}\underlineFixlen{\hfut@applydegree} \hfill \textbf{培养单位：}\underlineFixlen{\hfut@school} \par
       \textbf{学科专业：}\underlineFixlen{\hfut@speciality} \hfill \textbf{研究方向：}\underlineFixlen{\hfut@research} \par
@@ -2006,7 +2006,7 @@
     \renewcommand\arraystretch{1}
     \vfill
 
-    {\fontsize{15bp}{\baselineskip}\selectfont\hfut@date@zh}
+    {\fontsize{15bp}{15bp}\selectfont\hfut@date@zh}
 
   \end{titlepage}%
 }
@@ -2021,10 +2021,10 @@
       合\hspace{1.5\ccwd}肥\hspace{1.5\ccwd}工\hspace{1.5\ccwd}业\hspace{1.5\ccwd}大\hspace{1.5\ccwd}学\par}%
     \vskip 1.8cm%
     \ifhfut@degree@master
-      {\sffamily\bfseries\fontsize{22bp}{1.25\baselineskip}\selectfont
+      {\sffamily\bfseries\fontsize{22bp}{30bp}\selectfont
       \hfut@degreetype@name 学位论文\par}% 空格不可忽略
     \else
-      {\sffamily\bfseries\fontsize{22bp}{1.25\baselineskip}\selectfont
+      {\sffamily\bfseries\fontsize{22bp}{30bp}\selectfont
       \hfut@thesis@name\par}%
     \fi
     \vskip 1.8cm%
@@ -2035,7 +2035,7 @@
     \else
       \vskip 8cm%
     \fi
-      \begin{tabular}{>{\fontsize{16bp}{\baselineskip}\rmfamily\bfseries\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{\baselineskip}\rmfamily\selectfont}p{8.4cm}}%
+      \begin{tabular}{>{\fontsize{16bp}{16bp}\rmfamily\bfseries\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{16bp}\rmfamily\selectfont}p{8.4cm}}%
         \ifhfut@degree@bachelor
           学生姓名：& \hfut@author \\
           \cline{2-2}\\
@@ -2085,7 +2085,7 @@
         \fi
     \end{tabular}\par%
     \vfill
-    {\fontsize{15bp}{\baselineskip}\selectfont\hfut@date@zh}
+    {\fontsize{15bp}{15bp}\selectfont\hfut@date@zh}
   \end{titlepage}%
   \hfut@reset@main@language
 }
@@ -2209,7 +2209,7 @@
     \null
     \renewcommand\arraystretch{1.5}
     \ifhfut@degree@bachelor
-      {\centering\sffamily\fontsize{18bp}{\baselineskip}\selectfont
+      {\centering\sffamily\fontsize{18bp}{18bp}\selectfont
       \textbf{毕业设计（论文）独创性声明}\par}%
       \vskip 1.0cm%
       \hfut@originality@bachelor\par
@@ -2217,7 +2217,7 @@
       毕业设计（论文）作者签名：\hfill%
       签字日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日\par
       \vskip 2.33cm%
-      {\centering\sffamily\fontsize{18bp}{\baselineskip}\selectfont
+      {\centering\sffamily\fontsize{18bp}{18bp}\selectfont
       \textbf{毕业设计（论文）版权使用授权书}\par}%
       \vskip 1.0cm%
       \hfut@authorization@bachelor\par
@@ -2227,7 +2227,7 @@
         签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日 & 签名日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日
       \end{tabular}\par
     \else
-      {\centering\sffamily\fontsize{18bp}{\baselineskip}\selectfont
+      {\centering\sffamily\fontsize{18bp}{18bp}\selectfont
       \textbf{学位论文独创性声明}\par}%
       \vskip 1.25cm%
       \hfut@originality@master\par
@@ -2235,7 +2235,7 @@
       学位论文作者签名：\hfill%
       签字日期：\hspace{3\ccwd}年\hspace{2\ccwd}月\hspace{2\ccwd}日\par
       \vskip 2.8cm%
-      {\centering\sffamily\fontsize{18bp}{\baselineskip}\selectfont
+      {\centering\sffamily\fontsize{18bp}{18bp}\selectfont
       \textbf{学位论文版权使用授权书}\par}%
       \vskip 1.25cm%
       \hfut@authorization@master\par
@@ -2321,9 +2321,9 @@
     format = {
         \centering
         \if@mainmatter
-          \fontsize{16bp}{\baselineskip}\sffamily\bfseries\selectfont
+          \fontsize{16bp}{16bp}\sffamily\bfseries\selectfont
         \else
-          \fontsize{18bp}{\baselineskip}\rmfamily\bfseries\selectfont
+          \fontsize{18bp}{16bp}\rmfamily\bfseries\selectfont
         \fi
     },
     nameformat  = {},
@@ -2333,9 +2333,9 @@
     aftername   = \hspace{0.5\ccwd},
     beforeskip  = {
       \if@mainmatter
-        \baselineskip
+        16bp
       \else
-        0.5\baselineskip
+        9bp
       \fi
     },
     %tocline     = {
@@ -2352,9 +2352,9 @@
     %},
     afterskip   = {
       \if@mainmatter
-        \baselineskip
+        16bp
       \else
-        1.5\baselineskip
+        24bp
       \fi
     },
     fixskip     = true,
@@ -2365,25 +2365,25 @@
 % 序号与题名间空一字。
 \ctexset{
   section = {
-    format     = \sffamily\fontsize{12bp}{\baselineskip}\selectfont,
+    format     = \sffamily\fontsize{12bp}{12bp}\selectfont,
     aftername  = \hspace{0.5\ccwd},
-    beforeskip = 0.5\baselineskip,
-    afterskip  = 0.5\baselineskip,
+    beforeskip = 6bp,
+    afterskip  = 6bp,
   },
   %
   % 二级节标题：黑体 12 磅，左缩进两字，单倍行距，段前 12 磅，段后 6 磅，
   % 序号与题名间空一字。
   subsection = {
-    format     = \rmfamily\bfseries\fontsize{12bp}{\baselineskip}\selectfont,
+    format     = \rmfamily\bfseries\fontsize{12bp}{12bp}\selectfont,
     aftername  = \hspace{0.5\ccwd},
-    beforeskip = 0.5\baselineskip,
-    afterskip  = 0.5\baselineskip,
+    beforeskip = 6bp,
+    afterskip  = 6bp,
   },
   %
   % 三级及以下节标题的格式没有具体规定，按照数学学院推荐的方案：
   % 使用宋体 12 磅，左缩进两字，行距 20 磅，段前段后 0 磅，序号(n)与题名间空半字宽。
   subsubsection = {
-    format     = \rmfamily\fontsize{12bp}{\baselineskip}\selectfont,
+    format     = \rmfamily\fontsize{12bp}{12bp}\selectfont,
     number     = (\arabic{subsubsection}),
     aftername  = \hspace{0.5\ccwd},
     beforeskip = \z@,
@@ -3293,7 +3293,7 @@
   \@mainmatterfalse
   \ctexset{
     tocdepth = 0,
-    chapter/format = \centering\sffamily\bfseries\fontsize{18bp}{\baselineskip}\selectfont,
+    chapter/format = \centering\sffamily\bfseries\fontsize{18bp}{18bp}\selectfont,
     chapter/beforeskip  = 9bp,
     chapter/afterskip   = 27bp,
     section/name = {,）},
