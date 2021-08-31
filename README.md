@@ -84,4 +84,4 @@
 ## 写在后面
 - 鸣谢 [ustctug/ustcthesis](https://github.com/ustctug/ustcthesis) 项目
 
-- 有意加入[@HFUTTUG](https://github.com/HFUTTUG)的同学可发送[📧Email](mailto:poet@poetyin.com)
+- 有意加入[@HFUTTUG](https://github.com/HFUTTUG)的同学可发送[📧Email](mailto:hfuttug@163.com)
