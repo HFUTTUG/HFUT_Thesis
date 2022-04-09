@@ -1,0 +1,23 @@
+name: Tex Build Test
+on: [push, pull_request]
+
+jobs:
+  ubuntu-build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Test Doc Compilation
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: "hfutthesis-doc.tex"
+          latexmk_use_xelatex: true
+          latexmk_shell_escape: true
+          args: "-outdir=ci_test/ubuntu/hfutthesis-doc"
+      - name: Test Main Compilation
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: "main.tex"
+          latexmk_use_xelatex: true
+          latexmk_shell_escape: true
+          args: "-outdir=ci_test/ubuntu/main"
