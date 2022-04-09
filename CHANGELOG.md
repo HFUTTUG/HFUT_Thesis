@@ -3,6 +3,28 @@ All notable changes to this project will be documented in this file.
 
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
+## [v1.0.4] - 2022-04-09
+
+### Added
+
+- add GitHub workflow compile Test.
+
+### Changed
+
+- 
+
+### Removed
+
+- 
+
+### Fixed
+
+- 修复了载入 `natbib` 前设置 `cite-style` 无效的问题（[ustcthesis#327](https://github.com/ustctug/ustcthesis/issues/327)）。
+- 修正了 biblatex 参考文献的页眉。（[ustcthesis#311](https://github.com/ustctug/ustcthesis/issues/311)）
+- 修正`Makefile`文件。（感谢[@zepinglee](https://github.com/zepinglee)）（[#9](https://github.com/HFUTTUG/HFUT_Thesis/issues/9)）
+- 修改因`publications`环境造成的“不兼容TeX Live 2017-2020”。（感谢[@zepinglee](https://github.com/zepinglee)）（[#9](https://github.com/HFUTTUG/HFUT_Thesis/issues/9)）
+
+
 ## [v1.0.3] - 2021-08-15
 
 ### Added
@@ -85,6 +107,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 
 - 
 
+[v1.0.4]: https://github.com/HFUTTUG/HFUT_Thesis/releases/tag/v1.0.4
 [v1.0.3]: https://github.com/HFUTTUG/HFUT_Thesis/releases/tag/v1.0.3
 [v1.0.2]: https://github.com/HFUTTUG/HFUT_Thesis/releases/tag/v1.0.2
 [v1.0.1]: https://github.com/HFUTTUG/HFUT_Thesis/releases/tag/v1.0.1

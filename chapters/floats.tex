@@ -51,7 +51,7 @@
 事实上，这种做法已经过时。
 而且每次编译时都要要调用外部工具解析 eps，导致降低编译速度。
 所以我们推荐矢量图直接使用 pdf 格式，位图使用 jpeg 或 png 格式。
-\begin{figure}[h]
+\begin{figure}[!ht]
   \centering
   \includegraphics[width=0.3\textwidth]{hfut-badge.pdf}
   % \bicaption{图号、图题置于图的下方}{The figure number and title are placed at the bottom of the figure} % 硕博学位论文 图表中英文标题
@@ -64,7 +64,7 @@
 不建议使用 \pkg{subfigure} 或 \pkg{subfig} 等宏包。\par
 
 对于硕博是中英文图标题，示例如图~\ref{fig:example-zh-en}：
-\begin{figure}[h]
+\begin{figure}[!ht]
   \centering
   \includegraphics[height=1.5cm]{hfut-name.pdf}
   \bicaption{合肥工业大学}{Hefei University of Technology} % 硕博学位论文 图表中英文标题
@@ -76,7 +76,7 @@
 模板中使用 \pkg{algorithm2e} 宏包实现算法环境。关于该宏包的具体用法，
 请阅读宏包的官方文档。
 
-\begin{algorithm}[h]
+\begin{algorithm}[!ht]
   \SetAlgoLined
   \KwData{this text}
   \KwResult{how to write algorithm with \LaTeX2e }

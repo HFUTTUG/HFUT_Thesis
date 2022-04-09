@@ -14,8 +14,8 @@
 %
 
 \NeedsTeXFormat{LaTeX2e}[2017/04/15]
-\newcommand\hfutthesisversion{v1.0.3}
-\ProvidesClass{hfutthesis}[2021/08/15 {\hfutthesisversion} hfut thesis template]
+\newcommand\hfutthesisversion{v1.0.4}
+\ProvidesClass{hfutthesis}[2022/04/09 {\hfutthesisversion} hfut thesis template]
 
 % 报错和警告
 \newcommand\hfut@error[1]{%
@@ -1769,7 +1769,7 @@
 \else
   \ifhfut@degree@master
     \newcommand\hfut@thesis@name{硕士学位论文}
-    \newcommand\hfut@thesis@name@en{A Dissertation Submitted for the Degree of Maste}
+    \newcommand\hfut@thesis@name@en{A Dissertation Submitted for the Degree of Master}
     \newcommand\hfut@thesis@name@encover{MASTER'S DISSERTATION}
   \else
     \newcommand\hfut@thesis@name{本科毕业设计（论文）}
@@ -1825,6 +1825,13 @@
 }{%
   \if@restonecol\twocolumn \else \newpage \fi
 }
+
+% TODO: 做一些定义用以实现：不定长, 自动换行且有定长下划线的“论文标题”
+% from:
+% https://github.com/CTeX-org/forum/issues/208
+% https://syvshc.github.io/2021-08-04-thesis-title/
+% https://zhuanlan.zhihu.com/p/51494365
+
 
 % 中文封面：
 % 抬头黑体 12 磅；
@@ -2983,9 +2990,17 @@
   \@namedef{bibstyle@hfutthesis-authoryear}{\bibstyle@authoryear}
   \@namedef{bibstyle@hfutthesis-bachelor}{\bibstyle@super}
   %
+  % 如果载入 `natbib` 前设置了 `cite-style`，这里先进行配置。
+  % https://github.com/ustctug/ustcthesis/issues/327
+  \ifx\hfut@cite@style\@empty\else
+    \citestyle{\hfut@cite@style}%
+  \fi
+  %
   % 定义接口 cite-style 切换引用样式。
   \hfut@option@hook{cite-style}{%
+    \ifx\@begindocumenthook\@undefined
     \citestyle{\hfut@cite@style}%
+    \fi
   }
   %
   % 如果文献序号作为叙述文字的一部分，需要临时将文献序号与正文平排
@@ -3259,7 +3274,10 @@
     \ifthenelse{\equal{\blx@bbxfile}{mla-new}}{\def\bibname{WORKS CITED}}{}
   }
   \DeclareRobustCommand\inlinecite{\parencite}
-  \defbibheading{bibliography}[\bibname]{\@mainmatterfalse\chapter*{\bibname}}
+  \defbibheading{bibliography}[\bibname]{%
+    \@mainmatterfalse
+    \chapter{\bibname}%
+  }
   \renewcommand\bibfont{%
     \fontsize{10.5bp}{20bp}\selectfont
   }
@@ -3292,7 +3310,6 @@
 \newenvironment{publications}{%
   \@mainmatterfalse
   \ctexset{
-    tocdepth = 0,
     chapter/format = \centering\sffamily\bfseries\fontsize{18bp}{18bp}\selectfont,
     chapter/beforeskip  = 9bp,
     chapter/afterskip   = 27bp,
@@ -3306,6 +3323,7 @@
   \chapter{\hfut@publication@name}%
   \renewcommand\thesection{\arabic{section}}
   \setenumerate[1]{itemsep = 0pt, parsep = 0pt, label = （\arabic*）}
+  \setcounter{tocdepth}{0}
   \setcounter{section}{0}
 }{}
 
