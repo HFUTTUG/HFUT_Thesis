@@ -13,11 +13,24 @@ jobs:
           root_file: "hfutthesis-doc.tex"
           latexmk_use_xelatex: true
           latexmk_shell_escape: true
-          args: "-outdir=ci_test/ubuntu/hfutthesis-doc"
+          args: "-outdir=ci_out/ubuntu/hfutthesis-doc"
       - name: Test Main Compilation
         uses: xu-cheng/latex-action@v2
         with:
           root_file: "main.tex"
           latexmk_use_xelatex: true
           latexmk_shell_escape: true
-          args: "-outdir=ci_test/ubuntu/main"
+          args: "-outdir=ci_out/ubuntu/main"
+  post-ci-output-dev:
+    runs-on: ubuntu-latest
+    if: github.repository == 'HFUTTUG/HFUT_Thesis' && github.ref == 'refs/heads/dev'
+    needs: [ubuntu-build-test]
+    steps:
+      - name: Release to External Repo
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.HFUT_THESIS_CI_OUTPUT_DEPLOY }}
+          external_repository: HFUTTUG/CI_Output
+          publish_branch: HFUTTUG/HFUT_Thesis
+          publish_dir: ci_out
+          force_orphan: false
