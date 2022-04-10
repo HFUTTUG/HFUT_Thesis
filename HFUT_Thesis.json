@@ -1,0 +1,93 @@
+{
+    "version":"1.0.4", 
+    "organization": "HFUTTUG", 
+    "repository": "HFUT_Thesis", 
+    "release_date": "2021-05-23", 
+    "license": "LPPL-1.3c", 
+    "history": {
+        "template": "https://keepachangelog.com/en/1.0.0/", 
+        "versions": {
+            "1.0.4": {
+                "release_date": "2022-04-09", 
+                "title": "", 
+                "logs": {
+                    "add": [
+                        "add GitHub workflow compile Test"
+                    ], 
+                    "change": [], 
+                    "remove": [], 
+                    "fix": [
+                        "修复了载入 `natbib` 前设置 `cite-style` 无效的问题（[ustcthesis#327](https://github.com/ustctug/ustcthesis/issues/327)）", 
+                        "修正了 biblatex 参考文献的页眉。（[ustcthesis#311](https://github.com/ustctug/ustcthesis/issues/311)）", 
+                        "修正`Makefile`文件。（感谢[@zepinglee](https://github.com/zepinglee)）（[#9](https://github.com/HFUTTUG/HFUT_Thesis/issues/9)）", 
+                        "修改因`publications`环境造成的“不兼容TeX Live 2017-2020”。（感谢[@zepinglee](https://github.com/zepinglee)）（[#9](https://github.com/HFUTTUG/HFUT_Thesis/issues/9)）"
+                    ]
+                }
+            }, 
+            "1.0.3": {
+                "release_date": "2021-08-15", 
+                "title": "",
+                "logs": {
+                    "add": [], 
+                    "change": [
+                        "更新`bst`格式（感谢[@zepinglee](https://github.com/zepinglee)）（[#6](https://github.com/HFUTTUG/HFUT_Thesis/pull/6)）"
+                    ], 
+                    "remove": [], 
+                    "fix": [
+                        "修正参考文献格式", 
+                        "改正在`\fontsize`中使用`\baselineskip`的[错误](https://github.com/HFUTTUG/HFUT_Thesis/commit/06af8e80ad8ff29b7a067da1c89e8c0ca2f63e78#r51664931)"
+                    ]
+                }
+            }, 
+            "1.0.2": {
+                "release_date": "2021-08-03", 
+                "title": "",
+                "logs": {
+                    "add": [
+                        "完成学术成果页"
+                    ], 
+                    "change": [
+                        "封面校徽更改为新校徽"
+                    ], 
+                    "remove": [], 
+                    "fix": [
+                        "修正学士论文 摘要页 加入PDF标签", 
+                        "修正博士题名页英文标题行距", 
+                        "修正节标题格式", 
+                        "修正页眉内容及格式", 
+                        "修正目录内容字体格式", 
+                        "修正声明页", 
+                        "修改 `.vscode/settings.json` 的配置以便支持中文路径（感谢[@xqm32](https://github.com/xqm32)）（[#4](https://github.com/HFUTTUG/HFUT_Thesis/pull/4)）"
+                    ]
+                }
+            }, 
+            "1.0.1": {
+                "release_date": "2021-05-26", 
+                "title": "",
+                "logs": {
+                    "add": [
+                        "添加Overleaf的模板链接"
+                    ], 
+                    "change": [], 
+                    "remove": [], 
+                    "fix": [
+                        "修正论文前置部分各部分距离", 
+                        "修正`copyrightpage`"
+                    ]
+                }
+            }, 
+            "1.0.0": {
+                "release_date": "2021-05-23", 
+                "title": "",
+                "logs": {
+                    "add": [
+                        "适配本硕博学位论文"
+                    ], 
+                    "change": [], 
+                    "remove": [], 
+                    "fix": []
+                }
+            }
+        }
+    } 
+}
