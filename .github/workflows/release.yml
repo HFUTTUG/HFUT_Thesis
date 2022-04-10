@@ -17,8 +17,6 @@ jobs:
         env:
           RELEASE_INFO: HFUT_Thesis.json
         run: |
-          # json tools
-          apt install jq -y
           # version
           version_key=".version"
           version=`cat ${RELEASE_INFO} | jq -r $version_key`
@@ -33,20 +31,33 @@ jobs:
           note_logs_key=".logs"
           note_logs=`echo $note | jq -r $note_logs_key`
           note_logs_add_key=".add"
-          note_logs_add=`echo $note_logs | jq -r $note_logs_add_key | sed '1d' | sed '$d' | sed 's/^ */  - /'`
+          note_logs_add=`echo $note_logs | jq -r $note_logs_add_key | sed '1d' | sed '$d' | sed 's/^ *"/ - /' | sed 's/[,"]*$//'`
           note_logs_change_key=".change"
-          note_logs_change=`echo $note_logs | jq -r $note_logs_change_key | sed '1d' | sed '$d' | sed 's/^ */  - /'`
+          note_logs_change=`echo $note_logs | jq -r $note_logs_change_key | sed '1d' | sed '$d' | sed 's/^ *"/ - /' | sed 's/[,"]*$//'`
           note_logs_remove_key=".remove"
-          note_logs_remove=`echo $note_logs | jq -r $note_logs_remove_key | sed '1d' | sed '$d' | sed 's/^ */  - /'`
+          note_logs_remove=`echo $note_logs | jq -r $note_logs_remove_key | sed '1d' | sed '$d' | sed 's/^ *"/ - /' | sed 's/[,"]*$//'`
           note_logs_fix_key=".fix"
-          note_logs_fix=`echo $note_logs | jq -r $note_logs_fix_key | sed '1d' | sed '$d' | sed 's/^ */  - /'`
+          note_logs_fix=`echo $note_logs | jq -r $note_logs_fix_key | sed '1d' | sed '$d' | sed 's/^ *"/ - /' | sed 's/[,"]*$//'`
           # return: collect meta-msg 
+          # return.logs
+          logs=$(cat << EOF
+          ### Add
+          $note_logs_add
+          ### Change
+          $note_logs_change
+          ### Remove
+          $note_logs_remove
+          ### Fix
+          $note_logs_fix
+          EOF
+          )
+          logs="${logs//'%'/'%25'}"
+          logs="${logs//$'\n'/'%0A'}"
+          logs="${logs//$'\r'/'%0D'}"
+          # return: return
           echo "::set-output name=version::$version"
           echo "::set-output name=note_title::$note_title"
-          echo "::set-output name=note_logs_add::$note_logs_add"
-          echo "::set-output name=note_logs_change::$note_logs_change"
-          echo "::set-output name=note_logs_remove::$note_logs_remove"
-          echo "::set-output name=note_logs_fix::$note_logs_fix"
+          echo "::set-output name=logs::$logs"
       - name: Test Doc Compilation
         uses: xu-cheng/latex-action@v2
         with:
@@ -68,14 +79,7 @@ jobs:
           name: v${{ steps.release_info.outputs.version }}-${{ steps.release_info.outputs.note_title }}
           body: |
             ## Logs
-            ### Add
-            ${{ steps.release_info.outputs.note_logs_add }}
-            ### Change
-            ${{ steps.release_info.outputs.note_logs_change }}
-            ### Remove
-            ${{ steps.release_info.outputs.note_logs_remove }}
-            ### Fix
-            ${{ steps.release_info.outputs.note_logs_fix }}
+            ${{ steps.release_info.outputs.logs }}
           files: |
             ci_out/ubuntu/main/main.pdf
             ci_out/ubuntu/hfutthesis-doc/hfutthesis-doc.pdf

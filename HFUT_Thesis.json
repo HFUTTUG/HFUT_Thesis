@@ -1,5 +1,5 @@
 {
-    "version":"1.0.4", 
+    "version":"1.0.5", 
     "organization": "HFUTTUG", 
     "repository": "HFUT_Thesis", 
     "release_date": "2021-05-23", 
@@ -7,6 +7,27 @@
     "history": {
         "template": "https://keepachangelog.com/en/1.0.0/", 
         "versions": {
+            "1.0.5": {
+                "release_date": "2022-04-10", 
+                "title": "Hello World", 
+                "logs": {
+                    "add": [
+                        "add 1", 
+                        "add 2"
+                    ], 
+                    "change": [
+                        "change 1", 
+                        "change 2"
+                    ], 
+                    "remove": [
+                        "remove 1", 
+                        "remove 2"
+                    ], 
+                    "fix": [
+                        "fix 1"
+                    ]
+                }
+            },
             "1.0.4": {
                 "release_date": "2022-04-09", 
                 "title": "", 
