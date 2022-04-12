@@ -2,7 +2,7 @@
     "version":"1.0.4", 
     "organization": "HFUTTUG", 
     "repository": "HFUT_Thesis", 
-    "release_date": "2021-05-23", 
+    "release_date": "2022-04-15", 
     "license": "LPPL-1.3c", 
     "history": {
         "template": "https://keepachangelog.com/en/1.0.0/", 
@@ -12,15 +12,19 @@
                 "title": "", 
                 "logs": {
                     "add": [
-                        "add GitHub workflow compile Test"
+                        "add GitHub workflow compile Test",
+                        "新增选项 math-font = cm (Computer Modern)（[ustcthesis#324](https://github.com/ustctug/ustcthesis/issues/324)）。",
+                        "增加了 [gbt7714-2015参考文献格式](https://github.com/zepinglee/gbt7714-bibtex-style) 选项（#5）。"
                     ], 
                     "change": [], 
                     "remove": [], 
                     "fix": [
-                        "修复了载入 `natbib` 前设置 `cite-style` 无效的问题（[ustcthesis#327](https://github.com/ustctug/ustcthesis/issues/327)）", 
-                        "修正了 biblatex 参考文献的页眉。（[ustcthesis#311](https://github.com/ustctug/ustcthesis/issues/311)）", 
-                        "修正`Makefile`文件。（感谢[@zepinglee](https://github.com/zepinglee)）（[#9](https://github.com/HFUTTUG/HFUT_Thesis/issues/9)）", 
-                        "修改因`publications`环境造成的“不兼容TeX Live 2017-2020”。（感谢[@zepinglee](https://github.com/zepinglee)）（[#9](https://github.com/HFUTTUG/HFUT_Thesis/issues/9)）"
+                        "修复了载入 `natbib` 前设置 `cite-style` 无效的问题（[ustcthesis#327](https://github.com/ustctug/ustcthesis/issues/327)）。", 
+                        "修正了 biblatex 参考文献的页眉（[ustcthesis#311](https://github.com/ustctug/ustcthesis/issues/311)）。", 
+                        "修正`Makefile`文件（感谢[@zepinglee](https://github.com/zepinglee)）（[#9](https://github.com/HFUTTUG/HFUT_Thesis/issues/9)）。", 
+                        "修改因`publications`环境造成的“不兼容TeX Live 2017-2020”（感谢[@zepinglee](https://github.com/zepinglee)）（[#9](https://github.com/HFUTTUG/HFUT_Thesis/issues/9)）。",
+                        "修正了研究生学位论文节标题行距。",
+                        "修正了英文摘要段首缩进距离。"
                     ]
                 }
             }, 
