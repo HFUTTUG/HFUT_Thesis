@@ -1,0 +1,136 @@
+name: All-in-One CI
+on: [push, pull_request]
+
+jobs:
+  ubuntu-build-test:
+    name: Build Test(Ubuntu)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Test Doc Compilation
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: "hfutthesis-doc.tex"
+          latexmk_use_xelatex: true
+          latexmk_shell_escape: true
+          args: "-outdir=ci_out/${{ runner.os }}/hfutthesis-doc"
+      - name: Test Main Compilation
+        uses: xu-cheng/latex-action@v2
+        with:
+          root_file: "main.tex"
+          latexmk_use_xelatex: true
+          latexmk_shell_escape: true
+          args: "-outdir=ci_out/${{ runner.os }}/main"
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ci_out_ubuntu
+          path: ci_out
+  collect-output:
+    name: Collect All Output
+    runs-on: ubuntu-latest
+    if: github.repository == 'HFUTTUG/HFUT_Thesis'
+    needs: [ubuntu-build-test]
+    steps:
+      - name: Download Artifact(ubuntu)
+        uses: actions/download-artifact@v2
+        with:
+          name: ci_out_ubuntu
+          path: ci_out
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: ci_out
+          path: ci_out
+  post-output:
+    name: Post All Output to HFUTTUG/CI_Output
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+    needs: [collect-output]
+    steps:
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ci_out
+          path: ci_out
+      - name: Release to External Repo
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          deploy_key: ${{ secrets.CI_DEPLOY }}
+          external_repository: HFUTTUG/CI_Output
+          publish_branch: HFUTTUG/HFUT_Thesis
+          publish_dir: ci_out
+          force_orphan: false
+  create_release:
+    name: Create Release
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push' && github.ref_type == 'tag'
+    needs: [collect-output]
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v2
+      - name: Download Artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: ci_out
+          path: ci_out
+      - name: Get Release Info
+        id: release_info
+        env:
+          RELEASE_INFO: HFUT_Thesis.json
+        run: |
+          # version
+          version_key=".version"
+          version=`cat ${RELEASE_INFO} | jq -r $version_key`
+          # note
+          note_key=".history.versions.\"$version\""
+          note=`cat ${RELEASE_INFO} | jq -r $note_key`
+          # note.*
+          # note.title
+          note_title_key=".title"
+          note_title=`echo $note | jq -r $note_title_key`
+          # note.logs
+          note_logs_key=".logs"
+          note_logs=`echo $note | jq -r $note_logs_key`
+          note_logs_add_key=".add"
+          note_logs_add=`echo $note_logs | jq -r $note_logs_add_key | sed '1d' | sed '$d' | sed 's/^ *"/ - /' | sed 's/[,"]*$//'`
+          note_logs_change_key=".change"
+          note_logs_change=`echo $note_logs | jq -r $note_logs_change_key | sed '1d' | sed '$d' | sed 's/^ *"/ - /' | sed 's/[,"]*$//'`
+          note_logs_remove_key=".remove"
+          note_logs_remove=`echo $note_logs | jq -r $note_logs_remove_key | sed '1d' | sed '$d' | sed 's/^ *"/ - /' | sed 's/[,"]*$//'`
+          note_logs_fix_key=".fix"
+          note_logs_fix=`echo $note_logs | jq -r $note_logs_fix_key | sed '1d' | sed '$d' | sed 's/^ *"/ - /' | sed 's/[,"]*$//'`
+          # return: collect meta-msg 
+          # return.logs
+          logs=$(cat << EOF
+          ### Add
+          $note_logs_add
+          ### Change
+          $note_logs_change
+          ### Remove
+          $note_logs_remove
+          ### Fix
+          $note_logs_fix
+          EOF
+          )
+          logs="${logs//'%'/'%25'}"
+          logs="${logs//$'\n'/'%0A'}"
+          logs="${logs//$'\r'/'%0D'}"
+          # return: return
+          echo "::set-output name=version::$version"
+          echo "::set-output name=note_title::$note_title"
+          echo "::set-output name=logs::$logs"
+      - name: Create Release
+        id: create_release
+        uses: softprops/action-gh-release@v1
+        with:
+          name: v${{ steps.release_info.outputs.version }}-${{ steps.release_info.outputs.note_title }}
+          body: |
+            ## Logs
+            ${{ steps.release_info.outputs.logs }}
+          files: |
+            ci_out/${{ runner.os }}/main/main.pdf
+            ci_out/${{ runner.os }}/hfutthesis-doc/hfutthesis-doc.pdf
+          draft: false
+          prerelease: false
