@@ -115,11 +115,9 @@
 
 \title{\cls{hfutthesis} 使用说明}
 \author{
-  \href{https://github.com/tyty0001}{tyty0001}
-% \and yzh\thanks{?} \and
-%        hrz\thanks{?}
+  \href{https://github.com/HFUTTUG}{HFUTTUG}
  }
-\date{v1.0.2\qquad 2021-08-02}
+\date{v1.0.4\qquad 2022-04-09}
 \maketitle
 
 
@@ -176,12 +174,11 @@
              & \file{bib/hfut.bib}       & \BibTeX{} 示例数据库         \\
     \midrule
     其他     & \file{README.md}          & 基本说明                     \\
-             & \file{CHANGELOG.md}       & 更新日志                     \\
+             & \file{HFUT_Thesis.json}       & 更新日志                 \\
              & \file{latexmkrc}          & latexmk 的配置文件           \\
              & \file{Makefile}           & GNU make 的配置文件          \\
              & \file{.vscode/}           & VS Code 的配置文件           \\
              & \file{build.lua}          & l3build 的配置文件           \\
-             & \file{test}               & l3build 的测试文件           \\
     \bottomrule
   \end{tabular}
 \end{table}
@@ -491,7 +488,7 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 \begin{table}[h]
   \centering
    \caption{中文标题} % 默认：学士学位论文 图表中文标题
-  \label{tab:exampletable-zh-en}
+  \label{tab:exampletable-zh}
   \begin{tabular}{cl}
     \toprule
     类型   & 描述                                       \\
@@ -536,6 +533,7 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 \opt{stix}（STIX Two Math）、
 \opt{libertinus}（Libertinus Math）、
 \opt{newcm}（New Computer Modern Math）、
+\opt{cm}（Computer Modern Math）、
 \opt{lm}（Latin Modern Math）。
 
 其中 \opt{lm} 和 \opt{newcm} 的字形比较搭配 TeX 原生的 Computer Modern 字体，
@@ -627,18 +625,25 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 
 \BibTeX{} 是 \LaTeX{} 处理参考文献的传统的方式。
 在本模板中需要载入 \pkg{natbib} 宏包，
-然后选择“顺序编码制”或“著者-出版年制”两种格式之一：
+然后按照“顺序编码制”格式选择参考文献格式风格：
 \begin{latex}
-  % 顺序编码制
+  % HFUT学位论文样例 参考文献的著录格式
   \usepackage[sort]{natbib}
-  \bibliographystyle{hfutthesis-numeric}
+  \bibliographystyle{hfutthesis-numerical}
 \end{latex}
-或者
+
 \begin{latex}
-  % 著者-出版年制
-  \usepackage{natbib}
-  \bibliographystyle{hfutthesis-authoryear}
+  % gbt7714-2015 参考文献的著录格式
+  \usepackage[sort]{natbib}
+  \bibliographystyle{gbt7714-numerical}
 \end{latex}
+
+\begin{latex}
+  % 备用方案
+  \usepackage[sort]{natbib}
+  \bibliographystyle{hfutthesis-graduate}
+\end{latex}
+
 并且在生成参考文献表的位置使用 \cs{bibliography} 设置 \file{.bib} 数据库的路径。
 然后使用 \file{bibtex} 编译生成 \file{.bbl} 文件。
 这里使用参考文献样式（\file{.bst} 文件）是在
@@ -655,9 +660,8 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
 \textbf{模板默认为上标样式}，也可以根据需要修改：
 
 \DescribeOption{cite-style}
-参考文献的样式。可选：\opt{authoryear}，\opt{super}（默认），\opt{inline}。
+参考文献的样式。可选：\opt{super}（默认），\opt{inline}。
 \begin{itemize}
-  \item \opt{authoryear}：著者-出版年制
   \item \opt{super}：上标样式
   \item \opt{inline}：与正文平排
 \end{itemize}
@@ -670,26 +674,6 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
     cite-style = inline,
   }
 \end{latex}
-
-著者-出版年制的文献引用标注也有两种主要模式：
-\begin{enumerate}
-  \item \cs{citet}：著者姓名作为正文的一部分，比如“Zhang (2008)”，
-    同默认的 \cs{cite} 命令一样。
-  \item \cs{citep}：著者与年份均在括号中，比如“(Zhang, 2008)”。
-\end{enumerate}
-
-参考文献表采用著者-出版年制组织时，各篇文献首先按文种集中， 然后按著者字顺和出版年排列；
-中文文献可以按著者汉语拼音字顺排列，也可以按著者的笔画笔顺排列。
-但由于 \BibTeX{} 功能的局限性，无法自动获取著者姓名的拼音或笔画笔顺进行正确排序。
-一种解决方法是在 \file{.bib} 数据库的中文文献的 |key| 域手动录入著者姓名的拼音：
-\begin{latex}
-  @book{capital,
-    author = {马克思 and 恩格斯},
-    key    = {ma3 ke4 si1 & en1 ge2 si1},
-    ...
-  }
-\end{latex}
-如果中文文献数量较多，推荐使用 BibLaTeX 处理参考文献。
 
 \paragraph{与 \pkg{chapterbib} 的兼容性}
 如果在每一章添加独立的参考文献，可以使用 \pkg{chapterbib} 宏包。
@@ -704,7 +688,7 @@ Windows 用户可能无法使用GNU make，使用 |latexmk| 也是一个比较�
   \item 每章都要使用 \cs{bibliographystyle} 和 \cs{bibliography} 命令。
 \end{enumerate}
 
-用户可在\file{hfutthesis-bachelor.bst}中的load.config函数中来自定义更详细的样式，表\ref{canshu}列出了一些常用的参数值，\# 1表示被启用，\# 0则不启用。
+用户可在\file{hfutthesis-numeric.bst}中的load.config函数中来自定义更详细的样式，表\ref{canshu}列出了一些常用的参数值，\# 1表示被启用，\# 0则不启用。
 \textbf{默认值遵循《\href{http://xwgl.hfut.edu.cn/2021/0419/c1975a253949/page.htm}{合肥工业大学研究生学位论文写作规范}》，与国标的配置有部分出入。}
 有关国标的配置可参考\href{https://ctan.org/pkg/gbt7714}{\pkg{gbt7714}}。
 
@@ -731,14 +715,6 @@ BibLaTeX 是较新的参考文献处理方案。
 需要在载入宏包时通过选择样式（\opt{style}），
 并且在导言区使用 \cs{addbibresource} 设置数据库的路径，
 最后在参考文献表的位置使用 \cs{printbibliography} 输出。
-\begin{latex}
-  \usepackage[style=hfutthesis-author-year]{biblatex}
-  \addbibresource{bib/hfut.bib}
-\end{latex}
-使用 BibLaTeX 必须用 \file{biber} 编译生成参考文献表。
-这里的样式是在 \href{https://ctan.org/pkg/biblatex-gb7714-2015}{biblatex-gb7714-2015}
-的基础上进行了少量修改。
-一些额外用法可以参考该宏包的文档。
 
 对于顺序编码制，文献引用标注默认为上标样式。
 如果要切换为与正文平排，一种方法是使用 \cs{parencite}，
@@ -748,6 +724,9 @@ BibLaTeX 是较新的参考文献处理方案。
   citestyle=hfutthesis-inline]{biblatex}
 \end{latex}
 
-
+使用 BibLaTeX 必须用 \file{biber} 编译生成参考文献表。
+这里的样式是在 \href{https://ctan.org/pkg/biblatex-gb7714-2015}{biblatex-gb7714-2015}
+的基础上进行了少量修改。
+一些额外用法可以参考该宏包的文档。
 
 \end{document}
