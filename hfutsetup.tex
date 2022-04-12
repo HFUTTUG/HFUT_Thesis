@@ -1,7 +1,7 @@
 % !TeX root = ./main.tex
 
 \hfutsetup{
-  title              = {合肥工业大学学位论文模板示例文档 \hfutthesisversion},
+  title              = {合肥工业大学学位论文模板\\示例文档 \hfutthesisversion},
   title*             = {An example of thesis template for \\ Hefei University of Technology \hfutthesisversion},
   stuID              = {学号},
   author             = {XXX},
@@ -14,7 +14,7 @@
   %
   % 数学字体
   % math-style         = GB,  % 可选：GB, TeX, ISO
-  math-font          = xits,  % 可选：stix, xits, libertinus
+  math-font          = xits,  % 可选：stix, xits, libertinus, newcm, cm, lm, newtx
   %
   %
   %
@@ -74,17 +74,17 @@
 \usepackage{siunitx}
 
 % 参考文献使用 BibTeX + natbib 宏包
-% 顺序编码制
+% HFUT顺序编码制
 \usepackage[sort]{natbib}
 \bibliographystyle{hfutthesis-numerical}
 
-% 著者-出版年制
-% \usepackage{natbib}
-% \bibliographystyle{hfutthesis-authoryear}
-
-% 本科生参考文献的著录格式
+% gbt7714-2015 参考文献的著录格式
 % \usepackage[sort]{natbib}
-% \bibliographystyle{hfutthesis-bachelor}
+% \bibliographystyle{gbt7714-numerical}
+
+% 优化过的 gbt7714-2015 参考文献的著录格式
+% \usepackage[sort]{natbib}
+% \bibliographystyle{hfutthesis-graduate}
 
 % 参考文献使用 BibLaTeX 宏包
 % \usepackage[style=hfutthesis-numeric]{biblatex}
@@ -92,7 +92,7 @@
 % \usepackage[style=hfutthesis-authoryear]{biblatex}
 % \usepackage[style=hfutthesis-bachelor]{biblatex}
 % 声明 BibLaTeX 的数据库
-% \addbibresource{bib/ustc.bib}
+% \addbibresource{bib/hfut.bib}
 
 % 配置图片的默认目录
 \graphicspath{{figures/}}

@@ -244,6 +244,7 @@
       xits,
       libertinus,
       newcm,
+      cm,
       lm,
       newtx,
       none,
@@ -1259,6 +1260,8 @@
 
 % STIX Two Math
 \newcommand\hfut@set@math@font@stix{%
+  \hfut@load@unimath
+  \hfut@set@unimath@style
   \hfut@set@stix@names
   \setmathfont{\hfut@font@name@stix@math}[
     Extension    = .otf,
@@ -1278,6 +1281,8 @@
   \fi
 }
 \newcommand\hfut@set@math@font@xits{%
+  \hfut@load@unimath
+  \hfut@set@unimath@style
   \hfut@set@xits@names
   \setmathfont{\hfut@font@name@xits@math}[
     Extension    = .otf,
@@ -1297,6 +1302,8 @@
   \fi
 }
 \newcommand\hfut@set@math@font@libertinus{%
+  \hfut@load@unimath
+  \hfut@set@unimath@style
   \hfut@set@libertinus@names
   \hfut@set@xits@names
   \setmathfont{\hfut@font@name@libertinus@math}[
@@ -1316,6 +1323,8 @@
   \fi
 }
 \newcommand\hfut@set@math@font@newcm{%
+  \hfut@load@unimath
+  \hfut@set@unimath@style
   \setmathfont{NewCMMath-Book}[
     Extension    = .otf,
     StylisticSet = \hfut@newcm@integral@stylistic@set,
@@ -1350,6 +1359,8 @@
 
 % Latin Modern Math
 \newcommand\hfut@set@math@font@lm{%
+  \hfut@load@unimath
+  \hfut@set@unimath@style
   \setmathfont{latinmodern-math}[Extension=.otf]%
   \setmathrm{lmroman10}[
     Extension      = .otf,
@@ -1429,20 +1440,60 @@
   \fi
   \DeclareRobustCommand\symup[1]{{\mathrm{##1}}}%
   \DeclareRobustCommand\symbf[1]{{\bm{##1}}}%
+  \DeclareRobustCommand\symbfsf[1]{{\bm{##1}}}%
   \let\increment\upDelta%
   \renewcommand\hfut@qed{\openbox}%
 }
 
-\newcommand\hfut@set@math@font{%
-  \ifhfut@math@font@none\else
-    \ifhfut@math@font@newtx
-      \hfut@set@math@font@newtx
-    \else
-      \hfut@load@unimath
-      \hfut@set@unimath@style
-      \@nameuse{hfut@set@math@font@\hfut@math@font}%
-    \fi
+% Computer Modern
+% 使用 LaTeX 默认的 cm 字体
+\newcommand\hfut@set@math@font@cm{%
+  \RequirePackage{amssymb}
+  \let\hfut@save@leq\leq
+  \let\hfut@save@geq\geq
+  \ifhfut@leq@slanted
+    \let\le\leqslant
+    \let\ge\geqslant
+    \let\leq\leqslant
+    \let\geq\geqslant
   \fi
+  \ifhfut@integral@limits@true
+    \let\ilimits@\displaylimits
+  \fi
+  \ifhfut@math@ellipsis@centered
+    \DeclareRobustCommand\mathellipsis{\mathinner{\cdotp\cdotp\cdotp}}%
+  \else
+    \DeclareRobustCommand\mathellipsis{\mathinner{\ldotp\ldotp\ldotp}}%
+  \fi
+  \let\hfut@save@Re\Re
+  \let\hfut@save@Im\Im
+  \ifhfut@real@part@roman
+    \def\Re{\operatorname{Re}}%
+    \def\Im{\operatorname{Im}}%
+  \fi
+  \RequirePackage{bm}%
+  \DeclareRobustCommand\symup[1]{{\mathrm{##1}}}%
+  \DeclareRobustCommand\symbf[1]{{\bm{##1}}}%
+  \DeclareRobustCommand\symbfsf[1]{{\bm{##1}}}%
+  \let\increment\Delta
+  \renewcommand\hfut@qed{\openbox}%
+  \let\uppi\pi
+}
+
+% 不设置数学字体，仅提供兼容支持。
+\newcommand\hfut@set@math@font@none{%
+  \RequirePackage{amssymb}
+  \RequirePackage{bm}%
+  \DeclareRobustCommand\symup[1]{{\mathrm{##1}}}%
+  \DeclareRobustCommand\symbf[1]{{\bm{##1}}}%
+  \DeclareRobustCommand\symbfsf[1]{{\bm{##1}}}%
+  \let\increment\Delta
+  \renewcommand\hfut@qed{\openbox}%
+  \let\uppi\pi
+}
+
+\newcommand\hfut@set@math@font{%
+  \@nameuse{hfut@set@math@font@\hfut@math@font}%
 }
 \hfut@option@hook{math-font}{\g@addto@macro\hfut@setup@hook{\hfut@set@math@font}}
 \newcommand\hfut@set@math@font@auto{%
@@ -1451,7 +1502,12 @@
   \fi
 }
 \AtBeginOfPackageFile*{siunitx}{\hfut@set@math@font@auto}
-\AtEndPreamble{\hfut@set@math@font@auto}
+\AtEndPreamble{%
+  \hfut@set@math@font@auto
+  \ifx\square\@undefined
+    \RequirePackage{amssymb}%
+  \fi
+}
 
 
 
@@ -1832,6 +1888,91 @@
 % https://syvshc.github.io/2021-08-04-thesis-title/
 % https://zhuanlan.zhihu.com/p/51494365
 
+% inner temp length
+\newlength\@tempTitleHt
+\newlength\@tempTitleMaxWd
+
+% length used as parameters， "Wd" is a shorthand for "Width"
+\newlength\titleSingleLineMaxWd
+\newlength\titleMultiLineMaxWd
+\newlength\titleLRExtraWd
+\newlength\titleSepWd
+
+\setlength\titleSingleLineMaxWd{8.5cm}
+\setlength\titleMultiLineMaxWd{7cm}
+\setlength\titleLRExtraWd{0em}
+\setlength\titleSepWd{.5em}
+
+% main macro, using a simple table
+% \newcommand{\multilingualTitles}[2]{%
+%   \par
+%   {\noindent\centering
+%   \begin{tabular}{r @{\hspace{\titleSepWd}} p{\titleSingleLineMaxWd}}
+%   	中文标题           & \titleBox{#1} \\
+%   	                 &               \\[-10pt]
+%   	Title in English & \titleBox{#2}
+%   \end{tabular}\par}%
+% }
+
+% draw a fixed-width underline
+\newcommand{\titleUnderline}{%
+  \rule[-.3em]{\titleSingleLineMaxWd + 2\titleLRExtraWd}{.5pt}}
+
+% title content typesetter
+\newcommand\titleBox[1]{%
+  \setlength\@tempTitleMaxWd\titleSingleLineMaxWd
+  % Measure the total height of #1 subject to \titleSingleLineMaxWd.
+  % Here \@titleBox is necessary when #1 contains "\\".
+  \settototalheight\@tempTitleHt{\@titleBox{#1}}%
+  \ifdim\@tempTitleHt=0pt%
+    % case 1: #1 causes empty output
+    \titleUnderline
+  \else
+    % Change to LR mode, for inserting a zero-width box right after.
+    \leavevmode
+    % note: Use \normalbaseineskip instead of \baselineskip, 
+    %       since the latter is set to 0pt inside tabular env.
+    \ifdim\@tempTitleHt>\normalbaselineskip
+      % case 2: #1 is fit for multilines, or contains `\\`, hence
+      %         \titleMultiLineMaxWd is used instead, and the total 
+      %         height of #1 subject to new max width is re-measured.
+      \setlength\@tempTitleMaxWd\titleMultiLineMaxWd
+      \settototalheight\@tempTitleHt{\@titleBox{#1}}%
+      % \rlap{\smash{...}} typesets content of its argument normally 
+      % but sets it into a zero sized box. Here \@titleBox set 
+      % (possiblly) multi-line text into a single box, since \smash 
+      % only takes in argument spreading one line.
+      %
+      % Every line of title content needs an underline, hense we do
+      % a loop to typeset one underline for every line the title 
+      % content actually spreads.
+      \rlap{\smash{\@titleBox{%
+        \@whiledim\@tempTitleHt>0pt%
+        \leavevmode
+        % 
+        \do{%
+          \rlap{\titleUnderline}\\%
+          \addtolength\@tempTitleHt{-\normalbaselineskip}%
+        }%
+      }}}%
+      % Insert h-offset to manually center the title content.
+      \hspace{\dimexpr\titleLRExtraWd + .5\titleSingleLineMaxWd - .5\titleMultiLineMaxWd\relax}%
+      \@titleBox{\centering #1}%
+    \else
+      % case 3: #1 is fit for one line
+      \rlap{\titleUnderline}%
+      \hspace{\titleLRExtraWd}%
+      \@titleBox{\centering #1}%
+    \fi
+  \fi
+}
+
+% common operations on every title content
+\newcommand{\@titleBox}[1]{%
+  \parbox[t]{\@tempTitleMaxWd}{#1}}
+
+\newlength{\lwtm}
+\setlength{\lwtm}{\widthof{论文题目 :}}
 
 % 中文封面：
 % 抬头黑体 12 磅；
@@ -1852,24 +1993,24 @@
     \centering
     \ifhfut@degree@bachelor
       \ifx\hfut@secret@level\@empty
-        {\sffamily\bfseries\fontsize{12bp}{20bp}\selectfont
+        {\sffamily\bfseries\fontsize{12bp}{19.5bp}\selectfont
         学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
         密\hspace{1em}级：\hfut@underline{公开} \par}
       \else
-        {\sffamily\bfseries\fontsize{12bp}{20bp}\selectfont
+        {\sffamily\bfseries\fontsize{12bp}{19.5bp}\selectfont
         学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
         密\hspace{1em}级：\hfut@underline{\hfut@secret@level\bigstar\hfut@secret@year} \par}
       \fi
       \vskip 1.15cm%
     \else
       \ifx\hfut@secret@level\@empty
-        {\sffamily\bfseries\fontsize{12bp}{20bp}\selectfont
+        {\sffamily\bfseries\fontsize{12bp}{19.5bp}\selectfont
         单位代码：\hfut@underline{10359} \hfill
         密\hspace{1em}级：\hfut@underline{公开} \par
         学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
         分类号：\hfut@underline{\hfut@clc} \par}
       \else
-        {\sffamily\bfseries\fontsize{12bp}{20bp}\selectfont
+        {\sffamily\bfseries\fontsize{12bp}{19.5bp}\selectfont
         单位代码：\hfut@underline{10359} \hfill
         密\hspace{1em}级：\hfut@underline{\hfut@secret@level\bigstar\hfut@secret@year} \par
         学\hspace{2\ccwd}号：\hfut@underline{\hfut@stuID} \hfill
@@ -1905,7 +2046,7 @@
     \else
       \vskip 2.3cm
     \fi
-    \renewcommand\arraystretch{1.75}
+    \renewcommand\arraystretch{1.5}
     \ifhfut@degree@bachelor
       {\fontsize{16bp}{20bp}\selectfont
       \begin{tabular}{>{\fontsize{16bp}{20bp}\rmfamily\bfseries\selectfont}l>{\rmfamily\fontsize{16bp}{20bp}\selectfont}c}%
@@ -1929,13 +2070,13 @@
     \else
       \begin{tabular}{>{\rmfamily\bfseries\fontsize{16bp}{20bp}\selectfont}lp{8.5cm}}%
         论文题目：& \multirow[t]{2}{8.5cm}{
-          \centering\linespread{1.75}\fontsize{16bp}{20bp}\selectfont
+          \centering\linespread{1.5}\fontsize{16bp}{20bp}\selectfont
           \hfut@title} \\
-        \cline{2-2}
+          \cline{2-2}
                 & \\
         \cline{2-2}
       \end{tabular}
-      \renewcommand\arraystretch{1.75}
+      \renewcommand\arraystretch{1.5}
       \begin{tabular}{>{\bfseries\fontsize{16bp}{20bp}\selectfont}l>{\centering\arraybackslash\fontsize{16bp}{20bp}\selectfont}p{8.5cm}}
         \ifhfut@degree@master
           学位类别：& \hfut@degreetype@name\\
@@ -2368,29 +2509,29 @@
   },
 }
 
-% 一级节标题：黑体 12 磅左顶格，单倍行距，段前 24 磅，段后 6 磅，
+% 一级节标题：黑体，小四号，左对齐
 % 序号与题名间空一字。
 \ctexset{
   section = {
-    format     = \sffamily\fontsize{12bp}{12bp}\selectfont,
+    format     = \sffamily\fontsize{12bp}{15.6bp}\selectfont,
     aftername  = \hspace{0.5\ccwd},
-    beforeskip = 6bp,
-    afterskip  = 6bp,
+    beforeskip = 7.8bp,
+    afterskip  = 7.8bp,
   },
   %
-  % 二级节标题：黑体 12 磅，左缩进两字，单倍行距，段前 12 磅，段后 6 磅，
+  % 二级节标题：宋体，加黑，小四号，左对齐
   % 序号与题名间空一字。
   subsection = {
-    format     = \rmfamily\bfseries\fontsize{12bp}{12bp}\selectfont,
+    format     = \rmfamily\bfseries\fontsize{12bp}{15.6bp}\selectfont,
     aftername  = \hspace{0.5\ccwd},
-    beforeskip = 6bp,
-    afterskip  = 6bp,
+    beforeskip = 7.8bp,
+    afterskip  = 7.8bp,
   },
   %
   % 三级及以下节标题的格式没有具体规定，按照数学学院推荐的方案：
   % 使用宋体 12 磅，左缩进两字，行距 20 磅，段前段后 0 磅，序号(n)与题名间空半字宽。
   subsubsection = {
-    format     = \rmfamily\fontsize{12bp}{12bp}\selectfont,
+    format     = \rmfamily\fontsize{12bp}{15.6bp}\selectfont,
     number     = (\arabic{subsubsection}),
     aftername  = \hspace{0.5\ccwd},
     beforeskip = \z@,
@@ -2587,6 +2728,7 @@
 \newenvironment{abstract*}{%
   \hfutsetup{language=english}%
   \ctexset{chapter/format=\centering\Large\selectfont\bfseries}%
+  \setlength{\parindent}{1em}
   \ifhfut@degree@graduate
     \hfut@chapter[Abstract]{ABSTRACT}%
     \pagestyle{plain}
@@ -2988,7 +3130,7 @@
   % 这样在使用 \cs{bibliographystyle} 选择参考文献表的样式时也会设置对应的引用样式。
   \@namedef{bibstyle@hfutthesis-numerical}{\bibstyle@super}
   \@namedef{bibstyle@hfutthesis-authoryear}{\bibstyle@authoryear}
-  \@namedef{bibstyle@hfutthesis-bachelor}{\bibstyle@super}
+  \@namedef{bibstyle@hfutthesis-graduate}{\bibstyle@super}
   %
   % 如果载入 `natbib` 前设置了 `cite-style`，这里先进行配置。
   % https://github.com/ustctug/ustcthesis/issues/327
