@@ -125,7 +125,7 @@ jobs:
         id: create_release
         uses: softprops/action-gh-release@v1
         with:
-          name: v${{ steps.release_info.outputs.version }}-${{ steps.release_info.outputs.note_title }}
+          name: v${{ steps.release_info.outputs.version }} ${{ steps.release_info.outputs.note_title }}
           body: |
             ## Logs
             ${{ steps.release_info.outputs.logs }}
