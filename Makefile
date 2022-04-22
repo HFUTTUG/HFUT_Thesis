@@ -1,7 +1,7 @@
 MAIN = main
 NAME = hfutthesis
 CLSFILES = $(NAME).cls
-BSTFILES = $(NAME)-numerical.bst $(NAME)-bachelor.bst
+BSTFILES = $(NAME)-numerical.bst $(NAME)-graduate.bst
 
 SHELL = bash
 LATEXMK = latexmk -xelatex
