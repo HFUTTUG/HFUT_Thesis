@@ -1544,6 +1544,7 @@
   % 页码：宋体 10.5 磅、页面下脚居中。
   % 页眉上下页边距1.5 cm
   \def\hfut@hf@font{\fontsize{10.5bp}{20.475bp}\selectfont}
+  \renewcommand\headrulewidth{0.4\p@}
   \ifhfut@degree@graduate
     
     \fancyhead[OC]{\hfut@hf@font\leftmark}%
@@ -1575,6 +1576,15 @@
 % |headings| 只有页眉，没有页脚，用于研究生的符号说明和本科生的 front matter。
 \fancypagestyle{headings}{
   \fancyfoot{}
+}
+
+% 重定义|plain|字体大小
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead{}
+  \renewcommand\headrulewidth{0pt}
+  \def\hfut@hf@font{\fontsize{10.5bp}{20.475bp}\selectfont}
+  \fancyfoot[C]{\hfut@hf@font\thepage}%
 }
 
 % 设置特殊的 page style 不改变任何内容，用于每章首页。
