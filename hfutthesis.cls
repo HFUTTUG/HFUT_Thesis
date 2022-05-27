@@ -1577,6 +1577,15 @@
   \fancyfoot{}
 }
 
+% 重定义|plain|字体大小
+\fancypagestyle{plain}{%
+  \fancyhf{}
+  \fancyhead{}
+  \renewcommand\headrulewidth{0pt}
+  \def\hfut@hf@font{\fontsize{10.5bp}{20.475bp}\selectfont}
+  \fancyfoot[C]{\hfut@hf@font\thepage}%
+}
+
 % 设置特殊的 page style 不改变任何内容，用于每章首页。
 \def\ps@chapter{}
 \ctexset{chapter/pagestyle=chapter}
