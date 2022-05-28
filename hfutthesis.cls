@@ -2817,15 +2817,15 @@
 \else
   \titlecontents{chapter}
     [\z@]{\bfseries\normalsize}
-    {\contentspush{\thecontentslabel\unskip\hspace{\ccwd}}}{}
+    {\contentspush{\thecontentslabel\unskip\hspace{0.5\ccwd}}}{}
     {\hfut@leaders\contentspage}
   \titlecontents{section}
-    [\ccwd]{\normalsize}
-    {\contentspush{\thecontentslabel\hspace{\ccwd}}}{}
+    [2\ccwd]{\normalsize}
+    {\contentspush{\thecontentslabel\hspace{0.5\ccwd}}}{}
     {\hfut@leaders\contentspage}
   \titlecontents{subsection}
-    [2\ccwd]{\normalsize}
-    {\contentspush{\thecontentslabel\hspace{\ccwd}}}{}
+    [4\ccwd]{\normalsize}
+    {\contentspush{\thecontentslabel\hspace{0.5\ccwd}}}{}
       %\ifhfut@section@style@arabic\hspace{\ccwd}\else 、\fi}}{}
     {\hfut@leaders\contentspage}
 \fi
@@ -2859,7 +2859,7 @@
 \newlength{\hfut@lof@label@width}
 \newcommand\hfut@set@lof@format{%
   \settowidth{\hfut@lof@label@width}{\figurename~9.99}%
-  \addtolength{\hfut@lof@label@width}{1em}%
+  \addtolength{\hfut@lof@label@width}{0.5\ccwd}%
   \titlecontents{figure}%
     [\hfut@lof@label@width]{\normalsize}%
     {\contentslabel[\figurename~\thecontentslabel]{\hfut@lof@label@width}}{}%
