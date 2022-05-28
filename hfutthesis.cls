@@ -1600,13 +1600,8 @@
 \renewcommand\frontmatter{%
   \cleardoublepage
   \@mainmatterfalse
-  \ifhfut@degree@graduate
-    \pagestyle{plain}%
-    \pagenumbering{Roman}%
-  \else
-    \pagestyle{empty}%
-    %\pagenumbering{arabic}%
-  \fi
+  \pagestyle{plain}%
+  \pagenumbering{Roman}%
 }
 
 % 研究生要求“第 1 章”要另页起，但是本科生要求另面起。
@@ -1696,7 +1691,7 @@
     default = {导师姓名},
   },
   department = {
-    default = {系名称},
+    default = {学院名称},
   },
   advisor = {
     default = {},
@@ -2072,7 +2067,7 @@
         \cline{2-2}
         指导教师：& \hfut@supervisor@names \\
         \cline{2-2}
-        系\hspace{0.5\ccwd}名\hspace{0.5\ccwd}称：& \hfut@department \\
+        学院名称：& \hfut@department \\
         \cline{2-2}
         完成时间：& \hfut@date@zh \\
         \cline{2-2}
@@ -2203,7 +2198,7 @@
           \cline{2-2}\\
           \hfut@speciality@name：& \hfut@speciality\\
           \cline{2-2}\\
-          系\hspace{0.5\ccwd}名\hspace{0.5\ccwd}称：& \hfut@department \\
+          学院名称：& \hfut@department \\
           \cline{2-2}
         \else
           \ifhfut@degree@doctor
@@ -2721,7 +2716,7 @@
     \ctexset{chapter/format=\centering\Large\selectfont\bfseries}%
     \hfut@chapter[摘要]{摘\hspace{\ccwd}要}%
   \else
-    \pagestyle{empty}
+    \pagestyle{plain}
     \hfut@chapter[摘要]{摘\hspace{\ccwd}要}%
     % \ifhfut@tocloaded\else
     %   本科生需要手动将摘要置于目录后。\par
@@ -2744,7 +2739,7 @@
     \pagestyle{plain}
   \else
     \begingroup
-      \pagestyle{empty}%
+      \pagestyle{plain}%
       \hfut@chapter[Abstract]{ABSTRACT}%
     \endgroup
   \fi
@@ -2780,7 +2775,7 @@
   \ifhfut@degree@bachelor
     \cleardoublepage
     %\pagenumbering{arabic}%
-    \pagestyle{empty}%
+    \pagestyle{plain}%
     \hfut@tocloadedtrue
   \else
     \pagestyle{plain}%
