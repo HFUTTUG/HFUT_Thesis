@@ -1562,9 +1562,9 @@
   \else
     %
     % 本科生要求在正文每面上部加页眉，
-    % 用五号字（10.5 bp）标注“合肥工业大学毕业设计（论文）”，居中；
+    % 用五号字（10.5 bp）标注“合肥工业大学本科毕业设计（论文）”，居中；
     % 从正文页开始在每面底部居中用小五宋体（10.5 bp）连续编页码。
-    \fancyhead[C]{\hfut@hf@font 合肥工业大学毕业设计（论文）}%
+    \fancyhead[C]{\hfut@hf@font 合肥工业大学本科毕业设计（论文）}%
     \fancyfoot[C]{\hfut@hf@font\thepage}%
     \let\@mkboth\@gobbletwo
     \let\chaptermark\@gobble
