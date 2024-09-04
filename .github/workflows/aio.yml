@@ -34,7 +34,7 @@ jobs:
     needs: [ubuntu-build-test]
     steps:
       - name: Download Artifact(ubuntu)
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: ci_out_ubuntu
           path: ci_out
@@ -50,7 +50,7 @@ jobs:
     needs: [collect-output]
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: ci_out
           path: ci_out
@@ -71,7 +71,7 @@ jobs:
       - name: Set up Git repository
         uses: actions/checkout@v2
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4.1.7
         with:
           name: ci_out
           path: ci_out
