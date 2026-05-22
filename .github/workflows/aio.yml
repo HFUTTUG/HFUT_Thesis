@@ -7,7 +7,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Test Doc Compilation
         uses: xu-cheng/latex-action@v2
         with:
@@ -23,7 +23,7 @@ jobs:
           latexmk_shell_escape: true
           args: "-outdir=ci_out/${{ runner.os }}/main"
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ci_out_ubuntu
           path: ci_out
@@ -34,12 +34,12 @@ jobs:
     needs: [ubuntu-build-test]
     steps:
       - name: Download Artifact(ubuntu)
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: ci_out_ubuntu
           path: ci_out
       - name: Upload Artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: ci_out
           path: ci_out
@@ -50,7 +50,7 @@ jobs:
     needs: [collect-output]
     steps:
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: ci_out
           path: ci_out
@@ -69,9 +69,9 @@ jobs:
     needs: [collect-output]
     steps:
       - name: Set up Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
       - name: Download Artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v4
         with:
           name: ci_out
           path: ci_out
