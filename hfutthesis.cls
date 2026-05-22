@@ -2091,7 +2091,7 @@
         \cline{2-2}
         作者姓名：& \hfut@author \\
         \cline{2-2}
-        导师姓名：& \hfut@supervisor@names \\
+        导师姓名：& \hfut@supervisor@names\ifx\hfut@advisor\@empty\else\quad\hfut@advisor@names\fi \\
         \cline{2-2}
         完成时间：& \hfut@date@zh \\
         \cline{2-2}
